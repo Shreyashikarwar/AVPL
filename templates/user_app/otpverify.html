@@ -1,0 +1,88 @@
+{% extends 'user_app/base.html' %}
+{% load static %}
+{% block title %}Withdraw{% endblock %}
+{% block main %}
+
+
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="section-header-breadcrumb-content">
+                        <h1>Wallet Transfer</h1>
+                        <div class="section-header-breadcrumb">
+                            <div class="breadcrumb-item active"><a href="/admins/dashboard"><i
+                                        class="fas fa-home"></i></a>
+                            </div>
+                            <div class="breadcrumb-item"><a href="#">Wallet Transfer</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>OTP</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form action="/user/otp-verification/" method="POST" enctype="#">{% csrf_token %}
+                                <div class="row">
+
+
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <label>Enter OTP</label>
+                                            <input type="number" class="form-control" name="otp1" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- <div class="col-lg-4 col-md-12 col-sm-12 ">
+                                        <p> Verify before <span id="countdowntimer">30 </span> Seconds</p>
+                                    </div> -->
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-success btn-lg justify-content-right"
+                                                value="Verify" id="verifybtn">                                            
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+{% block scripts %}
+<!-- otp timer -->
+<script>
+    var timeleft = 120;
+    var downloadTimer = setInterval(function () {
+        timeleft--;
+        document.getElementById("countdowntimer").textContent = timeleft;
+        if (timeleft <= 0)
+            clearInterval(downloadTimer);
+    }, 1000);
+</script>
+<script>
+    $(function() {
+setTimeout(function() { $("#verifybtn").fadeOut(1500); }, 120000)
+
+})
+</script>
+{% endblock %}

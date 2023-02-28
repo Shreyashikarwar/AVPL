@@ -1,0 +1,232 @@
+﻿{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}{{category.name}}{% endblock %}
+{% block body %}
+<div class="home">
+    <div class="home_background parallax-window" data-parallax="scroll"
+        data-image-src="static/images/shops_imgs/20.jpg"></div>
+    <div class="home_overlay"></div>
+    <div class="home_content d-flex flex-column align-items-center justify-content-center">
+        <h2 class="home_title">{{category.name}}</h2>
+    </div>
+</div>
+<section class="ec-page-content section-space-p">
+    <div class="container">
+        <div class="row">
+            <div class="ec-shop-rightside col-lg-9 order-lg-last col-md-12 order-md-first margin-b-30">
+                <!-- Shop Top Start -->
+                <div class="ec-pro-list-top d-flex">
+                    <div class="col-md-6 ec-grid-list">
+                        <div class="ec-gl-btn">
+                            <button class="btn btn-grid active"><img src="{% static 'assets/images/icons/grid.svg' %}" class="svg_img gl_svg" alt="" /></button>
+                            <button class="btn btn-list"><img src="{% static 'assets/images/icons/list.svg' %}" class="svg_img gl_svg" alt="" /></button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ec-sort-select">
+                        <span class="sort-by">Sort by</span>
+                        <div class="ec-select-inner">
+                            <select id="ec-select" onchange="sort_products(this.value);">
+                                
+                                <option value="3">Newest First</a></option>
+                                <option value="2">Price High -> Low</option>
+                                <option value="1">Price Low -> High</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Shop Top End -->
+
+                <!-- Shop content Start -->
+                <div class="shop-pro-content">
+                    <div class="shop-pro-inner">
+                        <div class="row">
+
+                            {% for x in data %}
+                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                    <div class="ec-product-inner">
+                                        <div class="ec-pro-image-outer">
+                                            <div class="ec-pro-image">
+                                                <a href="/productpage/?p={{x.product.id}}" class="image">
+                                                    <img class="main-image" src="{{x.image.image.url}}"
+                                                        alt="{{x.product.name}}" />
+                                                    <img class="hover-image" src="{{x.image.image.url}}"
+                                                        alt="{{x.product.name}}" />
+                                                </a>
+                                                <span class="percentage">50%</span>
+                                                <div class="ec-pro-actions mt-4">
+                                                    <a href="/productpage/?p={{x.product.id}}" title="Add To Cart" class=" add-to-cart">
+                                                        <img src="{% static 'assets/images/icons/cart.svg' %}" class="svg_img pro_svg" alt="" /> Add To Cart
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ec-pro-content">
+                                            <h5 class="ec-pro-title"><a href="/productpage/?p={{x.product.id}}">{{x.product.name}}</a></h5>
+                                            <div class="ec-pro-rating">
+                                                {% if x.rating > 3.5 %}
+                                                <span class="badge badge-success">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if x.rating <= 3.5 and x.rating > 2.5 %}
+                                                <span class="badge badge-info">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if x.rating <= 2.5 %}
+                                                <span class="badge badge-danger">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="ec-pro-list-desc">{{x.product.description|slice:"0:200"}}</div>
+                                            <span class="ec-price">
+                                                <span class="old-price"><i class="fa fa-inr"></i> {{x.fake_price}}</span>
+                                                <span class="new-price"><i class="fa fa-inr"></i> {{x.product.price}}</span>
+                                            </span>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            
+                        </div>
+                    </div>
+                    <!-- Ec Pagination Start -->
+                    <div class="ec-pro-pagination">
+                        <span>Showing {{len}} item(s)</span>
+                        {% if data.has_other_pages %}
+                          <ul class="ec-pro-pagination-inner">
+                          {% if data.has_previous %}
+                          <li><a class="next" href="/categories/?page={{ data.previous_page_number }}&c={{id}}&sort={{sort}}&store={{store.id}}"><i class="ecicon eci-angle-left"></i> Previous</a></li>
+                          {% endif %}
+                          
+                          {% for i in data.paginator.page_range %}
+                          {% if data.number == i %}
+                          <li><a class="active">{{ i }}</a></li>
+                          {% else %}
+                          <li><a href="/categories/?page={{ i }}&c={{id}}&sort={{sort}}&store={{store.id}}">{{ i }}</a></li>
+                          {% endif %}
+                          {% endfor %}
+                          
+                          {% if data.has_next %}
+                          <li><a class="next" href="/categories/?page={{ data.next_page_number }}&c={{id}}&sort={{sort}}&store={{store.id}}">Next <i class="ecicon eci-angle-right"></i></a></li>
+                          {% endif %}
+                          
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <!-- Ec Pagination End -->
+                </div>
+                <!--Shop content End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="ec-shop-leftside col-lg-3 order-lg-first col-md-12 order-md-last">
+                
+                <div id="shop_sidebar">
+                    <div class="ec-sidebar-heading">
+                        <h1 class="bg-primary" style="color:white">{{store.name}}</h1>
+                    </div>
+                    <div class="ec-sidebar-heading">
+                        <h1>Filter Products By</h1>
+                    </div>
+                    <div class="ec-sidebar-wrap">
+                        <!-- Sidebar Category Block -->
+                        <div class="ec-sidebar-block">
+                            <div class="ec-sb-title">
+                                <h3 class="ec-sidebar-title">Brands</h3>
+                            </div>
+                            <div class="ec-sb-block-content">
+                                <ul>
+                                    {% for brand in brands|slice:"0:5" %}
+                                    <li>
+                                        <div class="ec-sidebar-block-item">
+                                            <input type="checkbox" value="{{brand.id}}" id="brand{{brand.id}}" {% for x in selected_brands %}{% if x == brand.id %}checked{% endif %}{% endfor %}> <a href="#">{{brand.name}}</a>{% for x in selected_brands %}{% if x == brand.id %}<span class="checked"></span>{% endif %}{% endfor %}
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                    <li id="ec-more-toggle-content" style="padding: 0; display: none;">
+                                        <ul>
+                                            {% for brand in brands|slice:"5:" %}
+                                            <li>
+                                                <div class="ec-sidebar-block-item">
+                                                    <input type="checkbox" value="{{brand.id}}" id="brand{{brand.id}}" {% for x in selected_brands %}{% if x == brand.id %}checked{% endif %}{% endfor %}> <a href="#">{{brand.name}}</a>{% for x in selected_brands %}{% if x == brand.id %}<span class="checked"></span>{% endif %}{% endfor %}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="ec-sidebar-block-item ec-more-toggle">
+                                            <span class="checked"></span><span id="ec-more-toggle">More
+                                                Categories</span>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        {% for  variant in variants %}
+                        <!-- Sidebar Size Block -->
+                        <div class="ec-sidebar-block">
+                            <div class="ec-sb-title">
+                                <h3 class="ec-sidebar-title">{{variant.variant.name}}</h3>
+                            </div>
+                            <div class="ec-sb-block-content">
+                                <ul>
+                                    {% for value in variant.values %}
+                                    <li>
+                                        <div class="ec-sidebar-block-item">
+                                            <input type="checkbox" value="{{value.id}}" id="variant{{value.id}}" {% for x in selected_variants %}{% if x == value.id %}checked{% endif %}{% endfor %}><a href="#">{{value.value}}</a>{% for x in selected_variants %}{% if x == value.id %}<span class="checked"></span>{% endif %}{% endfor %}
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <button onclick="apply_filters()" class="btn btn-primary mb-4" style="width:100%;">Apply Filters</button>
+                        <button onclick="remove_filters()" class="btn btn-danger" style="width:100%;">Remove Filters</button>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+        
+    </div>
+</section>
+<script type="text/javascript">
+    function apply_filters() {
+      brands_lt = [];
+      {% for brand in brands %}
+      if(document.getElementById('brand{{brand.id}}').checked){
+        brands_lt.push(document.getElementById('brand{{brand.id}}').value);
+      }
+      {% endfor %}
+      variants_lt = [];
+      {% for variant in variants %}
+      {% for value in variant.values %}
+      if(document.getElementById('variant{{value.id}}').checked){
+        variants_lt.push(document.getElementById('variant{{value.id}}').value);
+      }
+      {% endfor %}
+      {% endfor %}
+        $.ajax({
+            type:'POST',
+            url:'/applyfilters/',
+            data:{brands:brands_lt, variant_values:variants_lt},
+            success: function(res_data){
+                location.reload();
+            }
+        });
+   }
+   function remove_filters() {
+        $.ajax({
+            type:'GET',
+            url:'/removefilters/',
+            data:{},
+            success: function(res_data){
+                location.reload();
+            }
+        });
+   }
+    function sort_products(sort) {
+        window.location.replace("/categories/?c={{category.id}}&sort="+sort+"&store={{store.id}}");
+    }
+</script>
+{% endblock %}

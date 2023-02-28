@@ -1,0 +1,142 @@
+﻿{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<section class="ec-page-content section-space-p">
+    <div class="container">
+        <div class="row">
+            <div class="ec-cart-leftside col-lg-8 col-md-12 ">
+                <h1 id="empty-heading" style="display:none;"><i class="fa fa-cart-arrow-down"></i> Your Cart is Empty</h1>
+                {% if empty %}
+                <h1 id="empty-heading"><i class="fa fa-cart-arrow-down"></i> Your Cart is Empty</h1>
+                {% else %}
+                <!-- cart content Start -->
+                <div class="ec-cart-content" id="cart-data">
+                    <div class="ec-cart-inner">
+                        <div class="row">
+                            <form action="#">
+                                <div class="table-content cart-table-content">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th style="text-align: center;">Quantity</th>
+                                                <th>Total</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in items %}
+                                            <tr id="{{item.id}}">
+                                                <td data-label="Product" class="ec-cart-pro-name"><a href="/productpage/?p={{item.product_id}}"><img class="ec-cart-pro-img mr-4" src="{{ item.image }}" alt="" />{{ item.name|safe }}{% for x in item.variant %} | {{x.variant.name}} : {{x.variant_value.value}}{% endfor %}</a></td>
+                                                <td data-label="Price" class="ec-cart-pro-price"><span class="amount"><i class="fa fa-inr"></i> {{item.price}}</span></td>
+                                                <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
+                                                    <div class="">
+                                                        <input style="width:75px;border:none;" type="number" min="1" max="{{item.stock}}" value="{{ item.quantity }}" onchange="update_item('{{item.id}}')" id="{{item.id}}quantity" />
+                                                    </div>
+                                                </td>
+                                                <td data-label="Total" class="ec-cart-pro-subtotal"><i class="fa fa-inr"></i> <span id="{{item.id}}total">{{item.total}}</span></td>
+                                                <td data-label="Remove" class="ec-cart-pro-remove">
+                                                    <a href="#" onclick="remove_item('{{item.id}}')"><i class="ecicon eci-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        {% if stock_out %}
+                                        <span>Some products in your cart are out of stock</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="ec-cart-update-bottom">
+                                            <a class="btn btn-primary" style="width:100%" href="/selectaddress/?cart={{ cart.id }}" {% if stock_out %}disabled{% endif %}>Check Out</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--cart content End -->
+                {% endif %}
+            </div>
+            
+            <!-- Sidebar Area Start -->
+            <div class="ec-cart-rightside col-lg-4 col-md-12">
+                <div class="ec-sidebar-wrap">
+                    <!-- Sidebar Summary Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-title">
+                            <h3 class="ec-sidebar-title">Summary</h3>
+                        </div>
+                        <div class="ec-sb-block-content">
+                            <div class="ec-cart-summary-bottom">
+                                <div class="ec-cart-summary">
+                                    <div>
+                                        <span class="text-left">Sub-Total</span>
+                                        <span class="text-right"><i class="fa fa-inr"></i> <span id="cart-subtotal">{{ cart.subtotal }}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="text-left">Delivery Charges</span>
+                                        <span class="text-right"><i class="fa fa-inr"></i> <span id="cart-delivery">{{ cart.delivery_charges }}</span></span>
+                                    </div>
+                                    <!-- <div>
+                                        <span class="text-left">Total Tax</span>
+                                        <span class="text-right"><i class="fa fa-inr"></i> <span id="cart-tax">{{ cart.tax }}</span></span>
+                                    </div> -->
+                                    <div class="ec-cart-summary-total">
+                                        <span class="text-left">Total Amount</span>
+                                        <span class="text-right"><i class="fa fa-inr"></i><span id="cart-total"> {{ cart.total }}</span></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar Summary Block -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    function update_item(item_id) {
+      quantity_val = document.getElementById(item_id+'quantity').value;
+      $.ajax({
+            type:'GET',
+            url:'/user/updatecartitem',
+            data:{item:item_id, quantity:quantity_val},
+            success: function(res_data){
+                document.getElementById(item_id+'total').innerHTML = res_data.item_total;
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+            }
+        });
+   }
+   function remove_item(item_id) {
+      $.ajax({
+            type:'GET',
+            url:'/user/removecartitem',
+            data:{item:item_id},
+            success: function(res_data){
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById(item_id).style.display = 'none';
+                if (res_data.empty == '1'){
+                    document.getElementById('cart-data').style.display = 'none';
+                    document.getElementById('empty-heading').style.display = 'block';
+                }
+            }
+        });
+   }
+</script>
+{% endblock %}

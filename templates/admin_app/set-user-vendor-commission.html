@@ -1,0 +1,63 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% block title %}Set PV Pair{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1>PV Pair</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">PV Pair</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Set PV Pair Value</h4>
+                                 
+                              </div>
+                              <div class="card-body">
+                                 <p><strong>NOTE : </strong>Set a global value for calculating User Commission at vendor referal.</p>
+                                 <div><span class="btn btn-primary" style="font-size:20px;">Current User Vendor commission Value : <span style="font-weight:bold;">{% for x in data %}{{ x.percentage }}{% endfor %} PV</span></span></div>
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <form action="/admins/uservendorcommission" method="POST">
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>New PV Pair Value</label>
+                                             <input type="text" class="form-control" placeholder="Enter Here...." name="new">
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <input type="submit" class="btn btn-primary btn-lg justify-content-right" value="Change commision">
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+              
+            </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% for x in groups %}
+<tr>
+   <td>{{forloop.counter}}</td>
+   <td>Group - {{x.id}}</td>
+   <td>{{ x.no_of_levels|safe }} Levels</td>
+   <td>{{x.percent_per_level}} %</td>
+   <td><a href="" data-toggle="modal" onclick="open_group_edit('{{x.id}}');" data-target="#editgroup" class="btn btn-primary">Edit</a></td>
+</tr>
+{% endfor %}

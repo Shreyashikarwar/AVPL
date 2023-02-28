@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <!-- Title -->
+        <title>Azicom cira</title>
+        {%load static%}
+        <!-- Required Meta Tags Always Come First -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{%static 'img/momentostrust_icone_logo.png'%}">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet">
+
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" href="{% static 'assets1/vendor/font-awesome/css/fontawesome-all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/css/font-electro.css' %}">
+
+        <link rel="stylesheet" href="{% static 'assets1/vendor/animate.css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css'%}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/fancybox/jquery.fancybox.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/slick-carousel/slick/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
+
+        <!-- CSS Electro Template -->
+        <link rel="stylesheet" href="{% static 'assets1/css/theme.css' %}">
+
+        <style type="text/css">
+            #mob_otp{
+                display: none;
+            }
+            #email_otp{
+                display: none;
+            }
+        </style>
+        
+
+    </head>
+
+    <body class="bg-dark">
+
+
+        <main id="content"  role="main" style="height: 100vh;">
+         
+
+            <div class="container h-100">
+               {% if messages %}
+                {% for mess in messages %}
+                <div class="alert alert-{{mess.tags}}" role="alert">
+                    {{mess}}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-md-6">
+                            <div class="card py-1 shadow shadow-lg">
+
+                    <div class="">
+                    <div class="row">
+                        <div class="col-md-12 ml-xl-auto mr-md-auto mr-xl-0 mb-8 mb-md-0 p-4">
+                            <div class="text-center">
+                                    <a href="/"><img src="{%static 'img/new_momento_logo.png' %}" class="img-fluid mx-auto w-25"></a>
+                            </div>
+                            <!-- Title -->
+                            <div class="border-bottom border-color-1 mb-3">
+                                <h3 class="d-inline-block section-title mb-0 pb-2 font-size-26">Login With</h3>
+                                
+                            </div>
+                            <ul class="nav nav-pills mb-3 justify-content-center ">
+                                  <li class="active"><a data-toggle="tab" class="btn btn-outline-primary active px-5 mx-4" href="#mobile"> Mobile</a></li>
+                                  <li><a data-toggle="tab" class="btn btn-outline-primary px-5  mx-4" href="#email"> Email</a></li>
+                                  
+                                </ul>
+                            <p class="text-gray-90 mb-4">Welcome back! Sign in to your account.</p>
+                            <!-- End Title -->
+                            <form method="POST" action="/login_with_otp_mobile2" class="js-validate" novalidate="novalidate">
+                                {%csrf_token%}
+                                <div class="tab-content">
+                                  <div id="mobile" class="tab-pane fade in active show">
+                                   <!-- Form Group -->
+                                <div class="js-form-message form-group">
+                                    <label class="form-label" for="signinSrEmailExample3">Enter Mobile
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="number" class="form-control" name="mobile" id="mob" placeholder="10 Digits Mobile Number">
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="js-form-message form-group" id="mob_pass">
+                                    <label class="form-label" for="signinSrPasswordExample2">Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="js-form-message form-group" id="mob_otp">
+                                    <label class="form-label" for="signinSrPasswordExample2">Enter OTP <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="otp_mobile" placeholder="Enter OTP">
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Checkbox -->
+                              
+                                <!-- End Checkbox -->
+
+                                <!-- Button -->
+                                <div class="mb-1">
+                                    
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-primary-dark-w px-5 text-light">Login</button>
+                                        <button id="mob_req_otp" type="button" class="btn btn-primary px-5 text-light">Request OTP</button>
+                                    </div>
+                                  
+                                    
+                                </div>
+                            </form>
+                            <form method="POST" action="/login">
+                                {%csrf_token%}
+                                <!-- End Button -->
+                                  </div>
+                                  <div id="email" class="tab-pane fade">
+                                     <!-- Form Group -->
+                                     <input type="hidden" name="redirect_to" value="None">
+                                <div class="js-form-message form-group">
+                                    <label class="form-label" for="signinSrEmailExample3">Email address
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="email" class="form-control" name="email" id="email_data" placeholder=" Email address" >
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Form Group -->
+                                <div class="js-form-message form-group" id="email_pass">
+                                    <label class="form-label" for="signinSrPasswordExample2">Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                </div>
+                                <!-- End Form Group -->
+                                 <!-- Form Group -->
+                                <div class="js-form-message form-group" id="email_otp">
+                                    <label class="form-label" for="signinSrPasswordExample2">Enter OTP <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="otp_email" placeholder="Enter OTP">
+                                </div>
+                                <!-- End Form Group -->
+
+                                <!-- Checkbox -->
+                           
+                                <!-- End Checkbox -->
+                                 <!-- Button -->
+                                <div class="mb-1">
+                                    
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-primary-dark-w px-5 text-light">Login</button>
+                                        <button id="email_req_otp" type="button" class="btn btn-primary px-5 text-light">Request OTP</button>
+                                    </div>
+                                  
+                                    
+                                </div>
+                                <!-- End Button -->
+
+                                
+                                  </div>
+                                  
+                                </div>
+                                
+                            </form>
+
+                            <!-- Button -->
+                                <div class="mb-1">
+                                    
+                                    
+                                    <div class="mb-2">
+                                        <a id="sidebarNavToggler" href="/forget_password" role="button" class="u-header-topbar__nav-link target-of-invoker-has-unfolds">
+                                            Forget Password?
+                                        </a>
+                                    </div>
+                                     <div class="mb-2">
+                                        <a id="sidebarNavToggler" href="/signup" role="button" class="u-header-topbar__nav-link target-of-invoker-has-unfolds">
+                                           Haven't An Account?
+                                        </a>
+                                    </div>
+                                     <div class="mb-2">
+                                        <a id="sidebarNavToggler" href="/" role="button" class="text-danger">
+                                            Back to Home.
+                                        </a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- End Button -->
+                        </div>
+                        
+                       
+                    </div>
+                </div>
+                </div>
+                        </div>
+                </div>
+            </div>
+        </main>
+      
+
+                <!-- Go to Top -->
+                <a class="js-go-to u-go-to" href="#"
+                data-position='{"bottom": 15, "right": 15 }'
+                data-type="fixed"
+                data-offset-top="400"
+                data-compensation="#header"
+                data-show-effect="slideInUp"
+                data-hide-effect="slideOutDown">
+                <span class="fas fa-arrow-up u-go-to__inner"></span>
+            </a>
+            <!-- End Go to Top -->
+    
+            <!-- JS Global Compulsory -->
+           <script src="{% static 'assets1/vendor/jquery/dist/jquery.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap/bootstrap.min.js' %}"></script>
+    
+            <!-- JS Implementing Plugins -->
+            <script src="{% static 'assets1/vendor/appear.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery.countdown.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.js' %}"></script>
+            <script src="{% static 'assets1/vendor/svg-injector/dist/svg-injector.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/typed.js/lib/typed.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/slick-carousel/slick/slick.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    
+            <!-- JS Electro -->
+            <script src="{% static 'assets1/js/hs.core.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.countdown.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.header.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.hamburgers.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.unfold.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.focus-state.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.malihu-scrollbar.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.validation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.fancybox.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.onscroll-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.slick-carousel.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.show-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.svg-injector.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.go-to.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.selectpicker.js' %}"></script>
+    
+            <!-- JS Plugins Init. -->
+            <script>
+                $(window).on('load', function () {
+                    // initialization of HSMegaMenu component
+                    $('.js-mega-menu').HSMegaMenu({
+                        event: 'hover',
+                        direction: 'horizontal',
+                        pageContainer: $('.container'),
+                        breakpoint: 767.98,
+                        hideTimeOut: 0
+                    });
+    
+                    // initialization of svg injector module
+                    $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
+                });
+    
+                $(document).on('ready', function () {
+                    // initialization of header
+                    $.HSCore.components.HSHeader.init($('#header'));
+    
+                    // initialization of animation
+                    $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        afterOpen: function () {
+                            $(this).find('input[type="search"]').focus();
+                        }
+                    });
+    
+                    // initialization of popups
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of countdowns
+                    var countdowns = $.HSCore.components.HSCountdown.init('.js-countdown', {
+                        yearsElSelector: '.js-cd-years',
+                        monthsElSelector: '.js-cd-months',
+                        daysElSelector: '.js-cd-days',
+                        hoursElSelector: '.js-cd-hours',
+                        minutesElSelector: '.js-cd-minutes',
+                        secondsElSelector: '.js-cd-seconds'
+                    });
+    
+                    // initialization of malihu scrollbar
+                    $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+    
+                    // initialization of forms
+                    $.HSCore.components.HSFocusState.init();
+    
+                    // initialization of form validation
+                    $.HSCore.components.HSValidation.init('.js-validate', {
+                        rules: {
+                            confirmPassword: {
+                                equalTo: '#signupPassword'
+                            }
+                        }
+                    });
+    
+                    // initialization of show animations
+                    $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+    
+                    // initialization of fancybox
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of slick carousel
+                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+    
+                    // initialization of go to
+                    $.HSCore.components.HSGoTo.init('.js-go-to');
+    
+                    // initialization of hamburgers
+                    $.HSCore.components.HSHamburgers.init('#hamburgerTrigger');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        beforeClose: function () {
+                            $('#hamburgerTrigger').removeClass('is-active');
+                        },
+                        afterClose: function() {
+                            $('#headerSidebarList .collapse.show').collapse('hide');
+                        }
+                    });
+    
+                    $('#headerSidebarList [data-toggle="collapse"]').on('click', function (e) {
+                        e.preventDefault();
+    
+                        var target = $(this).data('target');
+    
+                        if($(this).attr('aria-expanded') === "true") {
+                            $(target).collapse('hide');
+                        } else {
+                            $(target).collapse('show');
+                        }
+                    });
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+    
+                    // initialization of select picker
+                    $.HSCore.components.HSSelectPicker.init('.js-select');
+                });
+            </script>
+
+            <script type="text/javascript">
+            $("#mob_req_otp").click(function(){
+              $("#mob_pass").hide();
+              $("#mob_otp").show();
+              $.ajax({
+                type:'POST',
+                url:"/login_with_otp_mobile_number",
+                data:{mobile:$("#mob").val(),csrfmiddlewaretoken:"{{csrf_token}}"},
+                success:function(msg){
+                    if (msg==="Invalid"){
+                        alert("Check entered mobile number");
+                    }
+                    if (msg==="False"){
+                        alert("Mobile number not registered");
+                    }
+                    if (msg==="Not_Registered"){
+                        alert("Mobile number not registered");
+                    }
+                    if (msg==="True"){
+                        alert("OTP send successfully")
+                    }
+                }
+              });
+            });
+            </script>
+            <script type="text/javascript">
+            $("#email_req_otp").click(function(){
+              $("#email_pass").hide();
+              $("#email_otp").show();
+              $.ajax({
+                type:'POST',
+                url:"/login_with_otp_email",
+                data:{email1:$("#email_data").val(),csrfmiddlewaretoken:"{{csrf_token}}"},
+                success:function(msg){
+                    if (msg==="Invalid"){
+                        alert("Check entered Email Address");
+                    }
+                    if (msg==="False"){
+                        alert("Email address not registered");
+                    }
+                    if (msg==="Not_Registered"){
+                        alert("Email address not registered");
+                    }
+                    if (msg==="True"){
+                        alert("Otp send successfully..");
+                    }
+                }
+              });
+            });
+            </script>
+
+          <!--   <script type="text/javascript">
+                $(#mob_req_otp).click(function(){
+
+                })
+            </script> -->
+
+        </body>
+    </html>

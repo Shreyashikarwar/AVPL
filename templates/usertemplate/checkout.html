@@ -1,0 +1,321 @@
+
+
+
+
+
+
+
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main id="content" role="main" class="checkout-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-5">
+            <h1 class="text-center">Checkout</h1>
+        </div>
+        <!-- Accordion -->
+        <div id="shopCartAccordion" class="accordion rounded mb-5">
+            <!-- Card -->
+            <div class="card border-0">
+                
+                <div id="shopCartOne" class="border border-top-0 collapse" aria-labelledby="shopCartHeadingOne" data-parent="#shopCartAccordion" style="">
+                    <!-- Form -->
+                    <form class="js-validate p-5" novalidate="novalidate">
+                        <!-- Title -->
+                       
+                        <!-- End Title -->
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <!-- Form Group -->
+                                <div class="js-form-message form-group">
+                                    <label class="form-label" for="signinSrEmailExample3">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="signinSrEmailExample3" placeholder="Email address" aria-label="Email address" required="" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                            <div class="col-lg-6">
+                                <!-- Form Group -->
+                                <div class="js-form-message form-group">
+                                    <label class="form-label" for="signinSrPasswordExample2">Password</label>
+                                    <input type="password" class="form-control" name="password" id="signinSrPasswordExample2" placeholder="********" aria-label="********" required="" data-msg="Your password is invalid. Please try again." data-error-class="u-has-error" data-success-class="u-has-success">
+                                </div>
+                                <!-- End Form Group -->
+                            </div>
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="js-form-message mb-3">
+                            <div class="custom-control custom-checkbox d-flex align-items-center">
+                                <input type="checkbox" class="custom-control-input" id="rememberCheckbox" name="rememberCheckbox" required="" data-error-class="u-has-error" data-success-class="u-has-success">
+                                <label class="custom-control-label form-label" for="rememberCheckbox">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- End Checkbox -->
+
+                        <!-- Button -->
+                        <div class="mb-1">
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary-dark-w px-5 text-light">Login</button>
+                            </div>
+                            <div class="mb-2">
+                                <a class="text-blue" href="#">Lost your password?</a>
+                            </div>
+                        </div>
+                        <!-- End Button -->
+                    </form>
+                    <!-- End Form -->
+                </div>
+            </div>
+            <!-- End Card -->
+        </div>
+        <!-- End Accordion -->
+
+        <!-- Accordion -->
+      
+        <!-- End Accordion -->
+        
+            <div class="row">
+                <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
+                    <div class="pl-lg-3 ">
+                        <div class="bg-gray-1 rounded-lg">
+                            <!-- Order Summary -->
+                            <div class="p-4 mb-4 checkout-table">
+                                <!-- Title -->
+                                <div class="border-bottom border-color-1 mb-5">
+                                    <h3 class="section-title mb-0 pb-2 font-size-25">Your order</h3>
+                                </div>
+                                <!-- End Title -->
+
+                                <!-- Product Content -->
+                                <table class="table">
+                                    <thead>
+                                        
+                                    </thead>
+                                   
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Subtotal</th>
+                                            <td>₹{{ cart.subtotal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping</th>
+                                            {% if cart.subtotal < '70000000' %}
+                                            <td>₹{{ cart.delivery_charges }}</</td>
+                                            {%else%}
+                                            <td>₹ 0</</td>
+                                            {%endif%}
+                                        </tr>
+                                        <tr>
+                                            <th>Tax</th>
+
+                                            <td>₹{{ cart.tax }}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Total</th>
+                                           
+                                            <td><strong>₹ {{ cart.total }}</strong></td>
+                                        </tr>
+                                        
+                                    </tfoot>
+                                </table>
+                                <!-- End Product Content -->
+                               
+                                
+                             <!--    <button type="submit" class="btn btn-primary-dark-w btn-block btn-pill text-light font-size-20 mb-3 py-3">Place order</button> -->
+                            </div>
+                            <!-- End Order Summary -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 order-lg-1">
+                    <div class="pb-7 mb-7">
+                        <!-- Title -->
+                        <div class="border-bottom border-color-1 mb-5">
+                            <h3 class="section-title mb-0 pb-2 font-size-25">Select Address</h3>
+                        </div>
+                        <!-- End Title -->
+                        <div class="row">
+                            {% if address_len == 0 %}
+                            <div class="col-sm-12 col-md-12">
+                                <ul class="list-unstyled">
+                                	
+                                	<form method="POST">
+                                		{%csrf_token%}
+                                    <li class="my-4 border-bottom">
+                                       <div class="form-check">
+                                        {{addresses}}
+                                        {% for x in addresses %}                                            <input class="form-check-input" type="radio" name="address_id" id="exampleRadios1" value="{{i.id}}" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    <h5 class="font-weight-bold">{{x.name}} {% if x.default %} Default {%endif%}</h5>
+                                                    <!-- <span class="badge btn-danger mr-4">Home</span> -->
+                                                    <span class="font-weight-bold">{{x.home_no}},</span>
+                                                    <p class="mt-2"><strong>{{i.apartment_address}}, {{x.landmark}},</strong>, {{x.city}}, {{x.state}}, ({{x.pincode}})</p>
+                                              </label>
+                                              		<a type="button" class="btn btn-danger float-right ml-2" href="/delete_address/{{i.id}}">Delete</a>
+                                                    <div class="mb-4">
+
+                                                    	{%endfor%}
+                                                        <button type="submit" class="btn btn-primary">Select Address</button>
+                                              
+                                                    </div>
+                                              
+                                            </div>
+                                    </li>
+                                </form>
+                                    
+                                    
+
+                                </ul>
+                            </div>
+                            {%else%}
+                            <div class="col-sm-12 col-md-12">
+                                <ul class="list-unstyled">
+                                    
+                                    
+                                    <li class="my-4 border-bottom">
+                                       <p>Address Not Availabel</p>
+                                    </li>
+                               
+                                    
+                                    
+
+                                </ul>
+                            </div>
+                            {%endif%}
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- Title -->
+                        <div class="border-bottom border-color-1 mb-5">
+                            <h3 class="section-title mb-0 pb-2 font-size-25">Add Billing Address</h3>
+                        </div>
+                        <!-- End Title -->
+
+                        <!-- Billing Form -->
+                        <div class="row">
+                            
+
+                           
+
+
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <form method="POST">
+                                	{%csrf_token%}
+                                <div class="js-form-message mb-6">
+                                    <label class="form-label">
+                                        Address
+                                    </label>
+                                    <input type="text" class="form-control" name="address" placeholder="City name, address" aria-label="Company Name" data-msg="Please enter Your full address." data-error-class="u-has-error" data-success-class="u-has-success" id='address2' required>
+                                </div>
+                                <div class="js-form-message mb-6">
+                                    <label class="form-label">
+                                        Appartement
+                                    </label>
+                                    <input type="text" class="form-control" name="address2" placeholder="Appartement No./House No" aria-label="Company Name" data-msg="Please enter your appartement No.." data-error-class="u-has-error" data-success-class="u-has-success" required>
+                                </div>
+                                <div class="js-form-message mb-6">
+                                    <label class="form-label">
+                                        Landmark
+                                    </label>
+                                    <input type="text" class="form-control" name="landmark" placeholder="Landmark" aria-label="Company Name" data-msg="Please enter Your Landmark." data-error-class="u-has-error" data-success-class="u-has-success" required>
+                                </div>
+                                <input type="submit" class="btn btn-primary " value="Add Address and proceed">
+                                </form>
+                                <!-- End Input -->
+                            </div>
+
+
+                        </div>
+                       
+                        <!-- End Input -->
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</main>
+
+
+
+<script>
+    function initialize() {
+        var input = document.getElementById('address2');
+        new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener('place_changed', function () { });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        document.getElementById("demo1").setAttribute('value', position.coords.latitude)
+        document.getElementById("demo2").setAttribute('value', position.coords.longitude)
+    }
+
+</script>
+
+
+
+
+
+
+{%endblock%}

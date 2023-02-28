@@ -1,0 +1,224 @@
+﻿{% extends 'usertemplate/base.html' %}
+{% load static %}
+{% block title %}{{store.name}}{% endblock %}
+{% block content %}
+    <section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="ec-pro-rightside ec-common-rightside col-lg-12 col-md-12">
+
+                    <!-- Single product content Start -->
+                    <div class="single-pro-block">
+                        <div class="single-pro-inner">
+                            <div class="row align-items-center">
+                                <div class="single-pro-img single-pro-img-no-sidebar">
+                                    <div class="single-product-scroll">
+                                        <div class="single-product-cover">
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" width="200" height="200" src="{{store_img.logo.url}}"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-pro-desc single-pro-desc-no-sidebar">
+                                    <div class="single-pro-content">
+                                        <div class="text-right mb-5">
+                                            <p class="alert alert-success"><span class="text-muted">Open Time: </span><span class="badge badge-success mx-2">{{store.opening_time}}</span> <span class="text-muted ml-5">Close Time: </span><span class="badge badge-danger mx-2">{{store.closing_time}}</span></p>
+                                        </div>
+                                        <h5 class="ec-single-title">{{store.name}}</h5>
+                                        <div class="ec-single-rating-wrap">
+                                            <div class="ec-single-rating">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </div>
+                                            <span class="ec-read-review"><a href="#ec-spt-nav-review">Be the first to
+                                                    review this product</a></span>
+                                        </div>
+                                        <div class="ec-single-desc">{{store.description|slice:":200"}}</div>
+
+                                        <div class="ec-single-sales">
+                                            <div class="ec-single-sales-inner">
+                                                
+                                                <div class="ec-single-sales-visitor"> <span class="px-2">{{distance}} KM</span> From Your Location</div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="ec-single-qty">
+                                            <div class="ec-single-cart ">
+                                                <a href="/user/myorder" class="btn btn-primary">Your Orders</a>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        
+                                        
+                                     
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Single product content End -->
+                    <!-- Single product tab start -->
+                    <div class="ec-single-pro-tab">
+                        <div class="ec-single-pro-tab-wrapper">
+                            <div class="ec-single-pro-tab-nav">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#description" role="tablist">Description</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#seller-location"
+                                            role="tablist">Seller Location</a>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
+                            <div class="tab-content  ec-single-pro-tab-content">
+                                <div id="description" class="tab-pane fade show active">
+                                    <div class="ec-single-pro-tab-desc">
+                                        <p>{{store.description}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div id="seller-location" class="tab-pane fade">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14232.689978999368!2d80.91844041986226!3d26.89802018014027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1635507050186!5m2!1sen!2sin" style="width: 100%; height: 500px;"></iframe>
+                                </div>
+                                
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product details description area end -->
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- End Single product -->
+
+    <!-- Store Product Start -->
+    <section class="section ec-releted-product section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2 class="ec-bg-title">Store products</h2>
+                        <h2 class="ec-title">Store products</h2>
+                        <p class="sub-title">Browse The Collection of Latest Products</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ec-shop-rightside col-lg-9 order-lg-last col-md-12 order-md-first margin-b-30">
+                    <!-- Shop Top Start -->
+                    <div class="ec-pro-list-top d-flex">
+                        <div class="col-md-6 ec-grid-list">
+                            <div class="ec-gl-btn">
+                                <button class="btn btn-grid active"><img src="{% static 'assets/images/icons/grid.svg' %}"
+                                        class="svg_img gl_svg" alt="" /></button>
+                                <button class="btn btn-list"><img src="{% static 'assets/images/icons/list.svg' %}"
+                                        class="svg_img gl_svg" alt="" /></button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- Shop Top End -->
+
+                    <!-- Shop content Start -->
+                    <div class="shop-pro-content">
+                        <div class="shop-pro-inner">
+                            <div class="row">
+                                {{products}}
+                                {% for x in products %}
+                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                    <div class="ec-product-inner">
+                                        <div class="ec-pro-image-outer">
+                                            <div class="ec-pro-image">
+                                                <a href="/productpage/?p={{x.product.id}}" class="image">
+                                                    <img class="main-image" src="{{x.image.image.url}}"
+                                                        alt="{{x.product.name}}" />
+                                                    <img class="hover-image" src="{{x.image.image.url}}"
+                                                        alt="{{x.product.name}}" />
+                                                </a>
+                                                <span class="percentage">50%</span>
+                                                <div class="ec-pro-actions mt-4">
+                                                    <a href="/productpage/?p={{x.product.id}}" title="Add To Cart" class=" add-to-cart">
+                                                        <img src="{% static 'assets/images/icons/cart.svg' %}" class="svg_img pro_svg" alt="" /> Add To Cart
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ec-pro-content">
+                                            <h5 class="ec-pro-title"><a href="/productpage/?p={{x.product.id}}">{{x.product.name}}</a></h5>
+                                            <div class="ec-pro-rating">
+                                                {% if x.rating > 3.5 %}
+                                                <span class="badge badge-success">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if x.rating <= 3.5 and x.rating > 2.5 %}
+                                                <span class="badge badge-info">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if x.rating <= 2.5 %}
+                                                <span class="badge badge-danger">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="ec-pro-list-desc">{{x.product.description|slice:"0:200"}}</div>
+                                            <span class="ec-price">
+                                                <span class="old-price"><i class="fa fa-inr"></i> {{x.product.mrp}}</span>
+                                                <!-- <span class="old-price"><i class="fa fa-inr"></i> {{x.fake_price}}</span> -->
+                                                <span class="new-price"><i class="fa fa-inr"></i> {{x.product.price}}</span>
+                                            </span>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!--Shop content End -->
+                </div>
+                <!-- Sidebar Area Start -->
+                <div class="ec-shop-leftside col-lg-3 order-lg-first col-md-12 order-md-last">
+                    
+                    <div id="shop_sidebar">
+                        <div class="ec-sidebar-heading">
+                            <h1>Explore</h1>
+                        </div>
+                        <div class="ec-sidebar-wrap">
+                            <!-- Sidebar Category Block -->
+                            <div class="ec-sidebar-block">
+                                <div class="ec-sb-title">
+                                    <h3 class="ec-sidebar-title">Categories</h3>
+                                </div>
+                                <div class="ec-sb-block-content">
+                                    <ul>
+
+                                        {% for x in store_categories %}
+                                        <li>
+                                            <div class="ec-sidebar-block-item">
+                                                <a href="/categories/?c={{x.id}}&sort=3&store={{store.id}}">{{x.name}}</a>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </section>
+{% endblock %}

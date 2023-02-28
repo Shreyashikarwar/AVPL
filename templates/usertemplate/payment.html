@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <!-- Title -->
+        <title>Online Apni Dukaan - {% block title %}Base{% endblock %}</title>
+        {%load static%}
+        <!-- Required Meta Tags Always Come First -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{% static 'img/Vector.png' %}">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet">
+
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" href="{% static 'assets1/vendor/font-awesome/css/fontawesome-all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/css/font-electro.css' %}">
+
+        <link rel="stylesheet" href="{% static 'assets1/vendor/animate.css/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css'%}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/fancybox/jquery.fancybox.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/slick-carousel/slick/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
+
+        <!-- CSS Electro Template -->
+        <link rel="stylesheet" href="{% static 'assets1/css/theme.css' %}">
+    </head>
+
+    <body class="bg-dark">
+
+
+        <main id="content"  role="main">
+         
+
+            <div class="row">
+    <div  class="col-md-4">
+    </div>
+    <div style="padding-top: 170px;" class="col-md-5">
+
+        {% if messages %}
+        {% for mess in messages %}
+        <div class="alert alert-{{mess.tags}}" role="alert">
+            {{mess}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <br>
+        {% if single%}
+        <div class="jumbotron">
+            <div class="text-center">
+                                    <a href="/"><img src="{% static 'img/Vector.png' %}" class="img-fluid mx-auto w-25"></a>
+                            </div>
+            <div class="border-bottom border-color-1 mb-5">
+            <h3 class="section-title mb-0 pb-2 font-size-25">Pay Here</h3>
+            </div>
+            <br>
+            <p class="lead"><strong>Address:-</strong> {{request.session.full_name}}</p>
+            <p class="lead">{{request.session.full_address1}}</p>
+            <p class="lead">{{request.session.state}}</p>
+            <p class="lead"> {{request.session.city}}</p>
+            <p class="lead"> {{request.session.zip_code}}</p>
+            <hr class="my-4">
+           
+            <form method="POST">
+                {%csrf_token%}
+
+                <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_nfryhLkcjNSpDF"
+                    data-amount="{{amount}}" data-currency="INR" data-order_id="{{payment_id}}"
+                    data-buttontext="Pay Now" data-name="{{request.user.first_name}}" data-description="pay single" data-image=""
+                    data-prefill.name="{{request.user.first_name}}" data-prefill.email=""
+                    data-theme.color="#F37254"></script>
+                <input type="hidden" custom="Hidden Element" name="hidden">
+            </form>
+        </div>
+        {%else%}
+        <div class="jumbotron">
+            <div class="text-center">
+                                    <a href="/"><img src="{% static 'img/Vector.png' %}" class="img-fluid mx-auto w-25"></a>
+                            </div>
+                            <div class="border-bottom border-color-1 mb-5">
+            <h3 class="section-title mb-0 pb-2 font-size-25">Pay Here</h3>
+        </div>
+            <br>
+            <!-- <h5>Product Details</h4>
+            <div class="ec-cart-inner">
+                <div class="row">
+                    <form action="#">
+                        <div class="table-content cart-table-content">
+                            <table class="table" style="width: 130%;">                               
+                                 <thead>
+                                    <tr>
+                                        <th class="product-name">Product</th>
+                                        <th class="product-total">Price</th>
+                                        <th class="product-total">Quantity</th>
+                                        <th class="product-total">Total</th>
+                                        <th class="product-name">Delivery Address</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in items %}
+                                    <tr id="{{item.id}}">
+                                        <td data-label="Product" class="ec-cart-pro-name">{{ item.name|safe }}{% for x in item.variant %} | {{x.variant.name}} : {{x.variant_value.value}}{% endfor %}</td>
+                                        <td data-label="Price" class="ec-cart-pro-price"><span class="amount"><i class="fa fa-inr"></i> {{item.price}}</span></td>
+                                        <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
+                                            <div class="">
+                                                <input style="width:75px;border:none; text-align: center;" type="number" min="1" max="{{item.stock}}" value="{{ item.quantity }}" disabled id="{{item.id}}quantity" />
+                                            </div>
+                                        </td>
+                                        <td data-label="Total" class="ec-cart-pro-subtotal"><i class="fa fa-inr"></i> <span id="{{item.id}}total">₹{{item.total}}</span></td>
+                                        <td data-label="Delivery Address" class="ec-cart-pro-subtotal"> <p>
+                                            <span><strong>{{address.name}}</strong></span><br>
+                                            {{address.home_no}}, {{address.landmark}}{{address.city}}, {{address.state}} ,({{address.pincode}})<br>+91-{{address.contact}}
+                                        </p></td>
+
+                                        <td data-label="Remove" class="ec-cart-pro-remove">
+                                            
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div> -->
+
+            <!-- <div class="col-lg-30 ">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="shop_bar clearfix pt-3">
+                            <div class="shop_product-count">
+                                <h3>
+                                    Price Detail
+                                </h3>
+                            </div>
+                            
+                        </div>
+                        <div class="shop-bar clearfix pt-5">
+                            <div class="table-responsive">
+                                <table style="width:90%;">
+                                    <tr style="height:30px;">
+                                        <td>Sub Total</td>
+                                        <th style="text-align:right;"><i class="fa fa-inr"></i> <span id="cart-subtotal">{{ cart.subtotal }}</span></th>
+                                    </tr>
+                                    <tr style="height:30px;">
+                                        <td>Delivery Charge</td>
+                                        <th style="text-align:right;"><i class="fa fa-inr"></i> <span id="cart-delivery">{% if cart.subtotal < "499" %}{{ cart.delivery_charges }}{% else%} {{0.0}}{% endif %}</span></th>
+                                    </tr>
+                                    <tr style="height:30px;">
+                                        <td>Total Tax</td>
+                                        <th style="text-align:right;"><i class="fa fa-inr"></i> <span id="cart-tax">{{ cart.tax }}</span></th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="shop_bar clearfix bg-primary" style="color:white;padding:10px;border-radius:10px;">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <input type="checkbox" style="width: 100%;" value="1" id="self" onchange="enable_self_pickup();"{% if cart.self_pickup %}checked{% endif %}>
+                                </div>
+                                <div class="col-lg-10">
+                                    <strong>SELF PICKUP :</strong> Check this if you want self pick your order. In this case your delivery charge will be zero.
+                                </div>
+                            </div>
+                        </div> -->
+                        
+                            <!-- <input type="hidden" value="cod" name="payment"> -->
+                            <!-- <div class="shop_bar clearfix pt-4" style="padding:10px;border-radius:5px">
+                                <div class="shop_product-count" style="float:left"><h4>Total Amount</h4></div>
+                                <div class="shop-sorting" style="float:right;font-size:20px;font-weight:bold;"><i class="fa fa-inr"></i><span id="cart-total"> {{ cart.total }}</span></div>
+                            </div> -->
+                            <div class="container">
+                            <!-- End Title -->
+                        <form class="js-validate">
+                            <!-- Form Group -->
+                             <h4>Total Price: <span id="cart-total">{{cart.total}}</span></h4>
+                             <h4 hidden>Cart <span id="cart-item">{{cart.id}}</span></h4>
+                                    <div class="row ">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="shop-bar clearfix pt-4 text-success">
+                                
+                                <input type="hidden" value="{{ cart.id }}" name="cart">
+                                <button onclick="proceed_to_pay('cod');" class="btn btn-primary" style="width:30%;">Cash on Delivery (COD)</button>
+                                <button onclick="proceed_to_pay('online');" class="btn btn-primary" style="width:30%;">Online Payment</button>
+                                <a style="background-color: red;border-color: red;" class="btn btn-primary float-right" href="/selectaddress/?cart={{ cart.id }} ">Cancel Payment</a>
+                            </div>
+                            
+                     
+
+<br><br>
+
+
+
+    <!-- <input type="radio"  name="delivery_type" value="express">
+    <label for="male">Express Delivery  </label><p> charges will be Rs. 100</p> <br> -->
+          <!--  <p class="lead"><strong>Address:-</strong> {{address}}</p>
+            <p class="lead"><strong>Mobile:-</strong> {{mobile_no}}</p>-->
+            <!-- <hr class="my-4"> -->
+            <!-- <form method="POST">
+                {%csrf_token%}
+                {{total_amount}}
+                <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_F088LPDOFgpdDM"
+                    data-amount="{{total}}" data-currency="INR" data-order_id="{{payment_id}}"
+                    data-buttontext="Pay Now" data-name="Momentostrust" data-description="pay and buy" data-image=""
+                    data-prefill.name="{{request.user.first_name}}" data-prefill.email=""
+                    data-theme.color="#F37254"></script>
+                {%if use_wallet%}
+                <input type="hidden" name="use_wallet" value="1">
+                {%else%}
+                <input type="hidden" name="use_wallet" >
+                {%endif%}
+                  {%for i,j in scheduled_dict.items%}
+                    {%for x in j|slice:"1"%}
+                    <input type="hidden" id="cod_delivery_schedule2" name="scheduled_id2" value="{{x.id}}">
+                    {%endfor%}
+                    {%endfor%}
+                <input type="hidden" custom="Hidden Element" name="hidden">
+                {%if delivery_type == "normal" %}
+                <input type="hidden" name="delivery_type1" value="normal">
+                {%else%}
+                <input type="hidden" name="delivery_type1" value="express">
+                {%endif%}
+            </form> -->
+            <!-- <br> -->
+            <!-- <form method="POST" action="/codpayment">
+                {% csrf_token%}
+                {%if use_wallet%}
+                <input type="hidden" name="use_wallet" value="1">
+                {%else%}
+                <input type="hidden" name="use_wallet" >
+                {%endif%}
+                {%for i,j in scheduled_dict.items%}
+                {%for x in j|slice:"1"%}
+                <input type="hidden" id="cod_delivery_schedule" name="scheduled_id" value="{{x.id}}">
+                {%endfor%}
+                {%endfor%}
+                <input type="hidden" name="paymentid" value="{{payment_id}}">
+                {%if delivery_type == "normal" %}
+                <input type="hidden" name="delivery_type1" value="normal">
+                {%else%}
+                <input type="hidden" name="delivery_type1" value="express">
+                {%endif%}
+                <input type="submit" class="btn btn-primary"  value="COD">
+            </form> -->
+            <!-- <a class="btn btn-primary float-right" href="/selectaddress/?cart={{ cart.id }} ">Cancel Payment</a> -->
+        </div>
+        {%endif%}
+        <br>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+
+
+        </main>
+       
+  
+
+                <!-- Go to Top -->
+                <a class="js-go-to u-go-to" href="#"
+                data-position='{"bottom": 15, "right": 15 }'
+                data-type="fixed"
+                data-offset-top="400"
+                data-compensation="#header"
+                data-show-effect="slideInUp"
+                data-hide-effect="slideOutDown">
+                <span class="fas fa-arrow-up u-go-to__inner"></span>
+            </a>
+            <!-- End Go to Top -->
+    
+            <!-- JS Global Compulsory -->
+                 <script src="{% static 'assets1/vendor/jquery/dist/jquery.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap/bootstrap.min.js' %}"></script>
+    
+            <!-- JS Implementing Plugins -->
+            <script src="{% static 'assets1/vendor/appear.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery.countdown.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.js' %}"></script>
+            <script src="{% static 'assets1/vendor/svg-injector/dist/svg-injector.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/typed.js/lib/typed.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/slick-carousel/slick/slick.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    
+            <!-- JS Electro -->
+            <script src="{% static 'assets1/js/hs.core.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.countdown.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.header.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.hamburgers.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.unfold.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.focus-state.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.malihu-scrollbar.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.validation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.fancybox.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.onscroll-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.slick-carousel.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.show-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.svg-injector.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.go-to.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.selectpicker.js' %}"></script>
+    
+            <!-- JS Plugins Init. -->
+            <script>
+                $(window).on('load', function () {
+                    // initialization of HSMegaMenu component
+                    $('.js-mega-menu').HSMegaMenu({
+                        event: 'hover',
+                        direction: 'horizontal',
+                        pageContainer: $('.container'),
+                        breakpoint: 767.98,
+                        hideTimeOut: 0
+                    });
+    
+                    // initialization of svg injector module
+                    $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
+                });
+    
+                $(document).on('ready', function () {
+                    // initialization of header
+                    $.HSCore.components.HSHeader.init($('#header'));
+    
+                    // initialization of animation
+                    $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        afterOpen: function () {
+                            $(this).find('input[type="search"]').focus();
+                        }
+                    });
+    
+                    // initialization of popups
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of countdowns
+                    var countdowns = $.HSCore.components.HSCountdown.init('.js-countdown', {
+                        yearsElSelector: '.js-cd-years',
+                        monthsElSelector: '.js-cd-months',
+                        daysElSelector: '.js-cd-days',
+                        hoursElSelector: '.js-cd-hours',
+                        minutesElSelector: '.js-cd-minutes',
+                        secondsElSelector: '.js-cd-seconds'
+                    });
+    
+                    // initialization of malihu scrollbar
+                    $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+    
+                    // initialization of forms
+                    $.HSCore.components.HSFocusState.init();
+    
+                    // initialization of form validation
+                    $.HSCore.components.HSValidation.init('.js-validate', {
+                        rules: {
+                            confirmPassword: {
+                                equalTo: '#signupPassword'
+                            }
+                        }
+                    });
+    
+                    // initialization of show animations
+                    $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+    
+                    // initialization of fancybox
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of slick carousel
+                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+    
+                    // initialization of go to
+                    $.HSCore.components.HSGoTo.init('.js-go-to');
+    
+                    // initialization of hamburgers
+                    $.HSCore.components.HSHamburgers.init('#hamburgerTrigger');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        beforeClose: function () {
+                            $('#hamburgerTrigger').removeClass('is-active');
+                        },
+                        afterClose: function() {
+                            $('#headerSidebarList .collapse.show').collapse('hide');
+                        }
+                    });
+    
+                    $('#headerSidebarList [data-toggle="collapse"]').on('click', function (e) {
+                        e.preventDefault();
+    
+                        var target = $(this).data('target');
+    
+                        if($(this).attr('aria-expanded') === "true") {
+                            $(target).collapse('hide');
+                        } else {
+                            $(target).collapse('show');
+                        }
+                    });
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+    
+                    // initialization of select picker
+                    $.HSCore.components.HSSelectPicker.init('.js-select');
+                });
+
+
+
+                $(document).ready(function(){
+                    $('#del_sche').on('change',function(){
+                        var a = this.value;
+                        $('#cod_delivery_schedule').val(a);
+                        // $('#show-val').attr('value', url);
+                    });
+                });
+                $(document).ready(function(){
+                    $('#del_sche').on('change',function(){
+                        var a = this.value;
+                        $('#cod_delivery_schedule2').val(a);
+                        // $('#show-val').attr('value', url);
+                    });
+                });
+
+                // $(document).ready(function(){
+                //     $("#del_radio").on('change',function(){
+                //         var b=this.value;
+                //         $("#delivery_type").val(b);
+                //         alert(10);
+                //     });
+                // });
+                $('input[type=radio][name=delivery_type]').change(function() {
+                    if (this.value == 'normal') {
+                        var b=this.value;
+                        $("#delivery_type1").val(b);
+                        $("#delivery_type2").val(b);
+                    }
+                    else if (this.value == 'express') {
+                        var b=this.value;
+                        $("#delivery_type2").val(b);
+                        $("#delivery_type1").val(b);
+                    }
+                    {%if use_wallet%}
+                    url="payment?use_wallet=1&delivery_type="+b;
+                    window.location.href = url;
+                    {%else%}
+                    url="payment?delivery_type="+b;
+                    window.location.href = url;
+                    {%endif%}
+                    // location.replace("payment?use_wallet=1");
+                    // window.location.reload(true);
+                });
+
+                {%if delivery_type == "normal"%}
+                $("#del_radio1").attr('checked', true);
+                $("#del_radio2").attr('checked', false);
+                {% else %}
+                $("#del_radio2").attr('checked', true);
+                $("#del_radio1").attr('checked', false);
+                {%endif%}
+            </script>
+
+<div class="modal" id="order-placed" style="width:100%;height:100%;background-color:white;text-align:center;">
+    <img src="{% static 'check-green.gif' %}" style="width:150px;">
+    <h2>Wow! Order Placed</h2>
+    <a href="/user/myorder" class="btn btn-primary">Go to Your Orders</a>
+</div>
+<div class="modal p-4" id="loading" style="width:100%;height:100%;background-color:white;text-align:center;">
+    <h1>AVPL - Payments</h1>
+    <img src="{% static 'loader.gif' %}" style="width:500px;">
+    <h2>Please Wait....</h2>
+    <h4 style="color:red;">Do Not Press 'Refresh' or 'Back' button.</h4>
+</div>
+
+<!-- MLM product purchase -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script type="text/javascript">
+    function update_item(item_id) {
+      quantity_val = document.getElementById(item_id+'quantity').value;
+      $.ajax({
+            type:'GET',
+            url:'/user/updatecartitem',
+            data:{item:item_id, quantity:quantity_val},
+            success: function(res_data){
+                document.getElementById(item_id+'total').innerHTML = res_data.item_total;
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+            }
+        });
+   }
+   function remove_item(item_id) {
+      $.ajax({
+            type:'GET',
+            url:'/user/removecartitem',
+            data:{item:item_id},
+            success: function(res_data){
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById(item_id).style.display = 'none';
+                if (res_data.empty == '1'){
+                    document.getElementById('cart-data').style.display = 'none';
+                    document.getElementById('empty-heading').style.display = 'block';
+                }
+            }
+        });
+   }
+   function enable_self_pickup() {
+      self_val = '0';
+      if (document.getElementById('self').checked){
+        self_val = document.getElementById('self').value;
+      }
+      cart_id = {{ cart.id }};
+      $.ajax({
+            type:'GET',
+            url:'/user/enableselfpickup',
+            data:{c:cart_id, self:self_val},
+            success: function(res_data){
+                
+            }
+        });
+   }
+function pay_online() {
+    console.log('amount')
+    amount = document.getElementById('cart-total').innerHTML;
+    cart = document.getElementById('cart-item').innerHTML;
+    console.log(cart)
+    console.log(amount)
+    
+    var options = {
+        "key": "rzp_test_OcvfBakbfEdBxL", // Enter the Key ID generated from the Dashboard
+        "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        // "currency": data['currency'],
+        "name": "AVPL - Payments",
+        "description": "Order Payment",
+        "image": "https://example.com/your_logo",
+        "order_id": cart , //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://demoserver.aaratechnologies.in:8082/captureonlinepayment/",
+        // "callback_url": "http://apnionlinedukan.in/captureonlinepayment/",
+        "prefill": {
+            "name": "{{cart.user.usr.first_name}} {{cart.user.usr.last_name}}",
+            "email": "{{cart.user.email}}",
+            "contact": "{{cart.user.usr.phone}}"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+   console.log(options)
+   var rzp1 = new Razorpay(options);
+   console.log(rzp1)
+    rzp1.open();
+    //e.preventDefault();
+}
+
+</script>
+<script>
+function proceed_to_pay(payment_type) {
+    document.getElementById('loading').style.display = 'block';
+    //payment = document.getElementsByName('payment');
+    console.log(payment_type);
+    $.ajax({
+          type:'POST',
+          url:'/placeorder/',
+          
+          data:{payment_type:payment_type},
+          
+          success: function(data){
+              console.log(data)
+              if(data.pay_type == 'cod'){
+                  document.getElementById('loading').style.display = 'none';
+                  document.getElementById('order-placed').style.display = 'block';
+              }
+              else{
+                                {
+                    console.log()
+                    amount = document.getElementById('cart-total').innerHTML;
+                    cart = document.getElementById('cart-item').innerHTML;
+                    console.log(cart)
+                    console.log(amount)
+                    
+                    var options = {
+                        "key": "rzp_test_hpJq2nYr2dg8WT", // Enter the Key ID generated from the Dashboard
+                        "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        // "currency": INR,
+                        "name": "AVPL - Payments",
+                        "description": "Order Payment",
+                        "image": "https://example.com/your_logo",
+                        "order_id": cart , //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                        // "callback_url": "http://demoserver.aaratechnologies.in:8082/captureonlinepayment/",
+                        // "callback_url": "http://apnionlinedukan.in/captureonlinepayment/",
+                        "handler": function (responseRazor) {
+                                // console.log(responseRazor)
+                                // alert(responseRazor.razorpay_payment_id);
+                                $.ajax({
+                                method: "POST",
+                                url: '{/captureonlinepayment/',
+                                data: {
+                                // 'user_address': user_address,
+                                // 'city_name': city_name,
+                                // 'mobile_number': mobile_number,
+                                // 'country': country,
+                                // 'postal_code': postal_code,
+                                // 'totalamount': user_totalamount,
+                                'razorpay_payment_id': responseRazor.razorpay_payment_id,
+                                "order_id": data['id'],
+                                'razorpay_order_id': responseRazor.razorpay_order_id,
+                                'razorpay_signature': responseRazor.razorpay_signature,
+                                "payment_method": status,
+                                csrfmiddlewaretoken: token,
+                                },
+                                success:function(newdata){
+
+                                }
+                            })
+
+                            },
+                        "prefill": {
+                            "name": "{{cart.user.usr.first_name}} {{cart.user.usr.last_name}}",
+                            "email": "{{cart.user.email}}",
+                            "contact": "{{cart.user.usr.phone}}"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#3399cc"
+                        }
+                    };
+                    
+                console.log(options)
+                var rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response){
+                alert(response.error.code);
+                alert(response.error.description);
+                alert(response.error.source);
+                alert(response.error.step);
+                alert(response.error.reason);
+                alert(response.error.metadata.order_id);
+                alert(response.error.metadata.payment_id);
+                });
+                console.log(rzp1)
+                rzp1.open();
+                    //e.preventDefault();
+                }
+              }
+          }
+      });
+ }
+</script>
+<script>
+    function select_plan(plan) {
+        document.getElementById('loading').style.display = 'block';
+        //payment = document.getElementsByName('payment');
+        var payment_type_val = 'cod';
+        $.ajax({
+              type:'POST',
+              url:'/placeorder/',
+              
+              data:{payment_type:payment_type_val, plan:plan},
+              
+              success: function(data){
+                  console.log(data)
+                  if(data.pay_type == 'cod'){
+                      document.getElementById('loading').style.display = 'none';
+                      document.getElementById('order-placed').style.display = 'block';
+                  }
+              }
+          });
+     }
+    </script>
+        </body>
+    </html>

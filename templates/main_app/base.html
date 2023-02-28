@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<title>Online Apni Dukaan - {% block title %}Base{% endblock %}</title>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="{% static 'img/Vector.png' %}">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="avpl shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" type="text/css" href="{% static 'static/styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'static/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/blog_single_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/blog_single_responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/plugins/slick-1.8.0/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/main_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/regular_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/regular_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/regular_responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/product_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/product_responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/plugins/jquery-ui-1.12.1.custom/jquery-ui.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/shop_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/shop_responsive.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/contact_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/styles/contact_responsive.css' %}">
+
+ <!-- css All Plugins Files -->
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/animate.css' %}" />
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/swiper-bundle.min.css' %}" />
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.min.css' %}" />
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/countdownTimer.css' %}" />
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/slick.min.css' %}" />
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/nouislider.css' %}" />
+ <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.css' %}" />
+    <!-- css Icon Font -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/ecicons.min.css' %}" />
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+   
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'static/plugins/swiper/swiper.min.css' %}">
+    <script src="../ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        .header_search {
+            height: 100px;
+        }
+
+        .logo_container {
+            height: 100px;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+
+        .message {
+            color: white;
+            background-color: red;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .header {
+            padding: none !important;
+        }
+
+        .main_nav {
+            border: none !important;
+        }
+
+        .main_nav_dropdown li a {
+            color: #0e2352 !important;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .header_search {
+                display: block !important;
+            }
+        }
+
+        @media only screen and (max-width: 991px) {
+            .main_nav {
+                margin-top: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="p-0 m-0">
+<div class="super_container">
+
+	<!-- Header -->
+
+	<header class="header p-0 m-0">
+
+		<!-- Top Bar -->
+
+		<div class="top_bar">
+			<div class="container">
+				<div class="row">
+					<div class="col d-flex flex-row">
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/phone.png' %}" alt=""></div>+91 068 005 3570</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'images/mail.png' %}" alt=""></div><a href="mailto:sd@gmail.com">sd@gmail.com</a></div>
+						<div class="top_bar_content ml-auto">
+							{% if request.user.is_authenticated %}
+							<div class="top_bar_user">
+								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
+								{% if request.user.role.level.level == 'Vendor' %}
+								<div><a href="/vendor/">Dashboard</a></div>
+								<div><a href="/logout/">Logout</a></div>
+								{% endif %}
+								{% if request.user.role.level.level == 'Admin' %}
+								<div><a href="/admins/dashboard">Dashboard</a></div>
+								<div><a href="/logout/">Logout</a></div>
+								{% endif %}
+								{% if request.user.role.level.level == 'User' %}
+								<div><a href="/user/">Dashboard</a></div>
+								<div><a href="/logout/">Logout</a></div>
+								{% endif %}
+							</div>
+							{% else %}
+							<div class="top_bar_user">
+								<div class="user_icon"><img src="{% static 'images/user.svg' %}" alt=""></div>
+								<div><a href="/register">Register</a></div>
+								<div><a href="/login">Login</a></div>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Header Main -->
+
+		<div class="header_main" style="background-color: #0e2352;">
+			<div class="container">
+				<div class="row">
+
+					<!-- Logo -->
+					<div class="col-lg-3 col-sm-12 col-12 order-1 text-center" style="margin:auto;">
+						<div class="logo_container">
+							<div class="logo">
+								<a href="/"><img src="{% static 'static/images/avpl_logo.png' %}" class="img-fluid w-75"></a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Search -->
+					<div class="col-lg-5 col-12  order-lg-2 order-2 text-center" style="margin:auto;">
+						<div class="header_search">
+							<div class="header_search_content">
+								<div class="header_search_form_container">
+									<form action="/search2/" class="header_search_form clearfix" method="GET">
+										<input type="search" required="required" class="header_search_input" name="key" id="key_val" style="width:100%;" placeholder="Search for products...">
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{% static 'images/search.png' %}" alt=""></button>
+										<div id="search_results"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+					<!-- Wishlist -->
+					{% if request.user.is_authenticated %}
+					{% if request.user.role.level.level == 'User' %}
+					<div class="col-lg-4 col-12 order-lg-3 order-3 text-right">
+						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-center">
+							{% if not request.user.usr.subscribed %}
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
+								<div class="wishlist_icon">
+									<i class="fa fa-handshake-o text-white fa-4x"></i>
+								</div>
+								<div class="wishlist_content">
+									<div class="wishlist_text"><a data-toggle="modal" data-target="#myModal" onclick="get_subscription_amt();get_vendor_list();" href="#" class="text-white">Subscribe</a></div>
+								</div>
+							</div>
+							{% endif %}
+							<!-- Cart -->
+							<a href="/user/cart">
+							<div class="cart">
+								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
+									<div class="cart_icon">
+										{# <img src="{% static 'images/cart.png' %}" alt=""> #}
+										<i class="fa fa-cart-plus text-white fa-3x"></i>
+										
+										<div class="cart_count"><span id="cart_len_tag">{{cart_len}}</span></div>
+									</div>
+									<div class="cart_content">
+										<div class="cart_text"><a href="/user/cart" class="text-white">Cart</a></div>
+<!--										<div class="cart_price">$85</div>-->
+									</div>
+								</div>
+							</div>
+								</a>
+							<!--Subscription-->
+							
+						</div>
+					</div>
+					{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Navigation -->
+
+		<nav class="main_nav">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+
+						<div class="main_nav_content d-flex flex-row">
+
+							<!-- Categories Menu -->
+
+							<div class="cat_menu_container">
+								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+									<div class="cat_burger"><span></span><span></span><span></span></div>
+									<div class="cat_menu_text">categories</div>
+								</div>
+
+								<ul class="cat_menu">
+									{% for cate in categories %}
+									<li class="hassubs">
+										<a href="/storecategories/?c={{cate.id}}&sort=3">{{ cate.name|safe }}<i class="fas fa-chevron-right"></i></a>
+										<ul>
+											{% for subcate in subcategories %}
+											{% if subcate.category == cate %}
+											<li class="hassubs">
+												<a href="/storesubcategories/?c={{subcate.id}}">{{ subcate.name|safe }}<i class="fas fa-chevron-right"></i></a>
+												<ul>
+													{% for subsubcate in subsubcategories %}
+													{% if subsubcate.subcategory == subcate %}
+													<li><a href="/storesubsubcategories/?c={{subsubcate.id}}">{{ subsubcate.name|safe }}<i class="fas fa-chevron-right"></i></a></li>
+													{% endif %}
+													{% endfor %}
+												</ul>
+											</li>
+											{% endif %}
+											{% endfor %}
+										</ul>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+
+							<!-- Main Nav Menu -->
+
+							<div class="main_nav_menu ml-auto">
+								<ul class="standard_dropdown main_nav_dropdown">
+									<li><a href="/">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="/about">About<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="/contact">Contact<i class="fas fa-chevron-down"></i></a></li>
+									{% if request.user.is_authenticated %}
+									{% if request.user.role.level.level == 'Vendor' %}
+									<li><a href="/vendor/">Dashboard<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+									{% if request.user.role.level.level == 'Admin' %}
+									<li><a href="/admins/dashboard">Dashboard<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+									{% if request.user.role.level.level == 'User' %}
+									<li><a href="/user/">Dashboard<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+									{% else %}
+									<li><a href="/register">Register<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="/login">Login<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+								</ul>
+							</div>
+
+							<!-- Menu Trigger -->
+
+							<div class="menu_trigger_container ml-auto">
+								<div class="cat_menu_container">
+								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+									<div class="cat_burger"><span></span><span></span><span></span></div>
+									<div class="cat_menu_text">Menu</div>
+								</div>
+
+								<ul class="cat_menu">
+									<li class=""><a href="/">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li class=""><a href="/about">About<i class="fas fa-chevron-down"></i></a></li>
+									<li class=""><a href="/contact">Contact<i class="fas fa-chevron-down"></i></a></li>
+									{% if request.user.is_authenticated %}
+									{% if request.user.role.level.level == 'Vendor' %}
+									<li class=""><a href="/vendor/">Dashboard<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+									{% if request.user.role.level.level == 'Admin' %}
+									<li class=""><a href="/admins/dashboard">Dashboard<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+									{% if request.user.role.level.level == 'User' %}
+									<li class=""><a href="/user/">Dashboard<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+									{% else %}
+									<li class=""><a href="/register">Register<i class="fas fa-chevron-down"></i></a></li>
+									<li class=""><a href="/login">Login<i class="fas fa-chevron-down"></i></a></li>
+									{% endif %}
+										</ul>
+									</li>
+									
+								</ul>
+							</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Menu -->
+
+		<div class="page_menu">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+
+						<div class="page_menu_content">
+
+							<div class="page_menu_search">
+								<form action="#">
+									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
+								</form>
+							</div>
+							<ul class="page_menu_nav">
+								<li class="page_menu_item has-children">
+									<a href="#">Language<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Currency<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item">
+									<a href="">Home<i class="fa fa-angle-down"></i></a>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
+										<li class="page_menu_item has-children">
+											<a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
+											<ul class="page_menu_selection">
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+											</ul>
+										</li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item"><a href="">blog<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a href="">contact<i class="fa fa-angle-down"></i></a></li>
+							</ul>
+
+							<div class="menu_contact">
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{% static 'images/phone_white.png' %}" alt=""></div>+91 068 005 3570</div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{% static 'images/mail_white.png' %}" alt=""></div><a href="mailto:sd@gmail.com">sd@gmail.com</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</header>
+	<!-- header -->
+	{% block body %}
+
+    {% endblock %}
+	<!-- Newsletter -->
+
+	<div class="newsletter">
+		<div class="container">
+			<h4>Shops Near Me</h4>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3">
+						  	<input type="text" class="form-control" name="adrs" id="location" style="width:800px;" onchange="save_location();">
+					  	</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<!-- Footer -->
+
+	<footer class="footer" style="background-color: azure;">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-3 footer_col">
+					<div class="footer_column footer_contact">
+						<div class="logo_container">
+							<div class="logo"><a href="#">AVPL</a></div>
+						</div>
+						<div class="footer_title">Got Question? Call Us 24/7</div>
+						<div class="footer_phone">+91 068 005 3570</div>
+						<div class="footer_contact_text">
+							<p>142, S-5, Vikas Nagar Lucknow</p>
+							<p>UP, India, 226022</p>
+						</div>
+						<div class="footer_social">
+							<ul>
+								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fab fa-youtube"></i></a></li>
+								<li><a href="#"><i class="fab fa-google"></i></a></li>
+								<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 offset-lg-2">
+					<div class="footer_column">
+						<div class="footer_title">Find it Fast</div>
+						<ul class="footer_list">
+							<li><a href="#">Computers & Laptops</a></li>
+							<li><a href="#">Cameras & Photos</a></li>
+							<li><a href="#">Hardware</a></li>
+							<li><a href="#">Smartphones & Tablets</a></li>
+							<li><a href="#">TV & Audio</a></li>
+						</ul>
+						<div class="footer_subtitle">Gadgets</div>
+						<ul class="footer_list">
+							<li><a href="#">Car Electronics</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-lg-2">
+					<div class="footer_column">
+						<ul class="footer_list footer_list_2">
+							<li><a href="#">Video Games & Consoles</a></li>
+							<li><a href="#">Accessories</a></li>
+							<li><a href="#">Cameras & Photos</a></li>
+							<li><a href="#">Hardware</a></li>
+							<li><a href="#">Computers & Laptops</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-lg-2">
+					<div class="footer_column">
+						<div class="footer_title">Customer Care</div>
+						<ul class="footer_list">
+							<li><a href="/contact">Contact</a></li>
+							<li><a href="#">Order Tracking</a></li>
+							<li><a href="#">Wish List</a></li>
+							<li><a href="#">Customer Services</a></li>
+							<li><a href="#">Returns / Exchange</a></li>
+							<li><a href="/faq">FAQs</a></li>
+							<li><a href="#">Product Support</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+	<!-- Copyright -->
+
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+
+					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+						<div class="copyright_content">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved @ AVPL Store | Developed by <a href="https://aaratechnologies.com" target="_blank">Aara Technologies PVT. LTD.</a>
+
+</div>
+						<div class="logos ml-sm-auto">
+							<ul class="logos_list">
+								<li><a href="#"><img src="{% static 'images/logos_1.png' %}" alt=""></a></li>
+								<li><a href="#"><img src="{% static 'images/logos_2.png' %}" alt=""></a></li>
+								<li><a href="#"><img style="width: 100px;" src="{% static 'images/1896px-Razorpay_logo.svg.png' %}" alt=""></a></li>
+								<li><a href="#"><img src="{% static 'images/logos_4.png' %}" alt=""></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Modal For Subscription-->
+<div class="modal fade" id="myModal" role="dialog" style="z-index:9999;">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	
+	<!-- Modal content-->
+	<div class="modal-content">
+<!--form close -->
+		<div class="modal-header">
+		
+		<h4 class="modal-title">Get Subscription</h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+		<div class="modal-body" id="div_id">
+		<div class="row align-items-center">
+			<div class="col-sm-12 col-md-6 col-lg-12">
+				<div class="form-group">
+					<h2 style="line-height: 50px;">Get free delivery for 1 year at<br>Just <i class="fa fa-inr"></i> <span class="badge badge-success" name="subs_amt" id="subs_amt" style="font-size:30px;"></span> per month.</h2>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<!--Dropdown for vendor -->
+				<div class="form-group">
+					<select class="form-control"  id="vendor_lst">
+						
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<!--Dropdown for vendor -->
+				<div class="form-group">
+					<select class="form-control"  id="subs_month" onchange="get_subscription_amt();">
+						<option value="1">For 1 Month</option>
+						<option value="3">For 3 Month</option>
+						<option value="6">For 6 Month</option>
+						<option value="12">For 12 Month</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<label id="lblmsg"></label>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-success" id="btnSubscribe" onclick="subscription_request();">Subscribe</button>
+			<button data-dismiss="modal" class="btn btn-danger" id="btnCancel">Close</button>
+			
+		</div>
+
+	<!--form close -->
+	</div>
+	
+	</div>
+</div>
+<div class="modal p-4" id="loading" style="width:100%:height:100%;background-color:white;text-align:center;">
+    <h1>AVPL - Payments</h1>
+    <img src="{% static 'images/loading.gif' %}" style="width:400px;">
+    <h2>Please Wait....</h2>
+    <h4 style="color:red;">Do Not Press 'Refresh' or 'Back' button.</h4>
+</div>
+
+</body>
+<script src="{% static '/static/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static '/static/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static '/static/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static '/static/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static '/static/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static '/static/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static '/static/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static '/static/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static '/static/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static '/static/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static '/static/plugins/easing/easing.js' %}"></script>
+<script src="{% static '/static/js/blog_single_custom.js' %}"></script>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqBF76cMbvE_LREvm1S43LzZGxTsRQ0wA&libraries=places"></script>
+<script>
+	function initialize() {
+	    var input = document.getElementById('location');
+	    new google.maps.places.Autocomplete(input);
+	    google.maps.event.addListener('place_changed', function () {
+	    });
+	 }
+	 google.maps.event.addDomListener(window, 'load', initialize);
+	 function initialize2() {
+	    var input = document.getElementById('adrs');
+	    new google.maps.places.Autocomplete(input);
+	    google.maps.event.addListener('place_changed', function () {
+	    });
+	 }
+	 google.maps.event.addDomListener(window, 'load', initialize2);
+  	
+  	{% if request.user.is_authenticated %}
+  		codeLatLng({{lat}}, {{lng}});
+  		function save_location() {
+  			location_val = document.getElementById('location').value;
+  			$.ajax({
+	            type:'GET',
+	            url:'/user/savelocation',
+	            data:{location:location_val},
+
+	            success: function(msg){
+	                $('#color').html(msg);
+	            }
+	    	});
+  		}
+  	{% else %}
+  	  if (navigator.geolocation) {
+	  	navigator.geolocation.getCurrentPosition(showPosition);
+	  } else {
+	  	alert('Geolocation is not supported by this browser.');
+	  }
+	  function showPosition(position) {
+	  	codeLatLng(position.coords.latitude, position.coords.longitude);
+	  	$.ajax({
+            type:'GET',
+            url:'/getlocation/',
+            data:{lat:position.coords.latitude, lng:position.coords.longitude},
+
+            success: function(msg){
+                $('#color').html(msg);
+            }
+    	});
+	  }
+	  {% endif %}
+	  function codeLatLng(lat, lng) {
+
+	    var latlng = new google.maps.LatLng(lat, lng);
+	    geocoder = new google.maps.Geocoder();
+	    geocoder.geocode({'latLng': latlng}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	      //console.log(results)
+	        if (results[1]) {
+	         //formatted address
+	         //alert(results[0].formatted_address)
+	         document.getElementById('location').value = results[0].formatted_address
+	        //find country name
+	             for (var i=0; i<results[0].address_components.length; i++) {
+	            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+
+	            //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+	                if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+	                    //this is the object you are looking for
+	                    city= results[0].address_components[i];
+	                    break;
+	                }
+	            }
+	        }
+	        //city data
+	        //city.short_name
+	        //city.long_name
+
+
+	        }
+	      } 
+	    });
+	  }
+</script>
+    <script src="{% static '/static/plugins/slick-1.8.0/slick.js' %}"></script>
+	<script src="{% static '/static/js/custom.js' %}"></script>
+	<script src="{% static '/static/js/regular_custom.js' %}"></script>
+	<script src="{% static '/static/plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static '/static/plugins/jquery-ui-1.12.1.custom/jquery-ui.js' %}"></script>
+<script src="{% static '/static/js/shop_custom.js' %}"></script>
+<script src="{% static '/static/plugins/swiper/swiper.min.js' %}"></script>
+<!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+<script>
+  $(document).ready(function(){
+    $('#key_val').keyup(function(){
+        $.ajax({
+            type:'GET',
+            url:"/search/",
+            data:{key:$("#key_val").val()},
+            
+            success: function(msg){
+                $('#search_results').html(msg);
+            }
+        })
+    })
+  });
+  </script>
+   <!-- Initialize Swiper -->
+ 
+  <script>
+    var swiper = new Swiper('.swiper-container-cat', {
+      slidesPerView: 5,
+      spaceBetween: 10,
+      autoplay: true,
+      loop: true,
+      // init: false,
+      pagination: {
+        el: '.swiper-pagination-cat',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+      	320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+      }
+    });
+  </script>
+  <script>
+    var swiper = new Swiper('.swiper-shop', {
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      spaceBetween: 10,
+      autoplay: false,
+      loop: false,
+      // init: false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+      	320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 1,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+      }
+    });
+  </script>
+<!--Subscription_amount-->
+<script>
+function get_subscription_amt() {
+	document.getElementById('btnSubscribe').disabled = true;
+	$.ajax({
+		type:'GET',
+		url:"user/subscription/",
+		data:{month:document.getElementById('subs_month').value},
+		success: function(res){
+			if(res.amount == 'Error'){
+				document.getElementById('btnSubscribe').disabled = true;
+				alert('Subscription Module is not configured');
+			}
+			else{
+				document.getElementById('subs_amt').innerHTML = res.amount;
+				document.getElementById('btnSubscribe').disabled = false;
+			}
+		}
+	})
+};
+function calculate_subs_amount(){
+	document.getElementById('btnSubscribe').disabled = true;
+	$.ajax({
+		type:'GET',
+		url:"user/subscription/",
+		data:{},
+		success: function(res){
+			month = parseInt(document.getElementById('subs_month').value);
+			amount = parseInt(res.subs_amt);
+			total_amount = month * amount;
+			document.getElementById('subs_amt').innerHTML = total_amount;
+			document.getElementById('btnSubscribe').disabled = false;
+		}
+	});
+}
+</script>
+
+<!--Nearby vendor list -->
+<script>
+function get_vendor_list() {
+	document.getElementById('btnSubscribe').disabled = true;
+	$.ajax({
+		type:'GET',
+		url:"user/vendor_list/",
+		data:{},
+		success: function(res){
+			document.getElementById('vendor_lst').innerHTML = res;
+			document.getElementById('btnSubscribe').disabled = false;
+		}
+	})
+};
+
+</script>
+<!--Htmlmodal submit via ajax  -->
+<script>
+	function subscription_request() {
+		vendor = $("#vendor_lst").val();
+		if (vendor != null){
+			$.ajax({
+	            type:'POST',
+	            url:"user/subscriptionRequest/",
+	            data:{key:$("#vendor_lst").val(), month:$("#subs_month").val(), amount:document.getElementById('subs_amt').innerHTML},
+	            success: function(res){
+					if(res.success == "success"){
+						$('#div_id').html("Successfully requested");
+						document.getElementById('btnSubscribe').style.display = 'none';
+						document.getElementById('btnCancel').innerHTML = 'OK'
+					}else{
+						$('#div_id').html(res);
+						document.getElementById('btnSubscribe').style.display = 'none';
+						document.getElementById('btnCancel').innerHTML = 'OK'
+						//window.location.href ="/";
+					}
+				}
+	        });
+		}
+		else{
+			alert('Please select a nearby vendor');
+		}
+	}
+	
+	</script>
+	<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="{% static 'assets/js/vendor/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/modernizr-3.11.2.min.js' %}"></script>
+
+    <!--Plugins JS-->
+    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+    </script><script src="{% static 'assets/js/vendor/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/modernizr-3.11.2.min.js' %}"></script>
+
+    <!--Plugins JS-->
+    <script src="{% static 'assets/js/plugins/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/nouislider.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/countdownTimer.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/scrollup.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.zoom.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/slick.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/infiniteslidev2.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.sticky-sidebar.js' %}"></script>
+
+    <!-- Main Js -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</html>

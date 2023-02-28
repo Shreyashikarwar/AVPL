@@ -1,0 +1,257 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+{% block title %}{{len}} {% if len > 1 %}products{% else %}product{% endif %} found{% endblock %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="bg-gray-13 bg-md-transparent">
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="my-md-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home     ><a></li>
+                    <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">  Checkout</li>                </ol>
+            </nav>
+        </div>
+        <!-- End breadcrumb -->
+    </div>
+</div>
+
+
+<div class="home">
+    <div class="home_background parallax-window" data-parallax="scroll" style="min-height:50px;"></div>
+    <div class="home_overlay"></div>
+    <div class="home_content d-flex flex-column align-items-center justify-content-center">
+        <h2 style="font-size: 40px;" class="text-center">Checkout</h2>
+    </div>
+</div>
+
+<!-- Shop -->
+
+
+
+
+<div class="shop">
+    <div class="container">
+        <div class="row">
+
+            <div style="padding-top:50px" class="col-lg-7">
+                <div  class=" ">
+                    <div class="border-bottom border-color-1 mb-5">
+                        <h3 style="font-color:white" class="section-title mb-0 pb-2 font-size-25">Select Address</h3>
+                    </div>
+                </div>
+                <!-- Featured -->
+                
+                <div class="">
+                    <div class="">
+                        {% if address_len == 0 %}
+                        
+                        {% else %}
+                        <form action="/ordersummary/" method="POST">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-md-12">
+                                <ul>
+                                        {% for x in addresses %}
+                                        <li class="mt-0">
+                                            <div class="product_details px-4">
+                                                
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="radio" name="address_id" id="exampleRadios1" value="{{x.id}}" {% if x.default %}checked{% endif %}>
+                                                  <label class="form-check-label" for="exampleRadios1">
+                                                    
+                                                    <p class="product-description ">{{x.name}} {% if x.default %}<span class="badge badge-success mx-4"> Default </span>{% endif %} <span class="text-primary">+91-{{ x.contact }}</span></p> 
+                                                    <p class="text-dark">{{x.home_no}}, {{x.landmark}}<br>{{x.city}}, {{x.state}} <strong>({{x.pincode}})</strong></p>
+                                                  </label>
+                                                </div>
+                                            
+                                           
+                                            </div>
+                                            <hr>
+                                        </li>
+                                        {% endfor %}
+                                         
+                                </ul>
+                            </div>
+                            
+                        </div>
+                        {% endif %}
+                        
+
+                       
+                   
+                     </div>
+                </div>
+            </div>
+            <div class="col-lg-5 ">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="bg-gray-1 rounded-lg">
+                        <div class="p-4 mb-4 checkout-table">
+                            <div class="border-bottom border-color-1 mb-5">
+                                <h3>
+                                    Your Order
+                                </h3>
+                            </div>
+                            
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-name">Quantity</th>
+                                    <th class="product-name">Tax(%)</th>
+                                    <th class="product-total">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in items %}
+                                <tr class="cart_item">
+                                    <td style="border-top:0;">{{i.name}}</td>
+                                    <td style="border-top:0;">{{i.quantity}}</td>
+                                    <td style="border-top:0;">{{i.tax}}</td>
+                                    <td style="border-top:0;">₹{{i.price}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Subtotal</th>
+                                    <td>₹{{ cart.subtotal }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Charge</th>
+                                    <td>Flat rate {% if cart.subtotal < "499" %}{{ cart.delivery_charges }}{% else%} {{0.0}}{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td><strong>₹ {{ cart.total }}</strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <p style="padding-left: 15px;" class="product-name">Select Plan</p>
+                        <div class="form-check" aria-required="true">
+                            <input required type="radio" name="plan_type" id="exampleRadios2" value="Binary">
+                            <label  for="exampleRadios2">Plan-A</label>
+                            <!-- <input  type="radio" name="plan_type" id="exampleRadios3" value="Level">
+                            <label for="exampleRadios3">Plan-B</label> -->
+                          </div>
+                        <div class="shop-bar clearfix pt-4 text-success">
+                            
+                                <input type="hidden" value="{{ cart.id }}" name="cart">
+                                <button type="submit" class="btn btn-primary" style="width:100%;background-color: red;border-color: red;">Proceed</button>
+                            </form>
+                        </div>
+                     </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <div style="padding-bottom: 50px;" class="col-lg-7">
+
+                    <div class=" ">
+                        <div class="">
+
+
+                            <div class="border-bottom border-color-1 mb-5">
+                                <h3 class="section-title mb-0 pb-2 font-size-25">Add Billing Address</h3>
+                            </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <form action="/user/add_new_address" method="POST">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">Name</label>
+                                        <input type="text" name="name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">House No./Flat No.</label>
+                                        <input type="text" name="home_no" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">Location</label>
+                                        <input type="text" name="location" id="adrs" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">Landmark/Colony</label>
+                                        <input type="text" name="landmark" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">City</label>
+                                        <input type="text" name="city" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">Pincode</label>
+                                        <input type="text" name="pincode" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">State</label>
+                                        <input type="text" name="state" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="text-dark">Contact</label>
+                                        <input type="tel" name="contact" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-sm-12">
+                                        <button type="submit" class="btn btn-primary">Add Address</button>
+                                    </div>
+                            </div>
+                        </form>
+                       
+                        
+                     </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Add New Address</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+{%endblock%}

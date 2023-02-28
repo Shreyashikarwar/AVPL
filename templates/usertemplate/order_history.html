@@ -1,0 +1,343 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% load mathfilters %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}} alert-dismissible fade show" role="alert">
+    {{mess}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+
+   <style type="text/css">
+            ol.progtrckr {
+    margin: 0;
+    padding: 0;
+    list-style-type none;
+}
+
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3.5em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    border-bottom: 4px solid #2a2d83;
+}
+ol.progtrckr li.progtrckr-todo {
+    color: silver; 
+    border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+ol.progtrckr li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+ol.progtrckr li.progtrckr-done:before {
+    content: "\2713";
+    color: white;
+    background-color: #de4437;
+    height: 2.2em;
+    width: 2.2em;
+    line-height: 2.2em;
+    border: none;
+    border-radius: 2.2em;
+}
+ol.progtrckr li.progtrckr-todo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    font-size: 2.2em;
+    bottom: -1.2em;
+}
+
+
+        </style>
+
+
+
+
+
+<main id="content" role="main" class="cart-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Order History</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-4">
+            <h1 class="text-center">Order History</h1>
+        </div>
+        {% for i,y in order_obj.items%}
+
+        
+         <div class="mb-10  table-responsive">
+            <div class="card shadow rounded bg-white p-4 mb-4 bg-light">
+                <div class="card-body">
+                    <div class="mb-2"><h4>Order ID: <span>{{i.orderid_id}}</span></h4>{%if i.being_delivered%}<a href="{{y.invoice_pdf}}" class="btn btn-primary float-md-right">Order Invoice</a>{%endif%}</div>
+                    {%if i.cod%}
+                     <div class="mb-2"><h6>Order Type: <span>COD</span></h6></div>
+                     {%else%}
+                     <div class="mb-2"><h6>Order Type: <span>Online</span></h6></div>
+                     {%endif%}
+                     <div class="mb-2"><h6>Deliver To: <span>{{i.user.first_name}}</span></h6></div>
+                     
+                     <div class="my-2"> 
+                     
+                        <div class="mb-4">
+                        	{%if i.being_delivered%}
+                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                <li class="progtrckr-done">Confirmed</li>
+                                <li class="progtrckr-done">Delivery Boy Assigned</li>
+                                <li class="progtrckr-done">Shipped</li>
+                                <li class="progtrckr-done">Delivered</li>
+                            </ol>
+                            {%endif%}
+                            {%if i.cancelled%}
+                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                <li class="progtrckr-done">Ordered</li>
+                                <li class="progtrckr-todo"></li>
+                                <li class="progtrckr-todo"></li>
+                                <li class="progtrckr-done">Cancelled</li>
+                            </ol>
+                            {%endif%}
+                        </div>
+                             
+                   </div>
+                </div>
+
+            </div>
+            <form class="mb-4" action="#" method="post">
+                <table class="table p-3" cellspacing="0">
+                    <thead>
+                        <tr>
+                             <th class="">Sr. No.</th>
+                            <th class="">Product Image</th>
+                            <th class="">Product</th>
+                            <th class="">Price</th>
+                            <th class="">Category</th>
+                            <th class="">Brand</th>
+                           
+                            <th class="">Size</th>
+                           
+                            
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                    	{%for j in i.items.all%}
+                        <tr class="">
+                            <td>
+                                <a  class="text-gray-90">{{ forloop.counter }}</a>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <a><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{j.item.image}}" alt="Image Description"></a>
+                            </td>
+                            <td>
+                                <a  class="text-gray-90">{{j.item.title}}</a>
+                            </td>
+                            
+
+                            <td>
+                                <span class="">₹{{j.amount_pay|mul:j.quantity}}</span>
+                            </td>
+
+                            <td >
+                                <span class="">{{j.item.main_category}}</span>
+                               
+                                
+                            </td>
+
+                            <td >
+                                <span class="">{{j.item.brand_name}}</span>
+                            </td>
+                             
+                             <td >
+                                <span class="">{{j.item.weight}}</span>
+                            </td>
+                            <!-- <td >
+                                <span class="badge badge-success">Order Placed</span>
+                            </td> -->
+                        </tr>
+                        {%endfor%}
+                       
+                    </tbody>
+                </table>
+                
+                
+            
+        </form></div>
+      
+        {%endfor%}
+      
+
+
+
+{% for i,y in order_obj1.items%}
+
+        
+         <div class="mb-10  table-responsive">
+            <div class="card shadow rounded bg-white p-4 mb-4 bg-light">
+                <div class="card-body">
+                    <div class="mb-2"><h4>Order ID: <span>{{i.orderid_id}}</span></h4><a href="{{y.invoice_pdf}}" class="btn btn-primary float-md-right">Order Invoice</a></div>
+                    {%if i.cod%}
+                     <div class="mb-2"><h6>Order Type: <span>COD</span></h6></div>
+                     {%else%}
+                     <div class="mb-2"><h6>Order Type: <span>Online</span></h6></div>
+                     {%endif%}
+                     <div class="mb-2"><h6>Deliver To: <span>{{i.user.first_name}}</span></h6></div>
+                     
+                     <div class="my-2"> 
+                     
+                        <div class="mb-4">
+                        	{%if i.being_delivered%}
+                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                <li class="progtrckr-done">Confirmed</li>
+                                <li class="progtrckr-done">Delivery Boy Assigned</li>
+                                <li class="progtrckr-done">Shipped</li>
+                                <li class="progtrckr-todo">Delivered</li>
+                            </ol>
+                            {%endif%}
+                            {%if i.cancelled%}
+                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                <li class="progtrckr-done">Ordered</li>
+                                <li class="progtrckr-todo"></li>
+                                <li class="progtrckr-todo"></li>
+                                <li class="progtrckr-done">Cancelled</li>
+                            </ol>
+                            {%endif%}
+                        </div>
+                             
+                   </div>
+                </div>
+
+            </div>
+            <form class="mb-4" action="#" method="post">
+                <table class="table p-3" cellspacing="0">
+                    <thead>
+                        <tr>
+                             <th class="">Sr. No.</th>
+                            <th class="">Product Image</th>
+                            <th class="">Product</th>
+                            <th class="">Price</th>
+                            <th class="">Category</th>
+                            <th class="">Brand</th>
+                           
+                            <th class="">Size</th>
+                           
+                            
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                    	{%for j in i.items.all%}
+                        <tr class="">
+                            <td>
+                                <a> class="text-gray-90">1</a>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <a href="#"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{j.item.image}}" alt="Image Description"></a>
+                            </td>
+                            <td>
+                                <a  class="text-gray-90">{{j.item.title}}</a>
+                            </td>
+                            
+
+                            <td>
+                                <span class="">₹{{j.amount_pay|mul:j.quantity}}</span>
+                            </td>
+
+                            <td >
+                                <span class="">{{j.item.main_category}}</span>
+                               
+                                
+                            </td>
+
+                            <td >
+                                <span class="">{{j.item.brand_name}}</span>
+                            </td>
+                             
+                             <td >
+                                <span class="">{{j.item.weight}}</span>
+                            </td>
+                            <!-- <td >
+                                <span class="badge badge-success">Order Placed</span>
+                            </td> -->
+                        </tr>
+                        {%endfor%}
+                       
+                    </tbody>
+                </table>
+                
+                
+            
+        </form></div>
+      
+        {%endfor%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

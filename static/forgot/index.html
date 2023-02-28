@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<title>AVPL - Verify Your Account</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="avpl shop project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../static/styles/bootstrap4/bootstrap.min.css">
+<link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="../static/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../static/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="../static/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="../static/plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/blog_single_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/blog_single_responsive.css">
+<link rel="stylesheet" type="text/css" href="../static/plugins/slick-1.8.0/slick.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/responsive.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/regular_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/regular_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/regular_responsive.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/product_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/product_responsive.css">
+<link rel="stylesheet" type="text/css" href="../static/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/shop_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/shop_responsive.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="../static/styles/contact_responsive.css">
+<link rel="stylesheet" type="text/css" href="../static/custom.css">
+<link rel="stylesheet" type="text/css" href="../static/plugins/swiper/swiper.min.css">
+<script src="../../ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<style type="text/css">
+.header_search {
+    height: 100px;
+}
+.logo_container {
+    height: 100px;
+}
+	a:hover{
+		color: #fff;
+	}
+
+	.message{
+		color:white;
+		background-color:red;
+		border-radius:5px;
+		padding:5px;
+	}
+
+.header{
+	padding: none !important;
+}
+.main_nav{
+	border: none !important;
+}
+.main_nav_dropdown li a{
+	color: #0e2352 !important;
+}
+@media only screen and (max-width: 767px){
+.header_search {
+    display: block !important;
+}
+}
+@media only screen and (max-width: 991px){
+.main_nav {
+    margin-top: 0 !important;
+}
+}
+</style>
+</head>
+
+<body class="p-0 m-0">
+<div class="super_container">
+
+	<!-- Header -->
+
+	<header class="header p-0 m-0">
+
+		<!-- Top Bar -->
+
+		<div class="top_bar">
+			<div class="container">
+				<div class="row">
+					<div class="col d-flex flex-row">
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="../static/images/phone.png" alt=""></div>+91 068 005 3570</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="../static/images/mail.png" alt=""></div><a href="mailto:sd@gmail.com">sd@gmail.com</a></div>
+						<div class="top_bar_content ml-auto">
+							
+							<div class="top_bar_user">
+								<div class="user_icon"><img src="../static/images/user.svg" alt=""></div>
+								<div><a href="../register/index.html">Register</a></div>
+								<div><a href="../login/index.html">Login</a></div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Header Main -->
+
+		<div class="header_main" style="background-color: #0e2352;">
+			<div class="container">
+				<div class="row">
+
+					<!-- Logo -->
+					<div class="col-lg-3 col-sm-12 col-12 order-1 text-center">
+						<div class="logo_container">
+							<div class="logo">
+								<a href="../index.html"><img src="../static/images/avpl_logo.png" class="img-fluid w-75"></a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Search -->
+					<div class="col-lg-5 col-12  order-lg-2 order-2 text-center">
+						<div class="header_search">
+							<div class="header_search_content">
+								<div class="header_search_form_container">
+									<form action="https://apnionlinedukan.in/search2/" class="header_search_form clearfix" method="GET">
+										<input type="search" required="required" class="header_search_input" name="key" id="key_val" style="width:100%;" placeholder="Search for products...">
+										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="../static/images/search.png" alt=""></button>
+										<div id="search_results"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+					<!-- Wishlist -->
+					
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Navigation -->
+
+		<nav class="main_nav">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+
+						<div class="main_nav_content d-flex flex-row">
+
+							<!-- Categories Menu -->
+
+							<div class="cat_menu_container">
+								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+									<div class="cat_burger"><span></span><span></span><span></span></div>
+									<div class="cat_menu_text">categories</div>
+								</div>
+
+								<ul class="cat_menu">
+									
+								</ul>
+							</div>
+
+							<!-- Main Nav Menu -->
+
+							<div class="main_nav_menu ml-auto">
+								<ul class="standard_dropdown main_nav_dropdown">
+									<li><a href="../index.html">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="../about/index.html">About<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="../contact/index.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+									
+									<li><a href="../register/index.html">Register<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="../login/index.html">Login<i class="fas fa-chevron-down"></i></a></li>
+									
+								</ul>
+							</div>
+
+							<!-- Menu Trigger -->
+
+							<div class="menu_trigger_container ml-auto">
+								<div class="cat_menu_container">
+								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+									<div class="cat_burger"><span></span><span></span><span></span></div>
+									<div class="cat_menu_text">Menu</div>
+								</div>
+
+								<ul class="cat_menu">
+									<li class=""><a href="../index.html">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li class=""><a href="../about/index.html">About<i class="fas fa-chevron-down"></i></a></li>
+									<li class=""><a href="../contact/index.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+									
+									<li class=""><a href="../register/index.html">Register<i class="fas fa-chevron-down"></i></a></li>
+									<li class=""><a href="../login/index.html">Login<i class="fas fa-chevron-down"></i></a></li>
+									
+										</ul>
+									</li>
+									
+								</ul>
+							</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Menu -->
+
+		<div class="page_menu">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+
+						<div class="page_menu_content">
+
+							<div class="page_menu_search">
+								<form action="#">
+									<input type="search" required="required" class="page_menu_search_input" placeholder="Search for products...">
+								</form>
+							</div>
+							<ul class="page_menu_nav">
+								<li class="page_menu_item has-children">
+									<a href="#">Language<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">English<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Italian<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Spanish<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Japanese<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Currency<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">US Dollar<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">EUR Euro<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">GBP British Pound<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">JPY Japanese Yen<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item">
+									<a href="#">Home<i class="fa fa-angle-down"></i></a>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">Super Deals<i class="fa fa-angle-down"></i></a></li>
+										<li class="page_menu_item has-children">
+											<a href="#">Menu Item<i class="fa fa-angle-down"></i></a>
+											<ul class="page_menu_selection">
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+												<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+											</ul>
+										</li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Featured Brands<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">Featured Brands<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item has-children">
+									<a href="#">Trending Styles<i class="fa fa-angle-down"></i></a>
+									<ul class="page_menu_selection">
+										<li><a href="#">Trending Styles<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="#">Menu Item<i class="fa fa-angle-down"></i></a></li>
+									</ul>
+								</li>
+								<li class="page_menu_item"><a href="#">blog<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a href="#">contact<i class="fa fa-angle-down"></i></a></li>
+							</ul>
+
+							<div class="menu_contact">
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="../static/images/phone_white.png" alt=""></div>+91 068 005 3570</div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="../static/images/mail_white.png" alt=""></div><a href="mailto:sd@gmail.com">sd@gmail.com</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</header>
+	<!-- header -->
+	
+
+      <div class="container register" style="border-radius: 1rem;">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="../../image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>Welcome</h3>
+                        <p class="text-white">You are 30 seconds away from earning your own money!</p>
+                        <a href="../login/index.html"><input type="submit" name="" value="Login"/></a><br/>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Forgot Password</h3>
+
+                                <form action="https://apnionlinedukan.in/check/" method="POST">
+                                    <div class="row register-form">
+
+                                        <div class="col-md-12">
+                                            <div class="mt-2">
+                                                
+                                            </div>
+                                            <div class="form-group" style="margin-top:10px;">
+                                                <input type="email" class="form-control" placeholder="Enter Your Email *" required="required" name="myemail" value="" />
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <input type="submit" class="btnRegister"  value="Verify"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+	<!-- Newsletter -->
+
+	<div class="newsletter">
+		<div class="container">
+			<h4>Shops Near Me</h4>
+			<div class="row">
+				<div class="col-md-12">
+					<form action="#" method="post">
+						<div class="row">
+							<div class="col-md-3">
+							  	<input type="text" class="form-control" name="adrs" id="location" style="width:800px;" onchange="save_location()">
+						  	</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<!-- Footer -->
+
+	<footer class="footer" style="background-color: azure;">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-3 footer_col">
+					<div class="footer_column footer_contact">
+						<div class="logo_container">
+							<div class="logo"><a href="#">AVPL</a></div>
+						</div>
+						<div class="footer_title">Got Question? Call Us 24/7</div>
+						<div class="footer_phone">+91 068 005 3570</div>
+						<div class="footer_contact_text">
+							<p>142, S-5, Vikas Nagar Lucknow</p>
+							<p>UP, India, 226022</p>
+						</div>
+						<div class="footer_social">
+							<ul>
+								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fab fa-youtube"></i></a></li>
+								<li><a href="#"><i class="fab fa-google"></i></a></li>
+								<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 offset-lg-2">
+					<div class="footer_column">
+						<div class="footer_title">Find it Fast</div>
+						<ul class="footer_list">
+							<li><a href="#">Computers & Laptops</a></li>
+							<li><a href="#">Cameras & Photos</a></li>
+							<li><a href="#">Hardware</a></li>
+							<li><a href="#">Smartphones & Tablets</a></li>
+							<li><a href="#">TV & Audio</a></li>
+						</ul>
+						<div class="footer_subtitle">Gadgets</div>
+						<ul class="footer_list">
+							<li><a href="#">Car Electronics</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-lg-2">
+					<div class="footer_column">
+						<ul class="footer_list footer_list_2">
+							<li><a href="#">Video Games & Consoles</a></li>
+							<li><a href="#">Accessories</a></li>
+							<li><a href="#">Cameras & Photos</a></li>
+							<li><a href="#">Hardware</a></li>
+							<li><a href="#">Computers & Laptops</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-lg-2">
+					<div class="footer_column">
+						<div class="footer_title">Customer Care</div>
+						<ul class="footer_list">
+							<li><a href="../contact/index.html">Contact</a></li>
+							<li><a href="#">Order Tracking</a></li>
+							<li><a href="#">Wish List</a></li>
+							<li><a href="#">Customer Services</a></li>
+							<li><a href="#">Returns / Exchange</a></li>
+							<li><a href="../faq/index.html">FAQs</a></li>
+							<li><a href="#">Product Support</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+	<!-- Copyright -->
+
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+
+					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+						<div class="copyright_content">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved @ AVPL Store | Developed by <a href="https://aaratechnologies.com/" target="_blank">Aara Technologies PVT. LTD.</a>
+
+</div>
+						<div class="logos ml-sm-auto">
+							<ul class="logos_list">
+								<li><a href="#"><img src="../static/images/logos_1.png" alt=""></a></li>
+								<li><a href="#"><img src="../static/images/logos_2.png" alt=""></a></li>
+								<li><a href="#"><img style="width: 100px;" src="../static/images/1896px-Razorpay_logo.svg.png" alt=""></a></li>
+								<li><a href="#"><img src="../static/images/logos_4.png" alt=""></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Modal For Subscription-->
+<div class="modal fade" id="myModal" role="dialog" style="z-index:9999;">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+	
+	<!-- Modal content-->
+	<div class="modal-content">
+<!--form close -->
+		<div class="modal-header">
+		
+		<h4 class="modal-title">Get Subscription</h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+		<div class="modal-body" id="div_id">
+		<div class="row align-items-center">
+			<div class="col-sm-12 col-md-6">
+				<div class="form-group">
+					<h2>Get Free Delivery For One Year in <span class="badge badge-success" name="subs_amt" id="subs_amt"></span> <i class="fa fa-inr"></i></h2>
+				</div>
+			</div>
+			<!--Dropdown for vendor -->
+			<div class="form-group">
+				<select class="form-control"  id="vendor_lst">
+					
+				</select>
+			</div>
+		</div>
+		<label id="lblmsg"></label>
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn btn-success btn-sm" id="btnSubscribe" onclick="subscription_request();">Subscribe</button>
+			<a class="btn btn-success btn-sm" id="btnCancel" href="../index.html">Cancel</a>
+			
+		</div>
+
+	<!--form close -->
+	</div>
+	
+	</div>
+</div>
+<div class="modal p-4" id="loading" style="width:100%;height:100%;background-color:white;text-align:center;">
+    <h1>AVPL - Payments</h1>
+    <img src="../static/images/loading.gif" style="width:400px;">
+    <h2>Please Wait....</h2>
+    <h4 style="color:red;">Do Not Press 'Refresh' or 'Back' button.</h4>
+</div>
+
+</body>
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/styles/bootstrap4/popper.js"></script>
+<script src="../static/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="../static/plugins/greensock/TweenMax.min.js"></script>
+<script src="../static/plugins/greensock/TimelineMax.min.js"></script>
+<script src="../static/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="../static/plugins/greensock/animation.gsap.min.js"></script>
+<script src="../static/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="../static/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="../static/plugins/parallax-js-master/parallax.min.js"></script>
+<script src="../static/plugins/easing/easing.js"></script>
+<script src="../static/js/blog_single_custom.js"></script>
+<script type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqBF76cMbvE_LREvm1S43LzZGxTsRQ0wA&amp;libraries=places"></script>
+<script>
+	function initialize() {
+	    var input = document.getElementById('location');
+	    new google.maps.places.Autocomplete(input);
+	    google.maps.event.addListener('place_changed', function () {
+	    });
+	 }
+	 google.maps.event.addDomListener(window, 'load', initialize);
+	 function initialize2() {
+	    var input = document.getElementById('adrs');
+	    new google.maps.places.Autocomplete(input);
+	    google.maps.event.addListener('place_changed', function () {
+	    });
+	 }
+	 google.maps.event.addDomListener(window, 'load', initialize2);
+  	
+  	
+  	  if (navigator.geolocation) {
+	  	navigator.geolocation.getCurrentPosition(showPosition);
+	  } else {
+	  	alert('Geolocation is not supported by this browser.');
+	  }
+	  function showPosition(position) {
+	  	codeLatLng(position.coords.latitude, position.coords.longitude);
+	  	$.ajax({
+            type:'GET',
+            url:'/getlocation/',
+            data:{lat:position.coords.latitude, lng:position.coords.longitude},
+
+            success: function(msg){
+                $('#color').html(msg);
+            }
+    	});
+	  }
+	  
+	  function codeLatLng(lat, lng) {
+
+	    var latlng = new google.maps.LatLng(lat, lng);
+	    geocoder = new google.maps.Geocoder();
+	    geocoder.geocode({'latLng': latlng}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	      //console.log(results)
+	        if (results[1]) {
+	         //formatted address
+	         //alert(results[0].formatted_address)
+	         document.getElementById('location').value = results[0].formatted_address
+	        //find country name
+	             for (var i=0; i<results[0].address_components.length; i++) {
+	            for (var b=0;b<results[0].address_components[i].types.length;b++) {
+
+	            //there are different types that might hold a city admin_area_lvl_1 usually does in come cases looking for sublocality type will be more appropriate
+	                if (results[0].address_components[i].types[b] == "administrative_area_level_1") {
+	                    //this is the object you are looking for
+	                    city= results[0].address_components[i];
+	                    break;
+	                }
+	            }
+	        }
+	        //city data
+	        //city.short_name
+	        //city.long_name
+
+
+	        }
+	      } 
+	    });
+	  }
+</script>
+    <script src="../static/plugins/slick-1.8.0/slick.js"></script>
+	<script src="../static/js/custom.js"></script>
+	<script src="../static/js/regular_custom.js"></script>
+	<script src="../static/plugins/Isotope/isotope.pkgd.min.js"></script>
+<script src="../static/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script src="../static/js/shop_custom.js"></script>
+<script src="../static/plugins/swiper/swiper.min.js"></script>
+<!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+<script>
+  $(document).ready(function(){
+    $('#key_val').keyup(function(){
+        $.ajax({
+            type:'GET',
+            url:"/search/",
+            data:{key:$("#key_val").val()},
+            
+            success: function(msg){
+                $('#search_results').html(msg);
+            }
+        })
+    })
+  });
+  </script>
+   <!-- Initialize Swiper -->
+ 
+  <script>
+    var swiper = new Swiper('.swiper-container-cat', {
+      slidesPerView: 5,
+      spaceBetween: 10,
+      autoplay: true,
+      loop: true,
+      // init: false,
+      pagination: {
+        el: '.swiper-pagination-cat',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+      	320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+      }
+    });
+  </script>
+  <script>
+    var swiper = new Swiper('.swiper-shop', {
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      spaceBetween: 10,
+      autoplay: false,
+      loop: false,
+      // init: false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+      	320: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 1,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+      }
+    });
+  </script>
+<!--Subscription_amount-->
+<script>
+function get_subscription_amt() {
+	$.ajax({
+		type:'GET',
+		url:"user/subscription/",
+		data:{},
+		success: function(res){
+			document.getElementById('subs_amt').innerHTML = res.subs_amt
+		}
+	})
+};
+</script>
+
+<!--Nearby vendor list -->
+<script>
+function get_vendor_list() {
+	$.ajax({
+		type:'GET',
+		url:"user/vendor_list/",
+		data:{},
+		success: function(res){
+			document.getElementById('vendor_lst').innerHTML = res
+		}
+	})
+};
+
+</script>
+<!--Htmlmodal submit via ajax  -->
+<script>
+	function subscription_request() {
+		$.ajax({
+            type:'POST',
+            url:"user/subscriptionRequest/",
+            data:{key:$("#vendor_lst").val()},
+            success: function(res){
+				if(res.success == "success"){
+					$('#div_id').html("Successfully requested");
+					document.getElementById('btnSubscribe').style.display = 'none';
+					document.getElementById('btnCancel').innerHTML = 'OK'
+				}else{
+					$('#div_id').html(res);
+					document.getElementById('btnSubscribe').style.display = 'none';
+					document.getElementById('btnCancel').innerHTML = 'OK'
+					//window.location.href ="/";
+				}
+			}
+        })
+
+	};
+	
+	</script>
+
+</html>

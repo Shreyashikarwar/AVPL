@@ -1,0 +1,271 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<!-- Mirrored from project252.aaratechnologies.in/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Feb 2021 13:01:41 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+<head>
+    {% load mptt_tags %}
+     <title>Momentos Trust</title>
+        {%load static%}
+        {% load mathfilters %}
+        <!-- Required Meta Tags Always Come First -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{%static 'img/momentostrust_icone_logo.png'%}">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet"> 
+
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" href="{%static 'assets1/vendor/font-awesome/css/fontawesome-all.min.css'%}">
+        <link rel="stylesheet" href="{% static 'assets1/css/font-electro.css' %}">
+
+        <link rel="stylesheet" href="{% static 'assets1/vendor/animate.css/animate.min.css'%}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/fancybox/jquery.fancybox.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/slick-carousel/slick/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
+        <!-- CSS Electro Template -->
+        <link rel="stylesheet" href="{% static 'assets1/css/theme.css' %}">
+    {% load crispy_forms_tags %}
+    <!--Codingeek -->
+    <!--    <link rel="stylesheet" href="../codingeek.net/codingeek-js/codingeek.html">
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+    <body class="bg-dark">
+
+
+        <main id="content"  role="main" style="height: 100vh;">
+         
+
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-items-center">
+                        <div class="col-sm-12 col-md-5">
+                <div class="card shadow shadow-lg mt-4">
+
+                    <div class="">
+                    <div class="row">
+                        <div class="col-md-12 ml-xl-auto mr-md-auto mr-xl-0 mb-8 mb-md-0 p-4">
+                            {% if messages %}
+                {% for mess in messages %}
+                <div class="alert alert-{{mess.tags}}" role="alert">
+                    {{mess}}
+                </div>
+                {% endfor %}
+                {% endif %}
+                            <div class="text-center">
+                                    <a href="/"><img src="{% static 'img/new_momento_logo.png' %}" class="img-fluid mx-auto w-25"></a>
+                            </div>
+                            <!-- Title -->
+                            <div class="border-bottom border-color-1 mb-6">
+                                <h3 class="d-inline-block section-title mb-0 pb-2 font-size-26">OTP Verification</h3>
+                            </div>
+                            
+                            <!-- End Title -->
+                            <form class="js-validate" method="POST"\>
+                                <!-- Form Group -->
+                                        <div class="row justify-content-center">
+                                                <form method="POST">
+                                                    {%csrf_token%}
+                                                    <!-- <input type="hidden" name=""> -->
+                                                <div class="col-sm-12 col-md-12">
+
+                                                     <div class="js-form-message form-group">
+                                                        <input type="hidden" value="{{request.session.email}}" name="email">
+                                                        <label class="form-label">OTP
+                                                        <span class="text-danger">*</span>
+                                                        </label>
+                                                        <input type="number" name="Mobile_OTP" class="form-control" placeholder="Enter OTP Here" required>
+                                                    </div>
+                                                </div>
+                                               
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 my-2 text-center text-lg-right">
+                                                        <button type="submit" class="btn btn-primary-dark-w px-5 text-light">Verify OTP</button>
+                                                    </div>
+                                                </form>
+
+                                                    <div class="col-sm-12 col-md-12 col-lg-6 my-2 text-center text-lg-left">
+                                                        <form method="POST" action="/resend_otp">
+                                                            {%csrf_token%}
+                                                            <input type="hidden" name="email" value="{{request.session.email}}">
+                                                         <button type="submit" class="btn btn-primary-dark-w px-5 text-light">Re-Send OTP</button>
+                                                        </form>
+                                                    </div>
+                                                    <!-- End Form Group -->     
+                                                </div>
+                                        </div>      
+
+                                <!-- End Button -->
+                            </form>
+                        </div>
+                        
+                       
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </main>
+     
+  
+
+                <!-- Go to Top -->
+                <a class="js-go-to u-go-to" href="#"
+                data-position='{"bottom": 15, "right": 15 }'
+                data-type="fixed"
+                data-offset-top="400"
+                data-compensation="#header"
+                data-show-effect="slideInUp"
+                data-hide-effect="slideOutDown">
+                <span class="fas fa-arrow-up u-go-to__inner"></span>
+            </a>
+            <!-- End Go to Top -->
+    
+            <!-- JS Global Compulsory -->
+                 <script src="{% static 'assets1/vendor/jquery/dist/jquery.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap/bootstrap.min.js' %}"></script>
+    
+            <!-- JS Implementing Plugins -->
+            <script src="{% static 'assets1/vendor/appear.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery.countdown.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.js' %}"></script>
+            <script src="{% static 'assets1/vendor/svg-injector/dist/svg-injector.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/typed.js/lib/typed.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/slick-carousel/slick/slick.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    
+            <!-- JS Electro -->
+            <script src="{% static 'assets1/js/hs.core.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.countdown.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.header.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.hamburgers.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.unfold.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.focus-state.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.malihu-scrollbar.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.validation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.fancybox.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.onscroll-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.slick-carousel.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.show-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.svg-injector.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.go-to.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.selectpicker.js' %}"></script>
+    
+            <!-- JS Plugins Init. -->
+            <script>
+                $(window).on('load', function () {
+                    // initialization of HSMegaMenu component
+                    $('.js-mega-menu').HSMegaMenu({
+                        event: 'hover',
+                        direction: 'horizontal',
+                        pageContainer: $('.container'),
+                        breakpoint: 767.98,
+                        hideTimeOut: 0
+                    });
+    
+                    // initialization of svg injector module
+                    $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
+                });
+    
+                $(document).on('ready', function () {
+                    // initialization of header
+                    $.HSCore.components.HSHeader.init($('#header'));
+    
+                    // initialization of animation
+                    $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        afterOpen: function () {
+                            $(this).find('input[type="search"]').focus();
+                        }
+                    });
+    
+                    // initialization of popups
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of countdowns
+                    var countdowns = $.HSCore.components.HSCountdown.init('.js-countdown', {
+                        yearsElSelector: '.js-cd-years',
+                        monthsElSelector: '.js-cd-months',
+                        daysElSelector: '.js-cd-days',
+                        hoursElSelector: '.js-cd-hours',
+                        minutesElSelector: '.js-cd-minutes',
+                        secondsElSelector: '.js-cd-seconds'
+                    });
+    
+                    // initialization of malihu scrollbar
+                    $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+    
+                    // initialization of forms
+                    $.HSCore.components.HSFocusState.init();
+    
+                    // initialization of form validation
+                    $.HSCore.components.HSValidation.init('.js-validate', {
+                        rules: {
+                            confirmPassword: {
+                                equalTo: '#signupPassword'
+                            }
+                        }
+                    });
+    
+                    // initialization of show animations
+                    $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+    
+                    // initialization of fancybox
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of slick carousel
+                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+    
+                    // initialization of go to
+                    $.HSCore.components.HSGoTo.init('.js-go-to');
+    
+                    // initialization of hamburgers
+                    $.HSCore.components.HSHamburgers.init('#hamburgerTrigger');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        beforeClose: function () {
+                            $('#hamburgerTrigger').removeClass('is-active');
+                        },
+                        afterClose: function() {
+                            $('#headerSidebarList .collapse.show').collapse('hide');
+                        }
+                    });
+    
+                    $('#headerSidebarList [data-toggle="collapse"]').on('click', function (e) {
+                        e.preventDefault();
+    
+                        var target = $(this).data('target');
+    
+                        if($(this).attr('aria-expanded') === "true") {
+                            $(target).collapse('hide');
+                        } else {
+                            $(target).collapse('show');
+                        }
+                    });
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+    
+                    // initialization of select picker
+                    $.HSCore.components.HSSelectPicker.init('.js-select');
+                });
+            </script>
+        </body>
+    </html>

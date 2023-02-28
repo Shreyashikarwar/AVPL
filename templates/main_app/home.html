@@ -1,0 +1,160 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="swiper-container" style="background:url({% static 'static/images/banner_2_background.jpg' %}); background-position: center; background-size: cover;">
+	<div class="swiper-wrapper">
+
+		{% for banner in banners %}
+		<div class="swiper-slide">
+			<div class="container">
+				<div class="row justify-content-center text-left mb-4">
+					<div class="col-lg-6 col-md-6 ">
+						<div class="banner_2_content">
+							<div class="banner_2_category">{{banner.sub_title}}</div>
+							<div class="banner_2_title">{{banner.title}}</div>
+							<div class="banner_2_text">{{banner.description}}</div>
+
+							<div class="button banner_2_button">{% if banner.link != 'NONE' %}<a href="{{banner.link}}">Explore</a>{% endif %}</div>
+
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="banner_2_image_container">
+							<div class="banner_2_image"><img src="{{banner.image.url}}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+	<!-- Add Arrows -->
+	<div class="swiper-button-next"></div>
+	<div class="swiper-button-prev"></div>
+</div>
+
+
+
+<!--  category slider Section Start -->
+<section class="section ec-category-section ec-category-wrapper-1 section-space-p">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<div class="section-title">
+				<h2 class="ec-bg-title">Choose Category</h2>
+				<h2 class="ec-title">Choose Category</h2>
+				<p class="sub-title">Browse The Collection of Top Categories</p>
+			</div>
+		</div>
+	</div>
+	<div class="row margin-minus-tb-15">
+		<div class="ec_cat_slider">
+			{% for cate in categories %}
+			<div class="ec_cat_content">
+				<a href="/storecategories/?c={{cate.id}}&sort=3"><div class="ec_cat_inner cat-border">
+					<div class="ec-cat-image">
+						<img src="{{cate.image.url}}" alt="{{cate.name}}" />
+					</div>
+				<!-- 	<div class="ec-cat-desc">
+						<span class="ec-section-btn"><a href="#" class="btn-primary">Electric & Electronics</a></span>
+					</div> -->
+					<div class="cat-title">
+						<h4 class="text-white">{{cate.name}}</h4>
+					</div>
+				</div></a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+</section>
+<!--category Section End -->
+
+<!--  category slider Section Start -->
+<section class="section ec-category-section ec-category-wrapper-1 section-space-p">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<div class="section-title">
+				<h2 class="ec-bg-title">Nearby Stores</h2>
+				<h2 class="ec-title">Nearby Stores</h2>
+				<p class="sub-title">Visit Your Nearby Store</p>
+			</div>
+		</div>
+	</div>
+	<div class="row margin-minus-tb-15">
+		{% for s in stores %}
+		
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 mb-6  ec-product-content" data-animation="fadeIn">
+        	<a href="/store/?s={{s.store.store.id}}">
+        		<div class="ec-product-inner">
+	                <div class="ec-pro-image-outer">
+	                    <div class="ec-pro-image">
+	                        <a href="product-detail.html" class="image">
+	                            <img class="main-image"
+	                                src="{{s.store.store.storeimages.logo.url}}" alt="Product" />
+	                            <img class="hover-image"
+	                                src="{{s.store.store.storeimages.banner.url}}" />
+	                        </a>
+	                    </div>
+	                </div>
+	                <div class="ec-pro-content store-content">
+	                   
+	                   
+	                    <div class="row align-items-center">
+	                    	<div class="col-6">
+	                    		 <h5 class="ec-pro-title mb-0"><a href="product-detail.html">{{s.store.store.name}}</a></h5>
+	                                <small class="text-info">{{s.distance}} KM Away</small>
+	                                <div class="ec-pro-rating mt-2">
+	                                	{% if s.rating > 3.5 %}
+                                        <span class="badge badge-success">{{s.rating}} <i class="fa fa-star"></i></span>
+                                        {% endif %}
+                                        {% if s.rating <= 3.5 and s.rating > 2.5 %}
+                                        <span class="badge badge-info">{{s.rating}} <i class="fa fa-star"></i></span>
+                                        {% endif %}
+                                        {% if s.rating <= 2.5 %}
+                                        <span class="badge badge-danger">{{s.rating}} <i class="fa fa-star"></i></span>
+                                        {% endif %}
+	                                </div>
+	                    	</div>
+	                    	<div class="col-6">
+	                    		 <strong class="text-muted">START FROM</strong>
+	                            <span class="ec-price">
+	                                <span class="new-price"><i class="fa fa-inr"></i> {{s.price.price}}</span>
+	                            </span>
+	                            <a href="/store/?s={{s.store.store.id}}" class="btn rounded btn-orange btn-block btn-sm">Visit</a>
+	                    	</div>
+	                    	
+	                    </div>
+	                    
+	                </div>
+	            </div>
+        	</a>                    
+        </div>
+        {% endfor %}
+	</div>
+</div>
+</section>
+<!--category Section End -->
+
+
+
+<script>
+    function get_store_by_cat(cat_id) {
+        
+        $.ajax({
+            type:'GET',
+            url:"categorywise/store/",
+            data:{cat_id:cat_id},
+            success: function(res){
+                document.getElementById('store_cat_wise').innerHTML = res;
+            }
+        })
+    };
+    
+    </script>
+{% endblock %}

@@ -1,0 +1,531 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% load mathfilters %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+     <style type="text/css">
+            
+.rating {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: row-reverse;
+    height: 150px;
+    position: relative;
+  }
+  
+  .rating-0 {
+    filter: grayscale(100%);
+  }
+  
+  .rating > input {
+    display: none;my_account
+  }
+  
+  .rating > label {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin-top: auto;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23e3e3e3' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 76%;
+    transition: .3s;
+  }
+  
+  .rating > input:checked ~ label,
+  .rating > input:checked ~ label ~ label {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23fcd93a' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
+  }
+  
+  
+  .rating > input:not(:checked) ~ label:hover,
+  .rating > input:not(:checked) ~ label:hover ~ label {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23d8b11e' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
+  }
+  
+  .emoji-wrapper {
+    width: 100%;
+    text-align: center;
+    height: 100px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .emoji-wrapper:before,
+  .emoji-wrapper:after{
+    content: "";
+    height: 15px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .emoji-wrapper:before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 35%,rgba(255,255,255,0) 100%);
+  }
+  
+  .emoji-wrapper:after{
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 35%,rgba(255,255,255,0) 100%);
+  }
+  
+  .emoji {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: .3s;
+  }
+  
+  .emoji > svg {
+    margin: 15px 0; 
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+  }
+  
+  #rating-1:checked ~ .emoji-wrapper > .emoji { transform: translateY(-100px); }
+  #rating-2:checked ~ .emoji-wrapper > .emoji { transform: translateY(-200px); }
+  #rating-3:checked ~ .emoji-wrapper > .emoji { transform: translateY(-300px); }
+  #rating-4:checked ~ .emoji-wrapper > .emoji { transform: translateY(-400px); }
+  #rating-5:checked ~ .emoji-wrapper > .emoji { transform: translateY(-500px); }
+  
+  .feedback {
+    max-width: 360px;
+    background-color: #fff;
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0 4px 30px rgba(0,0,0,.05);
+  }
+  .feedback1 {
+    
+    background-color: #fff;
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+    box-shadow: 0 4px 30px rgba(0,0,0,.05);
+  }
+  
+
+
+        </style>
+
+
+
+
+
+<main id="content" role="main" class="checkout-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-5">
+            <h1 class="text-center">Profile</h1>
+        </div>
+     
+        
+            <div class="row">
+              
+
+                <div class="col-lg-12 order-lg-1">
+                    <div class="pb-7 mb-7">
+                        <!-- Title -->
+                        <div class="border-bottom border-color-1 mb-5">
+                            <h3 class="section-title mb-0 pb-2 font-size-25">Profile</h3>
+                        </div>
+                        <!-- End Title -->
+                        <div class="row">
+                           
+                            <div class="col-sm-12 col-md-4">
+                                                    <div class="feedback shadow shadow-lg" style="align-item: left;">
+                                                        <ul class="nav nav-pills nav-stacked w-100 d-block">
+                                                            <li class="active my-4"><a data-toggle="pill" href="#profile">Profile</a></li>
+                                                            <li class="my-4"><a  href="/order_trace">My Order</a></li>
+                                                            <li class="my-4"><a  href="/cart">My Cart</a></li>
+                                                            <li class="my-4"><a  href="/wishlist">My Whishlist</a></li>
+                                                          </ul>
+                                                      </div>
+                            </div>
+                            <div class="col-sm-12 col-md-8">
+                                <div class="card shadow shadow-lg">
+                                    
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div id="profile" class="tab-pane fade in active show">
+                                                <h3 class="section-title mb-0 pb-2 font-size-25">Profile</h3>
+                                              <div class="row my-4">
+                                                <div class="col-sm-12 col-md-4">
+                                                   <div class="row">
+                                                       <div class="col-sm-12 col-md-12">
+                                                       	{%if request.user.is_user%}
+                                                        <img class="img-fluid rounded-circle mx-auto" src="{{user_data.user_photo}}" alt="Image Description" style="width: 100px; height: 100px;">
+                                                        {%endif%}
+                                                        {% if request.user.is_retailer%}
+                                                        <img class="img-fluid rounded-circle mx-auto" src="{%static 'img/momento.jpg'%}" alt="Image Description" style="width: 100px; height: 100px;">
+                                                        {%endif%}
+                                                        <button type="button" class="btn btn-primary btn-block mt-2" data-toggle="modal" data-target="#exampleModalCenter">
+														  <i class="ec ec-user mr-1"></i> Change Image
+														</button>
+                                                       </div>
+                                                       {%if request.user.is_retailer%}
+                                                       <div class="col-sm-12 col-md-12 mt-4">
+                                                       		{%if user_data.pan_number%}
+                                                           <h6>Pan Number: <strong>{{user_data.pan_number}}</strong></h6>
+                                                           {%else%}
+                                                           <h6>Pan Number: <strong>Not Updated</strong></h6>
+                                                           {%endif%}
+                                                           {%if user_data.gst_number%}
+                                                           <h6>GST Number: <strong>{{user_data.gst_number}}</strong></h6>
+                                                           {%else%}
+                                                           <h6>GST Number: <strong>Not Updated</strong></h6>
+                                                           {%endif%}
+                                                           {%if user_data.aadhar_number%}
+                                                           <h6>Aadhaar Number: <strong>{{user_data.aadhar_number}}</strong></h6>
+                                                           {%else%}
+                                                           <h6>Aadhaar Number: <strong>Not Updated</strong></h6>
+                                                           {%endif%}
+                                                       </div>
+                                                       {%endif%}
+                                                       <hr>
+                                                       <div class="col-sm-12 col-md-12 mt-4">
+                                                       	<form method="POST" action="/change_password">
+                                                       		{%csrf_token%}
+	                                                        <div class="form-group">
+	                                                            <label>Old Password</label>
+	                                                            <input type="password" name="oldpassword" class="form-control">
+	                                                        </div>
+	                                                        <div class="form-group">
+	                                                            <label>New Password</label>
+	                                                            <input type="password" name="password1" class="form-control">
+	                                                        </div>
+	                                                        <div class="form-group">
+	                                                            <label>Confirm Password</label>
+	                                                            <input type="password" name="password2" class="form-control">
+	                                                        </div>
+	                                                        <div class="form-group">
+	                                                             <button type="submit" class="btn btn-outline-primary btn-block">Change Password</button>
+	                                                             
+	                                                        </div>
+	                                                    </form>
+                                                       </div>
+
+                                                     
+                                                   </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Name</label>
+                                                                <input type="text"  class="form-control" value="{{user_data.user.first_name}}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                <input type="text" class="form-control" value="{{user_data.user.username}}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Mobile</label>
+                                                                <input type="text" class="form-control" value="{{user_data.mobile}}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                            	<br>
+                                                                <!-- <label><a href="/change_mobile_number">change number</a></label> -->
+                                                                <a href="/change_mobile_number" class="btn btn-outline-primary btn-block">Change Number</a>
+                                                                <!-- <input type="text" class="form-control"> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-8">
+                                                            <div class="form-group">
+                                                                <label>Referal Link</label>
+                                                                <input type="text" id="inputText" class="form-control" value="Welcome to Momentostrust!shop from your home shop online Groceries, Stationaries, Clothes, and more your Referral code is {{user_data.referel_code}} website link:- https://momentoustrust.com/" readonly>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <br>
+                                                            <button id="copyText" class="btn btn-primary btn-block" type="button">Copy</button>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-8">
+                                                            <div class="form-group">
+                                                                <label>User Add Link</label>
+                                                                <input type="text" id="generatelink" class="form-control" value="">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-4">
+                                                            <br>
+                                                            <!-- <a class="btn btn-primary btn-lg justify-content-right" onclick="get_link();">Generate Link</a> -->
+                                                            <button id="copyText" class="btn btn-primary btn-block" onclick="get_link();" type="button">Generate link</button>
+                                                        </div>
+                                                        
+                                                        </div>
+                                                        {%if request.user.is_retailer%}
+                                                        
+                                                        <form method="POST" action="/shop_information_edit" enctype="multipart/form-data">
+							{%csrf_token%}
+                                                            <div class="row">
+                                                        <div class="col-sm-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <label>Shop</label>
+                                                                <textarea name="shop_address"   class="form-control" {%if user_data.shop_address%}value={{user_data.shop_address}}{%endif%}>{%if user_data.shop_address%}{{user_data.shop_address}}{%endif%}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12">
+
+                                                            <div class="form-group">
+
+                                                                <label>Shop Image <span><!--<a href="/{{user_data.shop_photo}}">Show Shop Image</a>--></span></label>
+                                                                <input type="file" name="shop_image" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Shop Name</label>
+                                                                <input type="text" name="shop_name" {%if user_data.shop_name%} value="{{user_data.shop_name}}" {%endif%} class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Shop State</label>
+                                                                <input type="text" name="shop_state" {%if user_data.shop_state%} value="{{user_data.shop_state}}" {%endif%} class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Shop City</label>
+                                                                <input type="text" name="shop_city" {%if user_data.shop_city%} value="{{user_data.shop_city}}" {%endif%} class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Zipcode</label>
+                                                                <input type="text" name="zip_code" {%if user_data.zip_code%} value="{{user_data.zip_code}}" {%endif%} class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-6">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        </div>
+                                                    </form>
+                                                       {%endif%}
+                                                    </div>
+                                                    <hr>
+                                                    {%if request.user.is_retailer%}
+                                                    <div class="container">
+                                                        <div class="row">
+                                                        <div class="col-sm-12 col-md-12">
+                                                            <ul class="nav nav-pills justify-content-center">
+                                                                <li class="active my-4"><a class="btn btn-primary" data-toggle="pill" href="#pan">Add Pan</a></li>
+                                                                <li class="my-4"><a class="btn btn-outline-primary ml-4" data-toggle="pill" href="#gst">Add GST</a></li>
+                                                                <li class="my-4"><a class="btn btn-outline-primary ml-4" data-toggle="pill" href="#aadhar">Add Aadhaar</a></li>
+                                                                
+                                                              </ul>
+                                                              <div class="tab-content">
+                                                                <div id="pan" class="tab-pane fade in ">
+                                                                    <form method="POST" action="/add_retailer_pan" enctype="multipart/form-data">
+                                                                       {%csrf_token%}
+                                                                      <div class="row">
+                                                                            <div class="col-sm-12 col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label>Pan Number</label>
+                                                                                    <input type="text" name="pan_number" class="form-control" required="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label>Upload Pan</label>
+                                                                                    <input type="file" name="pan_image" class="form-control" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div id="gst" class="tab-pane fade in ">
+                                                                    <form method="POST" action="/add_retailer_gst" enctype="multipart/form-data">
+                                                                        {%csrf_token%}
+                                                                      <div class="row">
+                                                                            <div class="col-sm-12 col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label>GST Number</label>
+                                                                                    <input type="text" name="gst_number" class="form-control" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label>Upload GST</label>
+                                                                                    <input type="file" name="gst_image" class="form-control" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div id="aadhar" class="tab-pane fade in ">
+                                                                    <form action="/add_retailer_aadhar" method="POST" enctype="multipart/form-data">
+                                                                    {%csrf_token%}
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label>Aadhaar Number</label>
+                                                                                    <input type="number" name="aadhar_number" class="form-control" required="">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label>Aadhaar Front Image</label>
+                                                                                    <input type="file" name="aadharf" class="form-control" required="">
+                                                                                </div>
+                                                                                </div>
+                                                                                <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label>Aadhaar Back Image</label>
+                                                                                    <input type="file" name="aadharb" class="form-control" required="">
+                                                                                </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <button type="submit" class="btn mx-0 btn-primary btn-block">Submit</button>
+                                                                            </div>
+                                                                        </div>
+                                                                     </form>
+                                                                </div>
+                                                                </div>
+                                                              
+                                                           </div>
+                                                           
+                                                           
+                                                    </div>
+                                                    </div>
+                                                    {%endif%}
+                                                </div>
+
+                                              </div>
+                                            </div>
+                                            
+                                            
+                                            
+                                              </div>
+                                          </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            </div>
+                        </div>
+                       
+
+                      
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+							  <div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Select Profile Image</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								  <span aria-hidden="true">&times;</span>
+								</button>
+							  </div>
+							  <div class="modal-body">
+								<form method="POST" action="/change_profile_image" enctype="multipart/form-data">
+									{%csrf_token%}
+										<input type="file" name="image" value="chnage image">
+										
+										
+									
+							  </div>
+							  <div class="modal-footer">
+								<button type="submit" class="btn btn-primary">Update Profile Image</button>
+							  </div>
+							  </form>
+							</div>
+						  </div>
+						</div>
+                     
+                       
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script type="text/javascript">
+    function get_link () {
+       $.ajax({
+             type:'GET',
+             url:'/generatelink',
+            //  data:{color:'empty'},
+ 
+             success: function(data){
+                //  document.getElementById('link').value = data.link;
+                document.getElementById('generatelink').value=data.link;
+                 console.log(data)
+             }
+         });
+    }
+ </script>
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}
+

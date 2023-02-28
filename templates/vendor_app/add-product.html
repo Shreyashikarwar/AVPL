@@ -1,0 +1,344 @@
+{% extends 'vendor_app/base.html' %}
+{% load static %}
+{% block title %}Add Product{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1>Add Products</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">Add Products</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  {% if info %}
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Add New Product</h4>
+                              </div>
+                              <div class="card-body">
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <form action="/vendor/addproduct" method="POST">
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label> Category *</label>
+                                             <select class="form-control" onchange="fetch_sub_category();fetch_brands();" name="cate" id="category">
+                                                <option selected disabled>----select product category----</option>
+                                                {% for cate in categories %}
+                                                <option value="{{ cate.id|safe }}">{{ cate.name|safe }}</option>
+                                                {% endfor %}
+                                             </select>
+                                          </div>
+                                       </div>
+                                        <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Sub Category </label>
+                                             <select class="form-control" id="subcategory" onchange="fetch_sub_sub_category();" name="subcate">
+                                                <option selected disabled>----select product sub category----</option>
+                                                {% for cate in subcategories %}
+                                                <option value="{{ cate.id|safe }}">{{ cate.name|safe }}</option>
+                                                {% endfor %}
+                                             </select>
+                                          </div>
+                                       </div>
+                                        <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Sub Sub Category </label>
+                                             <select class="form-control" id="subsubcategory" name="subsubcate">
+                                                <option selected disabled>----select product sub sub category----</option>
+                                                {% for cate in subsubcategories %}
+                                                <option value="{{ cate.id|safe }}">{{ cate.name|safe }}</option>
+                                                {% endfor %}
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Brand</label>
+                                             <select class="form-control" id="brand" name="brand">
+                                                <option selected disabled>----select product brand----</option>
+                                                {% for cate in brands %}
+                                                <option value="{{ cate.id|safe }}">{{ cate.name|safe }}</option>
+                                                {% endfor %}
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Product Title/Name</label>
+                                             <input type="text" class="form-control" placeholder="Enter Here...." name="name" required>
+                                          </div>
+                                       </div>
+                                        <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <div>
+                                             <label>Description</label>
+                                             <textarea id="editor" rows="12" type="text"  name="des" required></textarea>
+                                          </div>
+                                       </div> -->
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>MRP (in Rupees)</label>
+                                             <input type="number" class="form-control" placeholder="Enter Here...." min="1" name="mrp_price" required>
+                                          </div>
+                                       </div>
+                                        <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Sale Price (in Rupees)</label>
+                                             <input type="number" class="form-control" placeholder="Enter Here...." min="1" name="price" required>
+                                             <p class="badge badge-danger">*Price including all taxes</p>
+                                          </div>
+                                       </div>
+                                        <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Product Quantity/Current Stock</label>
+                                             <input type="number" class="form-control" placeholder="Enter Here...." min="5" name="stock" required>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Weight (KG)</label>
+                                             <input type="text" class="form-control" placeholder="Enter Here...." name="weight">
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <label> Offer </label>
+                                          <select class="form-control" name="offer" id="category">
+                                             <option selected disabled>----select offer availability----</option>
+                                             <option value="1">Available</option>
+                                             <option value="0">Not Available</option>
+                                          </select>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <label> Offer Discount </label>
+                                          <input type="text" class="form-control" placeholder="Enter Here...." name="discount">
+
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Proceed to add product images</label>
+                                             <input type="submit" class="btn btn-primary btn-lg justify-content-right" value="Next Step">
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                        
+                     </div>
+                  </div>
+                  {% endif %}
+                  {% if images %}
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Add Product Images</h4>
+                              </div>
+                              <div class="card-body">
+                                 <span>Product Name : <span style="font-weight:bold;">Here</span></span>
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <form action="/vendor/addproductimages" method="POST" enctype="multipart/form-data">
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Upload Product Images</label>
+                                             <input type="file" class="form-control" name="images" multiple required>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Proceed to add product size</label>
+                                             <input type="submit" class="btn btn-primary btn-lg justify-content-right" value="Next Step">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                        
+                     </div>
+                  </div>
+                  {% endif %}
+                  {% if variant %}
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Add Product Variant</h4>
+                              </div>
+                              <div class="card-body">
+                                 <span>Product Name : <span style="font-weight:bold;">{{product.name}}</span></span>
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <form action="#" method="POST">
+                                    <div class="row">
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Select Variant</label>
+                                             <select class="form-control" id="variant" onchange="fetch_variant_value()">
+                                                <option selected disabled>----select variant-----</option>
+                                                {% for x in variants %}
+                                                <option value="{{x.id}}">{{x.name}}</option>
+                                                {% endfor %}
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Select Varient Value</label>
+                                             <select class="form-control" id="variantvalue">
+                                             </select>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>Enter Variant Stock</label>
+                                             <input type="text" class="form-control" id="variantstock" placeholder="Enter Product Size Here....">
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <a onclick="add_variant();" class="btn btn-primary btn-lg justify-content-right">Add Variant</a>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <a href="/vendor/addproductvariant" class="btn btn-primary btn-lg justify-content-right">Proceed to Add</a>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <div class="table-responsive">
+                                             <table class="table table-striped table-hover" style="width:100%;">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Variant</th>
+                                                      <th>Variant Value</th>
+                                                      <th>Variant Stock</th>
+                                                   </tr>
+                                                </thead>
+                                                <tbody id="varianttable">
+
+                                                </tbody>
+                                             </table>
+                                          </div>
+                                       </div>
+                                       
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  {% endif %}
+               </section>
+              
+            </div>
+<script type="text/javascript">
+   function fetch_sub_category () {
+      category_id = document.getElementById('category').value;
+      $.ajax({
+            type:'GET',
+            url:'/vendor/fetchsubcategory',
+            data:{cate:category_id},
+
+            success: function(msg){
+                $('#subcategory').html(msg);
+            }
+        });
+   }
+
+   function fetch_brands () {
+      category_id = document.getElementById('category').value;
+      $.ajax({
+            type:'GET',
+            url:'/vendor/fetchbrands',
+            data:{cate:category_id},
+
+            success: function(msg){
+                $('#brand').html(msg);
+            }
+        });
+   }
+
+   function fetch_sub_sub_category () {
+      subcategory_id = document.getElementById('subcategory').value;
+      $.ajax({
+            type:'GET',
+            url:'/vendor/fetchsubsubcategory',
+            data:{subcate:subcategory_id},
+
+            success: function(msg){
+                $('#subsubcategory').html(msg);
+            }
+        });
+   }
+
+   function fetch_variant_value () {
+      variant_id = document.getElementById('variant').value;
+      $.ajax({
+            type:'GET',
+            url:'/vendor/fetchvariantvalue',
+            data:{variant:variant_id},
+
+            success: function(msg){
+                $('#variantvalue').html(msg);
+            }
+        });
+   }
+
+   function add_variant () {
+      variant_id = document.getElementById('variant').value;
+      variantvalue_id = document.getElementById('variantvalue').value;
+      variantstock_val = document.getElementById('variantstock').value;
+      $.ajax({
+            type:'POST',
+            url:'/vendor/addproductvariant',
+            data:{variantvalue:variantvalue_id, variantstock:variantstock_val, variant:variant_id},
+
+            success: function(msg){
+               if (msg.response == 'failed'){
+                  alert('Product Variant Already Exists');
+               }
+               else{
+                  $('#varianttable').html(msg);
+               }                
+            }
+        });
+   }
+
+   // $("#radio_button").click(function(){
+   //    $(this).prop('checked', false);
+   // })
+</script>
+{% endblock %}

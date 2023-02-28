@@ -1,0 +1,269 @@
+﻿{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block body %}
+        <div class="home">
+            <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shops_imgs/20.jpg"></div>
+            <div class="home_overlay"></div>
+            <div class="home_content d-flex flex-column align-items-center justify-content-center">
+                <h2 class="home_title">Checkout</h2>
+            </div>
+        </div>
+
+        <!-- Shop -->
+
+
+
+
+        <div class="shop">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8">
+                        <div class="card bg-primary ">
+                            <div class="card-body">
+
+
+                                <div class="shopping_cart">
+                                    <h3 class="text-white">Order Summery</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ec-cart-content" id="cart-data">
+                    <div class="ec-cart-inner">
+                        <div class="row">
+                            <form action="#">
+                                <div class="table-content cart-table-content">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th style="text-align: center;">Quantity</th>
+                                                <th>Total</th>
+                                                <th>Delivery Address</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in items %}
+                                            <tr id="{{item.id}}">
+                                                <td data-label="Product" class="ec-cart-pro-name"><a href="/productpage/?p={{item.product_id}}"><img class="ec-cart-pro-img mr-4" src="{{ item.image }}" alt="" />{{ item.name|safe }}{% for x in item.variant %} | {{x.variant.name}} : {{x.variant_value.value}}{% endfor %}</a></td>
+                                                <td data-label="Price" class="ec-cart-pro-price"><span class="amount"><i class="fa fa-inr"></i> {{item.price}}</span></td>
+                                                <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
+                                                    <div class="">
+                                                        <input style="width:75px;border:none;" type="number" min="1" max="{{item.stock}}" value="{{ item.quantity }}" disabled id="{{item.id}}quantity" />
+                                                    </div>
+                                                </td>
+                                                <td data-label="Total" class="ec-cart-pro-subtotal"><i class="fa fa-inr"></i> <span id="{{item.id}}total">{{item.total}}</span></td>
+                                                <td data-label="Total" class="ec-cart-pro-subtotal"><i class="fa fa-inr"></i> <span id="{{item.id}}total">{{item.total}}</span></td>
+                                                <td data-label="Remove" class="ec-cart-pro-remove">
+                                                    
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--cart content End -->
+                   
+                        <div class="card mt-4">
+                            <div class="card-body">
+
+
+                                <div class="shopping_cart">
+                                    <div class="product-item ">
+                                        <div class="row">
+
+                                            <div class="col-lg-12 col-sm-12">
+                                                <div class="shop-bar clearfix pt-2">
+                                                    <div class="shop_product-count">
+                                                        <h4>Delivery Address</h4>
+                                                        <p>
+                                                            <span><strong>{{address.name}}</strong></span><br>
+                                                            {{address.home_no}}, {{address.landmark}}<br>{{address.city}}, {{address.state}} ({{address.pincode}})<br>+91-{{address.contact}}
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    <div class="col-lg-4 ">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="shop_bar clearfix pt-3">
+                                    <div class="shop_product-count">
+                                        <h3>
+                                            Price Detail
+                                        </h3>
+                                    </div>
+                                    
+                                </div>
+                                <div class="shop-bar clearfix pt-5">
+                                    <div class="table-responsive">
+                                        <table style="width:100%;">
+                                            <tr style="height:30px;">
+                                                <td>Sub Total</td>
+                                                <th style="text-align:right;"><i class="fa fa-inr"></i> <span id="cart-subtotal">{{ cart.subtotal }}</span></th>
+                                            </tr>
+                                            <tr style="height:30px;">
+                                                <td>Delivery Charge</td>
+                                                <th style="text-align:right;"><i class="fa fa-inr"></i> <span id="cart-delivery">{{ cart.delivery_charges }}</span></th>
+                                            </tr>
+                                            <tr style="height:30px;">
+                                                <td>Total Tax</td>
+                                                <th style="text-align:right;"><i class="fa fa-inr"></i> <span id="cart-tax">{{ cart.tax }}</span></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="shop_bar clearfix bg-primary" style="color:white;padding:10px;border-radius:10px;">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <input type="checkbox" style="width: 100%;" value="1" id="self" onchange="enable_self_pickup();"{% if cart.self_pickup %}checked{% endif %}>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <strong>SELF PICKUP :</strong> Check this if you want self pick your order. In this case your delivery charge will be zero.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                    <input type="hidden" value="cod" name="payment">
+                                    <div class="shop_bar clearfix pt-4" style="background-color:#d3dded;padding:10px;border-radius:5px;margin-top:10px;">
+                                        <div class="shop_product-count" style="float:left"><h4>Total Amount</h4></div>
+                                        <div class="shop-sorting" style="float:right;font-size:20px;font-weight:bold;"><i class="fa fa-inr"></i><span id="cart-total"> {{ cart.total }}</span></div>
+                                    </div>
+                               
+                                    <div class="shop-bar clearfix pt-4 text-success">
+                                        
+                                        <input type="hidden" value="{{ cart.id }}" name="cart">
+                                        <button onclick="proceed_to_pay('Level');" class="btn btn-primary" style="width:100%;">Continue with MLM Plan A</button>
+                                        <button onclick="proceed_to_pay('Binary');" class="btn btn-primary mt-2" style="width:100%;">Continue with MLM Plan B</button>
+                                    </div>
+
+                             </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+<div class="modal" id="order-placed" style="width:100%:height:100%;background-color:white;text-align:center;">
+    <img src="{% static 'check-green.gif' %}" style="width:150px;">
+    <h2>Wow! Order Placed</h2>
+    <a href="/user/myorder" class="btn btn-primary">Go to Your Orders</a>
+</div>
+<div class="modal p-4" id="loading" style="width:100%:height:100%;background-color:white;text-align:center;">
+    <h1>AVPL - Payments</h1>
+    <img src="{% static 'loader.gif' %}" style="width:500px;">
+    <h2>Please Wait....</h2>
+    <h4 style="color:red;">Do Not Press 'Refresh' or 'Back' button.</h4>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script type="text/javascript">
+    function update_item(item_id) {
+      quantity_val = document.getElementById(item_id+'quantity').value;
+      $.ajax({
+            type:'GET',
+            url:'/user/updatecartitem',
+            data:{item:item_id, quantity:quantity_val},
+            success: function(res_data){
+                document.getElementById(item_id+'total').innerHTML = res_data.item_total;
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+            }
+        });
+   }
+   function remove_item(item_id) {
+      $.ajax({
+            type:'GET',
+            url:'/user/removecartitem',
+            data:{item:item_id},
+            success: function(res_data){
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById(item_id).style.display = 'none';
+                if (res_data.empty == '1'){
+                    document.getElementById('cart-data').style.display = 'none';
+                    document.getElementById('empty-heading').style.display = 'block';
+                }
+            }
+        });
+   }
+   function enable_self_pickup() {
+      self_val = '0';
+      if (document.getElementById('self').checked){
+        self_val = document.getElementById('self').value;
+      }
+      cart_id = {{ cart.id }};
+      $.ajax({
+            type:'GET',
+            url:'/user/enableselfpickup',
+            data:{c:cart_id, self:self_val},
+            success: function(res_data){
+                
+            }
+        });
+   }
+function pay_online(data) {
+    amount = document.getElementById('cart-total').innerHTML;
+    var options = {
+        "key": "rzp_test_QX0qgB3jm7oD07", // Enter the Key ID generated from the Dashboard
+        "amount": data['amount'], // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": data['currency'],
+        "name": "AVPL - Payments",
+        "description": "Order Payment",
+        "image": "https://example.com/your_logo",
+        "order_id": data['id'], //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://apnionlinedukan.in/captureonlinepayment/",
+        "prefill": {
+            "name": "{{cart.user.usr.first_name}} {{cart.user.usr.last_name}}",
+            "email": "{{cart.user.email}}",
+            "contact": "{{cart.user.usr.phone}}"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    //e.preventDefault();
+}
+function proceed_to_pay(plan) {
+      document.getElementById('loading').style.display = 'block';
+      //payment = document.getElementsByName('payment');
+      var payment_type_val = 'cod';
+      $.ajax({
+            type:'POST',
+            url:'/placeorder/',
+            data:{payment_type:payment_type_val, plan:plan},
+            success: function(res_data){
+                if(res_data.pay_type == 'cod'){
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('order-placed').style.display = 'block';
+                }
+            }
+        });
+   }
+</script>
+{% endblock %}

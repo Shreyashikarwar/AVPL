@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <!-- Title -->
+        <title>Online Apni Dukaan - {% block title %}Base{% endblock %}</title>
+        {%load static%}
+        <!-- Required Meta Tags Always Come First -->
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{% static 'img/Vector.png' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;display=swap" rel="stylesheet"> 
+
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" href="{%static 'assets1/vendor/font-awesome/css/fontawesome-all.min.css'%}">
+        <link rel="stylesheet" href="{% static 'assets1/css/font-electro.css' %}">
+
+        <link rel="stylesheet" href="{% static 'assets1/vendor/animate.css/animate.min.css'%}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/fancybox/jquery.fancybox.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/slick-carousel/slick/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'assets1/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
+        <!-- CSS Electro Template -->
+        <link rel="stylesheet" href="{% static 'assets1/css/theme.css' %}">
+        <!--AVPL Css-->
+        <link rel="stylesheet" type="text/css" href="{% static 'static/styles/regular_styles.css' %}">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+        <!-- <link rel="stylesheet" href="{% static 'dash/bundles/datatables/datatables.min.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css' %}"> -->
+  
+  
+        <!-- <link rel="stylesheet" href="{% static 'dash/css/style.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/css/components.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/css/custom.css' %}" /> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/css/app.min.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/bundles/jqvmap/dist/jqvmap.min.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/bundles/weather-icon/css/weather-icons.min.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/bundles/weather-icon/css/weather-icons-wind.min.css' %}"> -->
+        <!-- <link rel="stylesheet" href="{% static 'dash/bundles/bootstrap-social/bootstrap-social.css' %}"> -->
+    
+        <style>
+        @media (min-width: 1200px){
+.product-item:hover .product-item__inner:not(.remove-prodcut-hover) {
+    
+    min-height: 0 !important;
+    
+}
+}
+.pb-7, .py-7{
+    padding-bootom: 20px !important;
+}
+
+
+.pagination a {
+  border: 1px solid #ddd; /* Gray */
+  padding: 10px;
+}
+        .price-wrap #one, .price-wrap #two{
+            width: 100% !important;
+        }
+    .pac-container{
+        z-index: 999999 !important;
+      }
+      .slick-list.draggable{
+        height: 350px;
+      }
+      /*.product-item__outer h-100{
+        height:  350px !important;
+      }*/
+      .product-item__body div a img{
+        max-height: 150px;
+        max-width: 150px;
+        min-height: 150px;
+        min-width: 150px;
+            margin-left: calc(50% - 75px);
+      }
+      .product-item__inner{
+            margin: 10px 0px;
+            overflow:  hidden;
+      }
+      .product-item__outer{
+        width: 100%;
+        
+      }
+
+        .u-header{
+            position: sticky !important;
+        }
+            
+/*.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}*/
+.slick-list.draggable {
+height: auto!important;
+}
+.filter-price {
+  width: 220px;
+  border: 0;
+  padding: 0;
+  margin: 0; 
+}
+
+.price-title {
+  position: relative;
+  color: #000;
+  font-size: 14px;
+  line-height: 1.2em;
+  font-weight: 400;
+}
+
+.price-field {
+  position: relative;
+  width: 100%;
+  height: 36px;
+  box-sizing: border-box;
+  background: rgba(248, 247, 244, 0.2);
+  padding-top: 15px;
+  padding-left: 16px;
+  border-radius: 3px;
+}
+
+.price-field input[type=range] {
+    position: absolute;
+}
+
+/* Reset style for input range */
+
+.price-field input[type=range] {
+  width: 188px;
+  height: 2px; 
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  pointer-events: none;
+  -webkit-appearance: none;
+}
+
+.u-header .u-header__nav-item:first-child .u-header__nav-link {
+  padding-left: -1px;
+}
+
+.price-field input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+.price-field input[type=range]:active,
+.price-field input[type=range]:focus {
+  outline: 0;
+}
+
+.price-field input[type=range]::-ms-track {
+  width: 188px;
+  height: 2px; 
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  pointer-events: none;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  border-radius: 5px;
+}
+pyt3u1
+/* Style toddler input range */
+
+.price-field input[type=range]::-webkit-slider-thumb { 
+  /* WebKit/Blink */
+    position: relative;
+    -webkit-appearance: none;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    margin-top: -8px;
+    background-color: #e41320;
+    cursor: pointer;
+    cursor: pointer;
+    pointer-events: all;
+    z-index: 100;
+}
+
+.price-field input[type=range]::-moz-range-thumb { 
+  /* Firefox */
+  position: relative;
+  appearance: none;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  margin-top: -5px;
+  background-color: #e41320;
+  cursor: pointer;
+  cursor: pointer;
+  pointer-events: all;
+  z-index: 100;
+}
+
+.price-field input[type=range]::-ms-thumb  { 
+  /* IE */
+  position: relative;
+  appearance: none;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin-top: -5px;
+  background-color: #e41320;
+  cursor: pointer;
+  cursor: pointer;
+  pointer-events: all;
+  z-index: 100;
+}
+
+/* Style track input range */
+
+.price-field input[type=range]::-webkit-slider-runnable-track { 
+  /* WebKit/Blink */
+  width: 188px;
+  height: 2px;
+  cursor: pointer;
+  background: #2a2d83;
+  border-radius: 5px;
+}
+
+.price-field input[type=range]::-moz-range-track { 
+  /* Firefox */
+  width: 188px;
+  height: 2px;
+  cursor: pointer;
+  background: #e41320;
+  border-radius: 5px;
+}
+
+.price-field input[type=range]::-ms-track { 
+  /* IE */
+  width: 188px;
+  height: 2px;
+  cursor: pointer;
+  background: #e41320;
+  border-radius: 5px;
+}
+
+/* Style for input value block */
+
+.price-wrap {
+  display: flex;
+  justify-content: center;
+  color: #000;
+  font-size: 14px;
+  line-height: 1.2em;
+  font-weight: 400;
+  margin-bottom: 7px;
+}
+
+.price-wrap-1, 
+.price-wrap-2 {
+  display: flex;
+}
+
+.price-title {
+  margin-right: 5px;
+  backgrund: #d58e32;
+}
+
+.price-wrap_line {
+  margin: 0 10px;
+}
+
+.price-wrap #one, 
+.price-wrap #two {
+  width: 30px;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  margin-right: 2px;
+  margin-bottom: 0.5rem;
+  background:  0;
+  border: 0;
+  outline: 0;
+  color: #000;
+  font-family: 'Karla', 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 1.2em;
+  font-weight: 400;
+}
+
+.price-wrap label {
+  text-align: right;
+}
+
+/* Style for active state input */
+    
+.price-field input[type=range]:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 0 0.5px #e41320;
+  transition-duration: 0.3s;
+}
+
+.price-field input[type=range]:active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 0.5px #e41320;
+  transition-duration: 0.3s;
+}
+.logo-img-box{
+        border-bottom: 3px Solid #e31221;
+    border-radius: 0px 0px 20px 20px;
+    position: relative;
+    top: -10px;
+    box-shadow: 0 2px 4px #000;
+}
+
+.store-detail {
+border: 1px solid #e9e9e9;
+padding: 5px;
+border-radius: 5px;
+}
+ 
+
+
+/* store details css */
+.ourworks-box{
+  width: 40%;
+  justify-content: center;
+  text-align: center;
+}
+
+.our-works-head{
+  font-size: 30px;
+  font-weight: 400;
+  color: black;
+}
+.introduce{
+  height: z50px;
+  background-color:white;
+  
+  
+  color: black;
+}
+
+.introduce:hover{
+  
+  
+  color: black;
+  text-decoration: none;
+}
+.flex-column-1{
+  height: 70%;
+  width: 100%;
+  border: solid 1px;
+  border-color: #e7eaf3;
+border-width: 0px 2px 0px 2px;  
+  
+}
+.flex-column-2{
+  height: 30%;
+  width: 100%;
+  align-items:center;
+ 
+}
+.div.row {
+    width: 100%;
+    margin-left: 0px;
+    border: solid 1px;
+  border-color: #e7eaf3;
+ border-width: 0px 2px 2px 2px; 
+    
+    
+}
+.text-gray{
+  color: #333;
+}
+.pic{
+    height: 70px;
+    width: 70px;
+    margin-left: 20px;
+    border-radius: 50%;
+    transition: all .2s ease-in-out;
+}
+
+.introduce:hover .pic{
+  transform: scale(1.1);
+}
+.carousel-indicators .active{
+  background-color: #46eeaa;
+}
+.carousel-indicators li{
+  background-color: #c8e5ff;
+}
+.carousel-indicators{
+  bottom: -50px;
+}
+.p1{
+  background-image: url("http://lorempixel.com/150/150/nature");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.p2{
+  background-image: url("http://lorempixel.com/150/150/people");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.p3{
+  background-image: url("http://lorempixel.com/150/150/cats");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain
+}
+
+.col-2.padding {
+    font-size: 50px;
+     background-color: #f8f9fa !important;
+    font-size: 15px !important;
+    font-family: 'Open sans-serif'!important;
+    padding: 5px 10px 5px 10px !important;
+}
+.padding1{
+    margin-bottom: 20px;
+}
+
+.add.new-stars-main {
+    margin-top: -26px;
+    padding-left: 10px;
+    color: #fff;
+}
+.addd.i.fas.fa-shipping-fast{
+  margin-left: 300px;
+  padding-top: 400px;
+
+}
+
+/* store details */
+.img-fluid.imgggg {
+    height: 90px;
+    border: 1px solid;
+    border-color: #ffeac5;
+    border-radius: 0% 0% 0px 0px;
+}
+.new-stars-main.adddd {
+    color: #fff;
+    padding-top: 20px;
+   
+    padding-left: -50px!important;
+}
+/* .btn-primary:not(label.btn), .btn-primary:not(label.btn):not([href]):not(:disabled):not(.disabled), .btn-primary:not([href]), .btn-primary:not([href]):not([href]):not(:disabled):not(.disabled) {
+    background-color: #2a2d83;
+    border-color: #2a2d83;
+    color: #fff;
+    margin-top: 76px;
+    border-radius: 0px;
+} */
+    </style>
+</head>
+
+    <body style="padding: 0px 0px 0px 0px;">
+        <!-- ========== HEADER ========== -->
+        <header id="header" class="u-header u-header-left-aligned-nav sticky-top shadow shadow-lg">
+            <div class="u-header__section">
+                <!-- Topbar -->
+                <div class="u-header-topbar py-2 bg-primary shadow shadow-lg">
+                    <div class="container ">
+                        <div class="d-flex align-items-center ">
+                            <div class="topbar-left d-none d-lg-block">
+                                <a href="/" class="text-light font-size-13 hover-on-dark">Welcome to AVPL</a>
+                            </div>
+                            <div class="topbar-right ml-auto">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border text-light ">
+                                        
+                                        {%if request.session.store_id%}
+                                        <a href="#" data-toggle="modal" data-target="#locationModal" class="u-header-topbar__nav-link location text-light "><i class="ec text-light  ec-map-pointer mr-1"></i><span class="search-text">{{request.session.store_name}}</span></a>
+
+                                        {%else%}
+                                         <a href="#" data-toggle="modal" data-target="#locationModal" class="u-header-topbar__nav-link location text-light "><i class="ec ec-map-pointer mr-1"></i><span class="search-text">Select Your Address</span></a>
+                                            
+                                         {%endif%}
+                                        
+                                    </li>
+                                    <!-- <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <a href="/order_trace" class="u-header-topbar__nav-link text-light "><i class="ec ec-transport mr-1"></i> Track Your Order</a>
+                                    </li> -->
+                                   <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <a href="/user/myorder" class="u-header-topbar__nav-link text-light"><i class="ec ec-transport mr-1"></i>Order History</a>
+                                    </li>
+                                    <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <a href="/user/" class="u-header-topbar__nav-link text-light"><i class="fa fa-tachometer mr-1"></i>Dashboard</a>
+                                    </li>
+                                   {% if request.user.is_authenticated%}
+                                   <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <!-- Account Sidebar Toggle Button -->
+                                        <a href="/user/" class="u-header-topbar__nav-link text-light "
+                                            >
+                                            <i class="ec ec-user mr-1"></i> {{request.user.username}}
+                                        </a>
+                                        <!-- End Account Sidebar Toggle Button -->
+                                    </li>
+                                    <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <!-- Account Sidebar Toggle Button -->
+                                        <a href="/logout" class="u-header-topbar__nav-link text-light "  
+                                            >
+                                            <i class="ec ec-user mr-1"></i> Logout
+                                        </a>
+                                        <!-- End Account Sidebar Toggle Button -->
+                                    </li>
+                                   {%else%}
+                                    <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <!-- Account Sidebar Toggle Button -->
+                                        <a  href="/register/" class="u-header-topbar__nav-link text-light ">
+                                            <i class="ec ec-user mr-1"></i> Register 
+                                        </a>
+                                        
+                                    </li>
+                                    <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                        <!-- Account Sidebar Toggle Button -->
+                                        <a href="/login/" class="u-header-topbar__nav-link text-light "
+                                            >
+                                            <i class="ec ec-user mr-1"></i> Sign in
+                                        </a>
+                                        <!-- End Account Sidebar Toggle Button -->
+                                    </li>
+                                    {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Topbar -->
+
+                <!-- Logo-Search-header-icons -->
+                <div class="py-2 py-xl-2 bg-light">
+                    <div class="container my-0dot5 my-xl-0">
+                        <div class="row align-items-center">
+                            <!-- Logo-offcanvas-menu -->
+                            <div class="col-auto">
+                                <!-- Nav -->
+                                <nav class="navbar navbar-expand u-header__navbar py-0 justify-content-xl-between max-width-270 min-width-270">
+                                    <!-- Logo -->
+                                    <a class="order-1 order-xl-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-center" href="/" >
+                                       <img src="{% static 'img/Vector.png' %}" class="img-fluid logo-img-box bg-white py-0 px-0" style="width: 100px; border-radius: 20px 20px 20px 20px; top:-1px; border-bottom: 0px Solid #e31221;">
+                                    </a>
+                                    <!-- End Logo -->
+
+                                    <!-- Fullscreen Toggle Button -->
+                                    <button id="sidebarHeaderInvokerMenu" type="button" class="navbar-toggler d-block btn u-hamburger mr-3 mr-xl-0"
+                                        aria-controls="sidebarHeader"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                        data-unfold-event="click"
+                                        data-unfold-hide-on-scroll="false"
+                                        data-unfold-target="#sidebarHeader1"
+                                        data-unfold-type="css-animation"
+                                        data-unfold-animation-in="fadeInLeft"
+                                        data-unfold-animation-out="fadeOutLeft"
+                                        data-unfold-duration="500">
+                                        <span id="hamburgerTriggerMenu" class="u-hamburger__box">
+                                            <span class="u-hamburger__inner"></span>
+                                        </span>
+                                    </button>
+                                    <!-- End Fullscreen Toggle Button -->
+                                </nav>
+                                <!-- End Nav -->
+
+                                <!-- ========== HEADER SIDEBAR ========== -->
+                                <aside id="sidebarHeader1" class="u-sidebar u-sidebar--left" aria-labelledby="sidebarHeaderInvoker">
+                                    <div class="u-sidebar__scroller">
+                                        <div class="u-sidebar__container">
+                                            <div class="u-header-sidebar__footer-offset">
+                                                <!-- Toggle Button -->
+                                                <div class="position-absolute top-0 right-0 z-index-2 pt-4 pr-4 bg-white">
+                                                    <button type="button" class="close ml-auto"
+                                                        aria-controls="sidebarHeader"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false"
+                                                        data-unfold-event="click"
+                                                        data-unfold-hide-on-scroll="false"
+                                                        data-unfold-target="#sidebarHeader1"
+                                                        data-unfold-type="css-animation"
+                                                        data-unfold-animation-in="fadeInLeft"
+                                                        data-unfold-animation-out="fadeOutLeft"
+                                                        data-unfold-duration="500">
+                                                        <span aria-hidden="true"><i class="ec ec-close-remove text-gray-90 font-size-20"></i></span>
+                                                    </button>
+                                                </div>
+                                                <!-- End Toggle Button -->
+
+                                                <!-- Content -->
+                                                <div class="js-scrollbar u-sidebar__body">
+                                                    <div id="headerSidebarContent" class="u-sidebar__content u-header-sidebar__content">
+                                                        <!-- Logo -->
+                                                        <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center mb-3" href="/" >
+                                                            <img src="{% static 'img/Vector.png' %}" class="img-fluid bg-white">
+                                                        </a>
+                                                        <!-- End Logo -->
+
+                                                        <!-- List -->
+                                                        <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                                            <!-- Value of the Day -->
+                                                            {% for cate in categories %}
+                                                            <li class="">
+                                                                <a class="u-header-collapse__nav-link font-weight-bold" href="?key=&category={{cate.id}}">{{cate.name}}</a>
+                                                            </li>
+                                                            {%endfor%}
+                                                            <!-- End Value of the Day -->
+
+                                                            <!-- End Accessories -->
+                                                        </ul>
+                                                     
+                                                        <!-- End List -->
+                                                    </div>
+                                                </div>
+                                                <!-- End Content -->
+                                            </div>
+                                            <!-- Footer -->
+                                            
+                                            <!-- End Footer -->
+                                        </div>
+                                    </div>
+                                </aside>
+                                <!-- ========== END HEADER SIDEBAR ========== -->
+                            </div>
+                            <!-- End Logo-offcanvas-menu -->
+                            <!-- Search Bar -->
+                            <div class="col d-none d-xl-block">
+                                <form class="js-focus-state" method="get" action="/search2/">
+                                    <label class="sr-only" for="searchproduct">Search</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control py-2 pl-5 font-size-15 border-right-0 height-40 border-width-2 rounded-left-pill border-primary"name="key" id="key_val" name="sub_cat"s id="searchproduct-item" placeholder="Search for Products" aria-label="Search for Products" aria-describedby="searchProduct1" >
+                                        <div class="input-group-append">
+                                            
+                                            <!-- Select -->
+                                            <select class="js-select selectpicker dropdown-select custom-search-categories-select"
+                                                data-style="btn height-40 text-gray-60 font-weight-normal border-top border-bottom border-left-0 rounded-0 border-primary border-width-2 pl-0 pr-5 py-2" name="category">
+                                                <div id="search_results"></div>
+                                                <option {%if category_obj%}value="{{category_obj.id}}"{%else%}value="0"{%endif%} selected>{%if category_obj%}{{category_obj.category}}{%else%}All Categories{%endif%}</option>
+						
+						{%if category_obj%}
+                                                <option value="0">All Categories</option>
+                                                {%endif%}
+							
+                                                {% for cate in categories %}    
+                                                <option value="{{cate.id}}">{{cate.name}}</option>
+                                                {% endfor%}
+                                                
+                                            </select>
+                                            <!-- End Select -->
+                                            <button class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="submit" id="searchProduct1">
+                                                <span class="ec ec-search font-size-24 text-light"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End Search Bar -->
+                            <!-- Header Icons -->
+                            <div class="col col-xl-auto text-right text-xl-left pl-0 pl-xl-3 position-static">
+                                <div class="d-inline-flex">
+                                    <ul class="d-flex list-unstyled mb-0 align-items-center">
+                                        <!-- Search -->
+                                        <li class="col d-xl-none px-2 px-sm-3 position-static">
+                                            <a id="searchClassicInvoker" class="font-size-22 text-gray-90 text-lh-1 btn-text-secondary" href="javascript:;" role="button"
+                                                data-toggle="tooltip"
+                                                data-placement="top"
+                                                title="Search"
+                                                aria-controls="searchClassic"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                                data-unfold-target="#searchClassic"
+                                                data-unfold-type="css-animation"
+                                                data-unfold-duration="300"
+                                                data-unfold-delay="300"
+                                                data-unfold-hide-on-scroll="true"
+                                                data-unfold-animation-in="slideInUp"
+                                                data-unfold-animation-out="fadeOut">
+                                                <span class="ec ec-search"></span>
+                                            </a>
+
+                                            <!-- Input -->
+                                            <div id="searchClassic" class="dropdown-menu dropdown-unfold dropdown-menu-right left-0 mx-2" aria-labelledby="searchClassicInvoker">
+                                                <form class="js-focus-state input-group px-3">
+                                                    <input class="form-control" type="search" placeholder="Search Product">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary px-3" type="button"><i class="font-size-18 text-light ec ec-search"></i></button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- End Input -->
+                                        </li>
+                                        <!-- End Search -->
+                                       
+                                        <li class="col d-xl-none px-2 px-sm-3"><a href="/profile" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="My Account"><i class="font-size-22 ec ec-user"></i></a></li>
+                                        <!-- <li class="col pr-xl-0 px-2 px-sm-3 d-xl-none">
+                                            <a href="/user/cart" class="text-gray-90 position-relative d-flex " data-placement="top" title="Cart">
+                                                <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                <span class="bg-lg-down-black width-22 height-22 bg-primary position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12"><span class="text-light">{{cart_len}}</span></span>
+                                                <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3"></span>
+                                            </a>
+                                            
+                                        </li> -->
+                                        <li class="col d-none d-xl-block"><a href="/user/wishlist" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="wishlist"><i class="font-size-22 ec ec-favorites">{{wish_len}}</i></a></li>
+
+                                        <li class="col pr-xl-0 px-2 px-sm-3 d-none d-xl-block">
+                                            <div id="" class="text-gray-90 position-relative d-flex " title="Cart">
+                                                <a style="color: #2a2d83;" href="/user/cart">
+                                                <i class="font-size-22 ec ec-shopping-bag"></i>
+                                                    <span class="bg-lg-down-black width-22 height-22 bg-primary position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 text-light">{{cart_len}}</span>
+                                                <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3"></span>
+                                            </a>
+                                            </div>
+
+
+
+
+                                            <div id="basicDropdownHover" class="cart-dropdown dropdown-menu dropdown-unfold border-top border-top-primary mt-3 border-width-2 border-left-0 border-right-0 border-bottom-0 left-auto right-0" aria-labelledby="basicDropdownHoverInvoker">
+                                                <ul class="list-unstyled px-3 pt-3">
+                                                    {%for i in products%}
+                                                    <li class="border-bottom pb-3 mb-3">
+                                                        <div class="">
+                                                            <ul class="list-unstyled row mx-n2">
+                                                                <li class="px-2 col-auto">
+                                                                    <a href="/single_product/{{i.item.id}}"><img class="img-fluid" src="/{{i.item.image}}" height="60" width="60" alt="Image Description"></a>
+                                                                </li>
+                                                                <li class="px-2 col">
+                                                                    <a href="/single_product/{{i.item.id}}"><h5 class="text-blue font-size-14 font-weight-bold">{{i.item.title}}</h5></a>
+                                                                    {%if request.user.is_retailer%}
+                                                                    <span class="font-size-14">{{i.quantity}} × {{i.item.amount_to_pay_retailer}}</span>
+                                                                    {%else%}
+                                                                    <span class="font-size-14">{{i.quantity}} × {{i.item.amount_to_pay}}</span>
+
+                                                                    {%endif%}
+
+                                                                </li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                    {%endfor%}
+                                                
+                                                </ul>
+                                                <!-- <div class="flex-center-between px-4 pt-2">
+                                                    <a href="/user/cart" class="btn btn-soft-secondary mb-3 mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">View cart</a>
+                                                    {% if address_len == 0 %}
+                                                    <a href="/checkout/{{request.session.store_id}}" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 text-light">Checkout</a>
+                                                    {% endif%}
+                                                </div> -->
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- End Header Icons -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Logo-Search-header-icons -->
+
+                <!-- Vertical-and-secondary-menu -->
+                <div class="d-none d-xl-block container">
+                    <div class="row">
+                        <!-- Vertical Menu -->
+                        <div class="col-md-auto d-none d-xl-block">
+                            <div class="max-width-270 min-width-270">
+                                <!-- Basics Accordion -->
+                                <div id="basicsAccordion">
+                                    <!-- Card -->
+                                    <div class="card border-0">
+                                        <div class="card-header card-collapse border-0" id="basicsHeadingOne">
+                                            <button type="button" class="btn-link btn-remove-focus btn-block d-flex card-btn py-3 text-lh-1 px-4 shadow-none btn-primary rounded-top-lg border-0 font-weight-bold text-gray-90"
+                                                data-toggle="collapse"
+                                                data-target="#basicsCollapseOne"
+                                                aria-expanded="true"
+                                                aria-controls="basicsCollapseOne">
+                                                <span class="ml-0 text-light mr-2">
+                                                    <span class="fa fa-list-ul"></span>
+                                                </span>
+                                                <span class="pl-1 text-light">All Categories</span>
+                                            </button>
+                                        </div>
+                                        <div id="basicsCollapseOne" class="collapse vertical-menu"
+                                            aria-labelledby="basicsHeadingOne"
+                                            data-parent="#basicsAccordion">
+                                            <div class="card-body p-0">
+                                                <nav class="js-mega-menu navbar navbar-expand-xl u-header__navbar u-header__navbar--no-space hs-menu-initialized">
+                                                    <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+                                                        <ul class="navbar-nav u-header__navbar-nav">
+                                                           
+                                                            {% for cate in categories %}
+                                                            <li class="nav-item u-header__nav-item"
+                                                                data-event="hover"
+                                                                data-position="left">
+                                                                <a href="/search2/?key=&category={{cate.id}}" class="nav-link u-header__nav-link font-weight-bold">{{ cate.name|safe }}</a>
+                                                                <!-- <a href="/storecategories/?c={{cate.id}}&sort=3" class="nav-link u-header__nav-link font-weight-bold">{{ cate.name|safe }}</a> -->
+                                                               
+                                                                
+                                                                <!-- <ul class="navbar-nav u-header__navbar-nav">
+                                                                    {% for subcate in subcategories %}
+											                        {% if subcate.category == cate %}
+                                                                    <li class="nav-item u-header__nav-item"
+                                                                    data-event="hover"
+                                                                    data-position="left">
+                                                                    <a href="/storesubcategories/?c={{subcate.id}}" class="nav-link u-header__nav-link font-weight-bold">{{ subcate.name|safe }}</a>
+                                                                    <ul class="navbar-nav u-header__navbar-nav">
+                                                                        {% for subsubcate in subsubcategories %}
+                                                                        {% if subsubcate.subcategory == subcate %}
+                                                                        <li class="nav-item u-header__nav-item"
+                                                                        data-event="hover"
+                                                                        data-position="left">
+                                                                        <a href="/storesubsubcategories/?c={{subsubcate.id}}" class="nav-link u-header__nav-link font-weight-bold">{{ subsubcate.name|safe }}</a>
+                                                                        </li>
+                                                                        {% endif %}
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </li>
+                                                                    {% endif %}
+                                                                    {% endfor %}
+                                                                    
+                                                                </ul> -->
+                                                            
+                                                            </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                          
+                                                    </div>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Card -->
+                                </div>
+                                <!-- End Basics Accordion -->
+                            </div>
+                        </div>
+                        <!-- End Vertical Menu -->
+                        <!-- Secondary Menu -->
+                        <div class="col">
+                            <!-- Nav -->
+                            <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space">
+                                <!-- Navigation -->
+                                <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+                                    <ul class="navbar-nav u-header__navbar-nav">
+                                      
+
+                                        <!-- Featured Brands -->
+                                       
+                                        {%for i in popular_categorys|slice:"3"%}
+                                        <!-- Featured Brands -->
+                                        <li class="nav-item u-header__nav-item">
+                                            <a class="nav-link u-header__nav-link" href="/collection/{{i.id}}" aria-haspopup="true" aria-expanded="false" aria-labelledby="pagesSubMenu">{{i.category}}</a>
+                                        </li>
+                                        {%endfor%}
+                                         <!--about-->
+                                         <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                            <li class="nav-item u-header__nav-item">
+                                                <a class="nav-link u-header__nav-link" href="/" aria-haspopup="true" aria-expanded="false" aria-labelledby="blogSubMenu">Home</a>
+                                            </li>
+                                        </ul>
+                                         <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                            <li class="nav-item u-header__nav-item">
+                                                <a class="nav-link u-header__nav-link" href="/about-us/" aria-haspopup="true" aria-expanded="false" aria-labelledby="blogSubMenu">About Us</a>
+                                            </li>
+                                        </ul>
+                                        <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                            <li class="nav-item u-header__nav-item">
+                                                <a class="nav-link u-header__nav-link" href="/blog/" aria-haspopup="true" aria-expanded="false" aria-labelledby="blogSubMenu">Blogs</a>
+                                            </li>
+                                        </ul>
+                                            <!--about end-->
+                                            <!--contact-->
+                                        <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                            <li class="nav-item u-header__nav-item">
+                                                <a class="nav-link u-header__nav-link" href="/contact/" aria-haspopup="true" aria-expanded="false" aria-labelledby="blogSubMenu">Contact Us</a>
+                                            </li>
+                                            
+                                        </ul>
+                                        <!--contact end-->
+                                            <ul id="headerSidebarList" class="u-header-collapse__nav">
+                                            <li class="nav-item u-header__nav-item">
+                                                <a class="nav-link u-header__nav-link" href="#" aria-haspopup="true" aria-expanded="false" aria-labelledby="blogSubMenu"></a>
+                                            </li>
+                                        </ul>
+                                        <!-- End Gift Cards -->
+
+                                        <!-- Button -->
+                                        <li class="nav-item u-header__nav-last-item">
+                                            <a class="text-gray-90" href="#" target="_blank">
+                                                Free Shipping on Orders Above ₹500+
+                                            </a>
+                                        </li>
+                                        <!-- End Button -->
+                                    </ul>
+                                </div>
+                                <!-- End Navigation -->
+                            </nav>
+                            <!-- End Nav -->
+                        </div>
+                        <!-- End Secondary Menu -->
+                    </div>
+                </div>
+                <!-- End Vertical-and-secondary-menu -->
+            </div>
+        </header>
+        <!-- ========== END HEADER ========== -->
+
+
+{%block content%}
+
+
+
+{%endblock%}
+
+    <div class="modal fade" id="locationModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Find Location</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="container" id="adddress_form" >
+                        <div class="p-3" style="z-index: 999999;">
+                            {% if store%}
+                            <h3 style="color:green"><u>Store Assigned </u></h3>
+                            <h5><b>Store Name: </b>{{store}}</h5>
+                            <h5><b>Store Person Name: </b>{{store.vendor.first_name}}  {{store.vendor.last_name}}</h5>
+                            <br>
+                            <p style="color: red;"> You can change you address by searching another address because delivery will be on this
+                                address..</p>
+                            {% else %}
+                            <p style="color: rgb(126, 26, 26);">Please search store near you and buy product from your nearest 
+                                <b>Store..</b>
+                            </p>
+                            {% endif %}
+                            <div class="container">
+                                {% for mess in messages %}
+                                <div class="alert alert-{{mess.tags}}" role="alert">
+                                    {{mess}}
+                                </div>
+                                {% endfor%}
+                                <form method="POST" action="/assign_store/">
+                                    {% csrf_token%}
+                    
+                                    <div class="row">
+                                        
+                                        <div class="col-xs-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1"><b>Address:</b></label>
+                                                <input type="text" name="home_address" class="form-control" id="address"
+                                                    aria-describedby="emailHelp" placeholder="Search by typing address....." required>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-4 col-lg-4 justify-content-end">
+                    
+                                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                        </div>
+                                        
+                                    </div>
+                    
+                                </form>
+                              
+                                
+                                
+                            </div>
+                        </div>
+                    
+                    
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- ========== FOOTER ========== -->
+        <footer style="padding: 0px 0px 0px 0px; border:0px 0px 0px 0px">
+            <!-- Footer-top-widget -->
+            
+            <!-- End Footer-top-widget -->
+            <!-- Footer-newsletter -->
+            <div class="bg-primary py-3">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7 mb-md-3 mb-lg-0">
+                            <div class="row align-items-center text-light">
+                                <div class="col-auto flex-horizontal-center">
+                                    
+                                </div>
+                                <div class="col my-4 my-md-0">
+                                    <h5 class="font-size-15 ml-4 mb-0"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <!-- Subscribe Form -->
+                            
+                            <!-- End Subscribe Form -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Footer-newsletter -->
+            <!-- Footer-bottom-widgets -->
+            <div class="pt-8 pb-4 bg-gray-13">
+                <div class="container mt-1">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <!-- <div class="mb-6">
+                                <a href="#" class="d-inline-block">
+                                    <img src="assets/img/logo.png" class="img-fluid">
+                                </a>
+                            </div> -->
+                            <div class="mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <i class="ec ec-support text-primary font-size-56"></i>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <div class="font-size-13 font-weight-light">Got questions? Call us 24/7!</div>
+                                        <a href="tel:9999676476" class="font-size-20 text-gray-90">+919999676476</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <i class="ec ec-mail text-primary font-size-56"></i>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <div class="font-size-13 font-weight-light">Contact on Mail? Mail us 24/7!</div>
+                                        <a href="mailto:apnidukan588@gmail.com" class="font-size-18 text-gray-90">apnidukan588@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <i class="ec ec-address text-primary font-size-56"></i>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <div class="font-size-13 font-weight-light"><h6 class="mb-1 font-weight-bold">Contact info</h6></div>
+                                        <address class="font-size-10">
+                                            C-379, Indra nagar, Lucknow, Uttar Pradesh, 226016
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="my-4 my-md-4">
+                                <ul class="list-inline mb-0 opacity-7">
+                                    <li class="list-inline-item mr-0">
+                                        <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="https://www.facebook.com/" target="_blank">
+                                            <span class="fab fa-facebook-f btn-icon__inner"></span>
+                                        </a>
+                                    </li>
+				     <li class="list-inline-item mr-0">
+                                        <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="https://twitter.com/" target="_blank">
+                                            <span class="fab fa-twitter btn-icon__inner"></span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item mr-0">
+                                        <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="https://www.linkedin.com/" target="_blank">
+                                            <span class="fab fa-linkedin btn-icon__inner"></span>
+                                        </a>
+                                    </li>
+                                   <li class="list-inline-item mr-0">
+                                        <a class="btn font-size-20 btn-icon btn-soft-dark btn-bg-transparent rounded-circle" href="https://www.instagram.com/" target="_blank">
+                                            <span class="fab fa-instagram btn-icon__inner"></span>
+                                        </a>
+                                    </li>                                    
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="row">
+                                
+
+                                <div class="col-12 col-md mb-4 mb-md-0">
+                                    <!-- List Group -->
+                                    <h6 class="mb-3 font-weight-bold">Information</h6>
+                                    <ul class="list-group list-group-flush list-group-borderless mb-0 list-group-transparent">
+                                        <li><a class="list-group-item list-group-item-action" href="/about-us">About-Us</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/blog">Blogs</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/contect-us">Contact-Us</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/gallery">Gallery</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/privacy-policy">Privacy Policy</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/term-and-condition">Terms & Condition</a></li>
+                                        
+                                    </ul>
+                                    <!-- End List Group -->
+                                </div>
+
+                                <div class="col-12 col-md mb-4 mb-md-0">
+                                    <h6 class="mb-3 font-weight-bold">Customer Care</h6>
+                                    <!-- List Group -->
+                                    <ul class="list-group list-group-flush list-group-borderless mb-0 list-group-transparent">
+                                        <li><a class="list-group-item list-group-item-action" href="/user">My Account</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/user/myorder">Order Tracking</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/user/wishlist">WishList</a></li>
+                                        <li><a class="list-group-item list-group-item-action" href="/user/cart">Cart</a></li>
+                                        
+                                    </ul>
+                                    <!-- End List Group -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Footer-bottom-widgets -->
+            <!-- Footer-copy-right -->
+            <div class="bg-gray-14 py-2">
+                <div class="container">
+                    <div class="flex-center-between d-block d-md-flex">
+                        <div class="mb-3 mb-md-0">©2020AVPLonline | All Rights Reserved | Powered by <a href="https://aaratechnologies.com/" classs="">Aara Technologies Pvt. Ltd.</a></div>
+                        <div class="text-md-right">
+                            <span class="d-inline-block bg-white border rounded p-1">
+                                <img class="max-width-5" src="{% static 'assets1/img/100X60/img1.jpg' %}" alt="Image Description">
+                            </span>
+                            <span class="d-inline-block bg-white border rounded p-1">
+                                <img class="max-width-5" src="{% static 'assets1/img/100X60/img2.jpg' %}" alt="Image Description">
+                            </span>
+                            <span class="d-inline-block bg-white border rounded p-1">
+                                <img class="max-width-5" src="{% static 'assets1/img/100X60/img3.jpg' %}" alt="Image Description">
+                            </span>
+                            <span class="d-inline-block bg-white border rounded p-1">
+                                <img class="max-width-5" src="{% static 'assets1/img/100X60/img4.jpg' %}" alt="Image Description">
+                            </span>
+                            <span class="d-inline-block bg-white border rounded p-1">
+                                <img class="max-width-5" src="{% static 'assets1/img/100X60/img5.jpg' %}" alt="Image Description">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Footer-copy-right -->
+        </footer>
+        <!-- ========== END FOOTER ========== -->
+
+                <!-- Go to Top -->
+                <a class="js-go-to u-go-to" href="#"
+                data-position='{"bottom": 15, "right": 15 }'
+                data-type="fixed"
+                data-offset-top="400"
+                data-compensation="#header"
+                data-show-effect="slideInUp"
+                data-hide-effect="slideOutDown">
+                <span class="fas fa-arrow-up u-go-to__inner"></span>
+            </a>
+            <!-- End Go to Top -->
+    
+            <!-- JS Global Compulsory -->
+            <script src="{% static 'assets1/vendor/jquery/dist/jquery.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap/bootstrap.min.js' %}"></script>
+    
+            <!-- JS Implementing Plugins -->
+            <script src="{% static 'assets1/vendor/appear.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery.countdown.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/hs-megamenu/src/hs.megamenu.js' %}"></script>
+            <script src="{% static 'assets1/vendor/svg-injector/dist/svg-injector.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/typed.js/lib/typed.min.js' %}"></script>
+            <script src="{% static 'assets1/vendor/slick-carousel/slick/slick.js' %}"></script>
+            <script src="{% static 'assets1/vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    
+            <!-- JS Electro -->
+            <script src="{% static 'assets1/js/hs.core.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.countdown.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.header.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.hamburgers.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.unfold.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.focus-state.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.malihu-scrollbar.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.validation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.fancybox.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.onscroll-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.slick-carousel.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.show-animation.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.svg-injector.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.go-to.js' %}"></script>
+            <script src="{% static 'assets1/js/components/hs.selectpicker.js' %}"></script>
+       <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqBF76cMbvE_LREvm1S43LzZGxTsRQ0wA&libraries=places"></script>
+<script>
+    function initialize() {
+        var input = document.getElementById('address');
+        new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener('place_changed', function () { });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        document.getElementById("demo1").setAttribute('value', position.coords.latitude)
+        document.getElementById("demo2").setAttribute('value', position.coords.longitude)
+    }
+
+</script>
+<script>
+    /* return content of input field to variable text */
+var text = document.getElementById("inputText");
+
+/* return button to variable btn */
+var btn = document.getElementById("copyText");
+
+/* call function on button click */
+btn.onclick = function() {
+  text.select();    
+  document.execCommand("copy");
+}
+
+</script>
+
+
+
+<!-- Product show -->
+<script>
+    $(document).ready(function(){
+      $('#key_val').keyup(function(){
+        console.log('hjhkjjkgjhgjhggh'),
+          $.ajax({
+              type:'GET',
+              url:"/search/",
+              data:{key:$("#key_val").val()},
+              
+              
+              success: function(msg){
+                  $('#search_results').html(msg);
+              }
+          })
+      })
+    });
+    </script>
+            <!-- JS Plugins Init. -->
+            <script>
+                $(window).on('load', function () {
+                    // initialization of HSMegaMenu component
+                    $('.js-mega-menu').HSMegaMenu({
+                        event: 'hover',
+                        direction: 'horizontal',
+                        pageContainer: $('.container'),
+                        breakpoint: 767.98,
+                        hideTimeOut: 0
+                    });
+    
+                    // initialization of svg injector module
+                    $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
+                });
+    
+                $(document).on('ready', function () {
+                    // initialization of header
+                    $.HSCore.components.HSHeader.init($('#header'));
+    
+                    // initialization of animation
+                    $.HSCore.components.HSOnScrollAnimation.init('[data-animation]');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        afterOpen: function () {
+                            $(this).find('input[type="search"]').focus();
+                        }
+                    });
+    
+                    // initialization of popups
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of countdowns
+                    var countdowns = $.HSCore.components.HSCountdown.init('.js-countdown', {
+                        yearsElSelector: '.js-cd-years',
+                        monthsElSelector: '.js-cd-months',
+                        daysElSelector: '.js-cd-days',
+                        hoursElSelector: '.js-cd-hours',
+                        minutesElSelector: '.js-cd-minutes',
+                        secondsElSelector: '.js-cd-seconds'
+                    });
+    
+                    // initialization of malihu scrollbar
+                    $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+    
+                    // initialization of forms
+                    $.HSCore.components.HSFocusState.init();
+    
+                    // initialization of form validation
+                    $.HSCore.components.HSValidation.init('.js-validate', {
+                        rules: {
+                            confirmPassword: {
+                                equalTo: '#signupPassword'
+                            }
+                        }
+                    });
+    
+                    // initialization of show animations
+                    $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+    
+                    // initialization of fancybox
+                    $.HSCore.components.HSFancyBox.init('.js-fancybox');
+    
+                    // initialization of slick carousel
+                    $.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
+    
+                    // initialization of go to
+                    $.HSCore.components.HSGoTo.init('.js-go-to');
+    
+                    // initialization of hamburgers
+                    $.HSCore.components.HSHamburgers.init('#hamburgerTrigger');
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                        beforeClose: function () {
+                            $('#hamburgerTrigger').removeClass('is-active');
+                        },
+                        afterClose: function() {
+                            $('#headerSidebarList .collapse.show').collapse('hide');
+                        }
+                    });
+    
+                    $('#headerSidebarList [data-toggle="collapse"]').on('click', function (e) {
+                        e.preventDefault();
+    
+                        var target = $(this).data('target');
+    
+                        if($(this).attr('aria-expanded') === "true") {
+                            $(target).collapse('hide');
+                        } else {
+                            $(target).collapse('show');
+                        }
+                    });
+    
+                    // initialization of unfold component
+                    $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
+    
+                    // initialization of select picker
+                    $.HSCore.components.HSSelectPicker.init('.js-select');
+                });
+            </script>
+              <script>
+                var lowerSlider = document.querySelector('#lower');
+var  upperSlider = document.querySelector('#upper');
+
+document.querySelector('#two').value=upperSlider.value;
+document.querySelector('#one').value=lowerSlider.value;
+
+var  lowerVal = parseInt(lowerSlider.value);
+var upperVal = parseInt(upperSlider.value);
+
+upperSlider.oninput = function () {
+    lowerVal = parseInt(lowerSlider.value);
+    upperVal = parseInt(upperSlider.value);
+
+    if (upperVal < lowerVal) {
+        lowerSlider.value = upperVal - 4;
+        if (lowerVal == lowerSlider.min) {
+        upperSlider.value = 4;
+        }
+    }
+    document.querySelector('#two').value=this.value
+};
+
+lowerSlider.oninput = function () {
+    lowerVal = parseInt(lowerSlider.value);
+    upperVal = parseInt(upperSlider.value);
+    if (lowerVal > upperVal + 4) {
+        upperSlider.value = lowerVal - 4;
+        if (upperVal == upperSlider.max) {
+            lowerSlider.value = parseInt(upperSlider.max) - 4;
+        }
+    }
+    document.querySelector('#one').value=this.value
+};
+            </script>
+             
+                
+        </body>
+    </html>
+
+

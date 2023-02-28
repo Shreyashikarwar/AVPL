@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <input type="hidden" value="{{order.id}}" id="order_id">
+        <label value="" >Cancelling the order ORD{{order.order.product}}{{order.id}} purchased from store {{order.product.store.name}} on {{order.order.order_date}} (Store Contact : +91-{{order.product.store.vendor.phone}})</label>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group">
+        <label>Cancellation Reason</label>
+        <textarea type="text" required class="form-control" name="reason" placeholder="Enter Here...." id="reason" required></textarea>
+      </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:30px;">
+      <div class="form-group">
+        <button onclick="send_cancel_details();" class="btn btn-primary btn-lg justify-content-right" data-dismiss="modal">Confirm Cancellation</button>
+      </div>
+    </div>  
+  </div>    

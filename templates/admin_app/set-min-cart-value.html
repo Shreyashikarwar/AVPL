@@ -1,0 +1,62 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% block title %}Set Minimum Cart Value{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1>Set Minimum Cart Value</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">Minimum Cart Value</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Set Minimum Cart Value</h4>
+                              </div>
+                              <div class="card-body">
+                                 <p><strong>NOTE : </strong>Set minimum cart value for enable free delivery.</p>
+                                 <div><span class="btn btn-primary" style="font-size:20px;">Current Min Cart Value : <span style="font-weight:bold;"><i class="fa fa-inr"></i> {{ cart.amount }}</span></span></div>
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <form action="/admins/minmumcartvalue/" method="POST">
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-6 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>New Minimum Value for Cart to Take Free Delivery</label>
+                                             <input type="text" class="form-control" placeholder="Enter Here...." name="amount">
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <input type="submit" class="btn btn-primary btn-lg justify-content-right" value="Save Minimum Value">
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+              
+            </div>
+{% endblock %}

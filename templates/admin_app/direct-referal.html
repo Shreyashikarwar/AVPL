@@ -1,0 +1,93 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% block title %}Set User Share Percentage{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1> Direct Referal %</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">>Direct Referal %</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Set >Direct Referal %</h4>
+                              </div>
+                              <div class="card-body">
+                                 <p><strong>NOTE : </strong>Set the percentage of >Direct Referal % in monthly profit for the users.</p>
+                                 <div>   
+                                 <span class="btn btn-primary" style="font-size:20px;">Current >Direct Referal % : <span style="font-weight:bold;">{% for x in data %}{{ x.percentage }}{% endfor %}%</span></span>
+                              </div>
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <form action="/admins/direct-referal" method="POST">
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <label>New Referal Percentage</label>
+                                             <input type="text" required class="form-control" placeholder="Enter Here...." name="value">
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <div class="form-group">
+                                             <input type="submit" class="btn btn-primary btn-lg justify-content-right" value="Change Direct Referal %">
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                     <h4><i class="fa fa-sign-in"></i> Achivers</h4>
+                     <hr style="border-width:5px;border-color:green;border-radius:20px;margin-bottm:10px;">
+                     <div class="table-responsive">
+                        <table class="table table-striped table-hover" style="width:100%;">
+                           <thead>
+                              <tr>
+                                 <th>User</th>
+                                 <th>Month</th>
+                                 <th>Bonus Amount</th>
+                                 <th>Status</th>
+                              </tr>
+                           </thead>
+                           {% for x in directorship_fund %}
+                           <tbody>
+                              {% for y in x.user%}
+                              <tr>
+                                 <td>{{ y.username }}</td>
+                                 <td><span class="badge badge-success">{{ x.month }}</span></td>
+
+                                 <td><i class="fa fa-inr"></i> {{ x.bonus|floatformat:2 }}</td>
+                                 <td><i class="fa fa-inr"></i> {{ x.remaining_amount }}</td>
+                              </tr>
+                              {% endfor %}
+                           </tbody>
+                           {% endfor %}
+                        </table>
+                     </div>
+                  </div> -->
+               </section>
+              
+            </div>
+{% endblock %}

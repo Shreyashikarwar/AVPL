@@ -1,0 +1,205 @@
+{% extends 'vendor_app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="section-header-breadcrumb-content">
+                                    <h1>Profile</h1>
+                                    <div class="section-header-breadcrumb">
+                                        <div class="breadcrumb-item active"><a href="#"><i class="fas fa-home"></i></a></div>
+                                        <div class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></div>
+                                        <div class="breadcrumb-item"><a href="javascript: (0);">Profile</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <a href="/vendor/edit-profile" class="btn btn-primary">Update Profile</a>
+                                            <div style="background-image:url({{images.banner.url}});height:350px;background-size:100% auto;" class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                             </div>
+                                            </div>
+                                        <div class="row justify-content-center ">
+                                            <!-- <button style="position: relative;display: inline-block;position: absolute;right: 0;z-index: 5;" type="button" class="btn btn-default edit-image-btn pull-right">
+                                                <span class="fa fa-pencil"></span>
+                                            </button>  -->
+                                            <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+                                               
+                                                <img src="{{images.logo.url}}" class="img-fluid profile_img " style="background-color:white;" />
+                                            </div>
+                                             
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-3 col-md-3 col-sm-3">
+
+                                                <h3 class="mt-3 profile">{{info.first_name}} {{info.last_name}}</h3>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-header">
+                                        <h4>vendor Details</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Mobile Number : {{info.phone}}</label>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-header">
+                                        <h4>Kyc Documents</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <table class="table">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Adhar Number :</td>
+                                                            <td>{{vendoc.vendor_idproof}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Gst Number</td>
+                                                            <td>{{vendoc.store_gst}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+ 
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>MSME Number</td>
+                                                            <td>{{vendoc.store_msme}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pan Number</td>
+                                                            <td>{{vendoc.pancard}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Shipping policy</td>
+                                                            <td><a href="{{vendoc.shiping_policy.url}}" class="btn btn-primary">Shipping Policy</a></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Return Policy</td>
+                                                            <td><a href="{{vendoc.return_policy.url}}" class="btn btn-primary">Return Policy</a></td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bank Account Number</td>
+                                                            <td>{{vendoc.bank_account_number}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bank Name</td>
+                                                            <td>{{vendoc.bank_name}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bank IFSC</td>
+                                                            <td>{{vendoc.bank_ifsc}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Rezorpay Id</td>
+                                                            <td>{{vendoc.razorpay_id}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="card-header">
+                                        <h4>Store Details</h4>
+                                    </div>
+                                    
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <table class="table">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Store Name :</td>
+                                                            <td>{{store.name}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Description :</td>
+                                                            <td>{{store.description}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Store Address</td>
+                                                            <td>{{info.address}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                     
+                                                        <tr>
+                                                            <td>Store Registration Number</td>
+                                                            <td>{{store.registration_number}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Closing Day</td>
+                                                            <td>{{store.closing_day}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Opening Time</td>
+                                                            <td>{{store.opening_time}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Closing Time</td>
+                                                            <td>{{store.closing_time}}</td>
+                                                            <!-- <td><input type="text" name="aadhar" value="{{vendoc.vendor_idproof}}"></td> -->
+
+                                                        </tr>
+                                                     
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+    {% endblock %}

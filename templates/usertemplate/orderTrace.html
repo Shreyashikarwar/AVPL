@@ -1,0 +1,258 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% load mathfilters %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+        <style type="text/css">
+            ol.progtrckr {
+    margin: 0;
+    padding: 0;
+    list-style-type none;
+}
+
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3.5em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
+ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
+ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
+ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
+ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
+ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    border-bottom: 4px solid #2a2d83;
+}
+ol.progtrckr li.progtrckr-todo {
+    color: silver; 
+    border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+ol.progtrckr li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+ol.progtrckr li.progtrckr-done:before {
+    content: "\2713";
+    color: white;
+    background-color: #de4437;
+    height: 2.2em;
+    width: 2.2em;
+    line-height: 2.2em;
+    border: none;
+    border-radius: 2.2em;
+}
+ol.progtrckr li.progtrckr-todo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    font-size: 2.2em;
+    bottom: -1.2em;
+}
+
+
+        </style>
+
+
+
+
+
+
+<main id="content" role="main" class="checkout-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-5">
+            <h1 class="text-center">Track Order</h1>
+        </div>
+     
+        <form class="js-validate" novalidate="novalidate">
+            <div class="row">
+              
+
+                <div class="col-lg-12 order-lg-1">
+                    <div class="pb-7 mb-7">
+                        <!-- Title -->
+                        <div class="border-bottom border-color-1 mb-5">
+                            <h3 class="section-title mb-0 pb-2 font-size-25">Track Order</h3>
+                        </div>
+                        <!-- End Title -->
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="card mb-4">
+                                    {% for i in order%}
+                                    <div class="card-header">
+                                    <div class="my-4">
+                                        <div class="my-1">{%if i.shipped%}{%else%}<a class="btn btn-danger float-lg-right" href="/cancle_order/{{i.id}}">Cancel Order</a>{%endif%}<h5 class="font-weight-bold">Order ID: {{i.orderid_id}}</h5></div>
+                                        <div class="my-1"><h5 class="font-weight-bold">Order Date: {{i.ordered_date}}</h5>
+                                        <div class="my-1"><h5 class="font-weight-bold">Total Amount: {{i.get_total}}</h5>
+                                        </div>
+                                        
+                                    </div>
+                                          <div class="my-4">
+                                            {%for j in i.items.all|slice:"1"%}
+                                                 {%if  j.assign_status == "pending" %}
+                                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                                <li class="progtrckr-done">Pending</li>
+                                                <!-- <li class="progtrckr-todo">Confirmed</li> -->
+                                                <li class="progtrckr-todo">Delivery Boy Assigned</li>
+                                                <li class="progtrckr-todo">Shipped</li>
+                                                <li class="progtrckr-todo">Delivered</li>
+                                            </ol>
+                                            {% endif%}
+                                            {%if j.assign_status == "assigned"  %}
+                                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                                <!-- <li class="progtrckr-done">Conform</li> -->
+                                                <li class="progtrckr-done">Confirmed</li>
+                                                <li class="progtrckr-todo">Delivery Boy Assigned</li>
+                                                <li class="progtrckr-todo">Shipped</li>
+                                                <li class="progtrckr-todo">Delivered</li>
+                                            </ol>
+                                            {% endif%}
+                                            {%if j.assign_status == "accepted"%}
+                                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                           
+                                                <li class="progtrckr-done">Confirmed</li>
+                                                <li class="progtrckr-done">Delivery Boy Assigned</li>
+                                                <li class="progtrckr-todo">Shipped</li>
+                                                <li class="progtrckr-todo">Delivered</li>
+                                            </ol>
+                                            {%endif%}
+                                            {%if j.assign_status == "shipped"%}
+                                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                           
+                                                <li class="progtrckr-done">Confirmed</li>
+                                                <li class="progtrckr-done">Delivery Boy Assigned</li>
+                                                <li class="progtrckr-done">Shipped</li>
+                                                <li class="progtrckr-todo">Delivered</li>
+                                            </ol>
+                                            {%endif%}
+                                            {%if j.assign_status == "delivered"%}
+                                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                           
+                                                <li class="progtrckr-done">Confirmed</li>
+                                                <li class="progtrckr-done">Delivery Boy Assigned</li>
+                                                <li class="progtrckr-done">Shipped</li>
+                                                <li class="progtrckr-done">Delivered</li>
+                                            </ol>
+                                            {%endif%}
+                                            {%if j.assign_status == "cancelled"%}
+                                            <ol class="progtrckr" data-progtrckr-steps="5">
+                                           
+                                                <li class="progtrckr-done">Ordered</li>
+                                                <li class="progtrckr-todo"></li>
+                                                <li class="progtrckr-todo"></li>
+                                                <li class="progtrckr-done">cancelled</li>
+                                            </ol>
+                                            {%endif%}
+                                            {%endfor%}
+                                            </div>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                <ul class="list-unstyled">
+                                    {%if i.shipped%}
+                                    {%else%}
+                                    
+                                    {%endif%}
+                                    {% for j in i.items.all%}
+                                    <li class="my-4 border-bottom">
+                                     
+                                           
+                                        <img class="img-fluid float-left" style="width: 100px" src="/{{j.item.image}}" >
+                                        <h5 class="font-weight-bold">{{j.item.title}}</h5>
+                                        <span class="badge btn-danger mr-4">Order ID</span>
+                                        <span class="font-weight-bold">{{i.orderid_id}}</span>
+                                        <p class="mt-2"><strong>Quantity: </strong> <strong>{{j.quantity}}</strong></p>
+                                        <p class="mt-2"><strong>Amount: </strong> <strong>₹{{j.amount_pay|floatformat:2}}</strong></p>
+                                  
+                                        <div class="mb-4">
+                                                                                   </div>
+                                        {%if j.assign_status == "delivered"%}
+                                         <a href="/show_rating_feedback/{{j.id}}" class="btn btn-danger m-2">Rate This Product</a>
+                                         <!-- <a href="/order_again/{{j.id}}" class="btn btn-primary m-2">Order again</a> -->
+                                         {%endif%}
+                                         <!-- {%if j.assign_status == "cancelled"%}
+                                         <a href="/order_again/{{j.id}}" class="btn btn-primary m-2">Order again</a>
+                                         {%endif%} -->
+                                         
+
+                                    </li>
+                                    {%endfor%}
+                                    
+                                    
+
+                                </ul>
+                                
+
+                                    </div>
+
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                       
+
+                      
+
+                     
+                       
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}
+

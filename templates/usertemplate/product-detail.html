@@ -1,0 +1,1030 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+{% block title %}{{len}} {% if len > 1 %}products{% else %}product{% endif %} found{% endblock %}
+{%block content%}{% if messages %}
+<style>
+.fas {
+    color:gold;
+}
+</style>
+
+
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+<div class="container">
+    <!-- ========== END HEADER ========== -->
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a
+                                href="/search2/?key=&category={{product.category.id}}">{{product.category.name}}</a>
+                        </li>
+
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">
+                            {{product.name|safe }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <!-- Single product detail -->
+    <div class="mb-xl-14 mb-6">
+        <div class="row">
+            <div class="col-md-5 mb-4 mb-md-0">
+                <div style="border-radius: 0;" class="p-xl-4 p-wd-0 border border-width-2 border-primary borders-radius-0 border-wd-0">
+
+                    <div style="border-radius: 0;"
+                        class="p-4 p-xl-0 p-wd-4 border border-xl-0 border-width-2 border-primary borders-radius-0 bg-white">
+                        <div style="border-radius: 0;" class="row align-items-center">
+                            <div style="border-radius: 0;" class="col-md-12 col-xl-12 col-wd-12 px-0 align-self-center">
+
+                                <div class="mb-4 mb-md-0">
+                                    <div class="row align-items-center justify-content-center">
+                                        {% for i in images %}
+                                        {% if forloop.counter == 1 %}
+                                        <div class="col-sm-12 col-md-12">
+                                            <a class="d-block text-center" href="javascript:;"
+                                                data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{ i.image.url }}"
+                                                data-fancybox="fancyboxGallery6" data-speed="700"
+                                                data-is-infinite="true"><img style="height: 250px; width:300px;" class="img-fluid mx-auto"
+                                                    src="{{ i.image.url }}" alt="Image Description"></a>
+                                        </div>
+                                        {%endif%}
+                                        {% endfor%}
+                                        <div class="col-sm-12 col-md-12 justify-content-center">
+                                            <ul class="list-group rounded-0 align-items-center justify-content-center"
+                                                style="flex-direction: row;">
+                                                {% for i in images %}
+                                                <li class="list-group-item my-1 p-0 border-0">
+                                                    <!-- Gallery -->
+                                                    <a class="js-fancybox max-width-70 u-media-viewer"
+                                                        href="javascript:;"
+                                                        data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{ i.image.url }}"
+                                                        data-fancybox="fancyboxGallery6" data-speed="700"
+                                                        data-is-infinite="true">
+                                                        <img class="img-fluid border" src="{{i.image.url}}"
+                                                            alt="Image Description">
+
+                                                        <span class="u-media-viewer__container">
+                                                            <span class="u-media-viewer__icon">
+                                                                <span
+                                                                    class="fas fa-plus u-media-viewer__icon-inner"></span>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                    <!-- End Gallery -->
+                                                </li>
+                                                {% endfor %}
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-7 mb-md-6 mb-lg-0">
+                <div class="mb-2">
+                    <div class="border-bottom mb-3 pb-md-1 pb-3">
+                        <a href="/collection/{{prod.main_category.id}}"
+                            class="font-size-12 text-gray-5 mb-2 d-inline-block">{{product.category.name}}</a>
+                        <h2 class="font-size-25 text-lh-1dot2">{{product.name}}</h2>
+                        <span class="badge badge-warning" style="font-size:15px;">{{pv}} PV</span>
+                        <div class="mb-2">
+
+                            <a class="d-inline-flex align-items-center small font-size-15 text-lh-1"
+                                href="/all_rating/{{prod.id}}">
+                                <div class="text-warning mr-2">
+
+                                    {% if product.rating == 0 %}
+                                    <small class="fas fa-star text-muted"></small>
+                                    <small class="fas fa-star text-muted"></small>
+                                    <small class="fas fa-star text-muted"></small>
+                                    <small class="fas fa-star text-muted"></small>
+                                    <small class="fas fa-star text-muted"></small>
+
+                                    {%elif product.rating <= 1.5 %} <small class="fas fa-star "></small>
+                                        <small class="fas fa-star text-muted"></small>
+                                        <small class="fas fa-star text-muted"></small>
+                                        <small class="fas fa-star text-muted"></small>
+                                        <small class="fas fa-star text-muted"></small>
+
+                                        {%elif product.rating <= 2.5 %} <small class="fas fa-star "></small>
+                                            <small class="fas fa-star "></small>
+                                            <small class="fas fa-star text-muted"></small>
+                                            <small class="fas fa-star text-muted"></small>
+                                            <small class="fas fa-star text-muted"></small>
+
+                                            {%elif product.rating <= 3.5 %} <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+
+                                                {%elif product.rating <= 4.5 %} <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+
+                                                    {%else%}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    {%endif%}
+
+                                </div>
+                                <span class="text-secondary font-size-13">({{product.no_of_rating}} customer
+                                    reviews)</span>
+                            </a>
+                        </div>
+
+                        <div class="d-md-flex align-items-center">
+                            {% if product.stock > 0 %}
+                            <div class="ml-md-3 text-gray-9 font-size-14">Availability: <span
+                                    class="text-green font-weight-bold"> IN STOCK</span></div>
+                            {% else %}
+                            <div class="ml-md-3 text-gray-9 font-size-14">Availability: <span
+                                    class="text-red font-weight-bold"> OUT OF STOCK </span></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div style="cursor: pointer;" class="flex-horizontal-center flex-wrap mb-4">
+                        <a onclick="add_to_wishlist();" class="text-gray-6 font-size-13 mr-2"><i
+                                class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                    </div>
+                    <div class="mb-2">
+                        <ul class="font-size-14 pl-3 ml-1 text-gray-110">
+                            <li><strong>Category: </strong>{{product.category.name}}</li>
+                            <li><strong>Sub Category: </strong>{{product.subcategory.name}}</li>
+                            <li><strong>Sub Sub Category: </strong> {{product.subsubcategory.name}}</li>
+                            <li><strong>Brand: </strong>{{product.brand.name}}</li>
+                            <li><strong>Size: </strong>{{product.weight}}</li>
+                            <!-- <li><strong>Description: </strong>{{product.description}}</li> -->
+                        </ul>
+                    </div>
+                    <div class="mb-4">
+                        {% if request.user.is_retailer%}
+                        <div class="d-flex align-items-baseline">
+                            <ins class="font-size-36 text-decoration-none">₹{{prod.amount_to_pay_retailer}}</ins>
+                            <del class="font-size-20 ml-2 text-gray-6">₹{{prod.price}}</del>
+                        </div>
+                        {% else%}
+                        <div class="d-flex align-items-baseline">
+                            <ins class="font-size-36 text-decoration-none">₹{{product.price}}</ins>
+                            <del class="font-size-20 ml-2 text-gray-6">₹{{product.mrp}}</del>
+                        </div>
+                        {%endif%}
+                    </div>
+                    <div class="col">
+                        <div class="d-md-flex align-items-end mb-3">
+                            <div class="d-md-flex align-items-end mb-3">
+                                <div class="max-width-150 mb-4 mb-md-0">
+                                    <h6 class="font-size-14">Quantity</h6>
+                                    <div class="border rounded-pill py-2 px-5 border-color-1">
+                                        <div class="js-quantity row align-items-center">
+                                            <div value="{{ product.id|safe }}" id="product_wish" class="qty-plus-minus">
+                                                <input style="cursor: pointer;"
+                                                    class="js-result form-control h-auto border-0 rounded p-0 shadow-none"
+                                                    type="number" name="ec_qtybtn" min="1"
+                                                    onchange="update_item('{{prod.id}}')" max="{{ product.stock|safe }}"
+                                                    value="1" id="quantity" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="d-md-flex align-items-end mb-3">
+                                <div style="cursor: pointer;" class="ml-md-3">
+                                    <input type="hidden" value="{{ product.id|safe }}" id="product">
+                                    <a onclick="add_to_cart();" class="btn px-5 btn-primary-dark transition-3d-hover"><i
+                                            class="ec ec-add-to-cart mr-2 font-size-20"></i> Add to Cart</a>
+                                            
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal p-4" id="added-cart"
+                        style="width:100%:height:100%;background-color:rgba(13, 1, 0, 0.5);text-align:center;color:white;z-index:1000">
+                        <h3 id="added-cart-text" style="color:white;"><i class="fa fa-check"></i> Added to Cart
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- send single product detail -->
+
+        <!-- Single Product Tab -->
+        <div class="mb-8">
+            <div class="position-relative position-md-static px-md-6">
+                <ul class="nav nav-classic nav-tab nav-tab-lg justify-content-xl-center flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble border-0 pb-1 pb-xl-0 mb-n1 mb-xl-0"
+                    id="pills-tab-8" role="tablist">
+                    <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                        <a class="nav-link" id="Jpills-one-example1-tab" data-toggle="pill" href="#Jpills-one-example1"
+                            role="tab" aria-controls="Jpills-one-example1" aria-selected="false">Similar Products</a>
+                    </li>
+                    <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                        <a class="nav-link active" id="Jpills-two-example1-tab" data-toggle="pill"
+                            href="#Jpills-two-example1" role="tab" aria-controls="Jpills-two-example1"
+                            aria-selected="true">Description</a>
+                    </li>
+                    <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                        <a class="nav-link" id="Jpills-three-example1-tab" data-toggle="pill"
+                            href="#Jpills-three-example1" role="tab" aria-controls="Jpills-three-example1"
+                            aria-selected="false">Specification</a>
+                    </li>
+                    <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                        <a class="nav-link" id="Jpills-four-example1-tab" data-toggle="pill"
+                            href="#Jpills-four-example1" role="tab" aria-controls="Jpills-four-example1"
+                            aria-selected="false">Reviews</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Tab Content -->
+            <div class="borders-radius-17 border p-4 mt-4 mt-md-0 px-lg-10 py-lg-9">
+                <div class="tab-content" id="Jpills-tabContent">
+                    <div class="tab-pane fade" id="Jpills-one-example1" role="tabpanel"
+                        aria-labelledby="Jpills-one-example1-tab">
+                        <!-- <div class="mb-6"> -->
+                            <!-- <div class="position-relative"> -->
+                        <!-- <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+            data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+            data-slides-show="7"
+            data-slides-scroll="1"
+            data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+            data-arrow-left-classes="fa fa-angle-left right-1"
+            data-arrow-right-classes="fa fa-angle-right right-0"
+            data-responsive='[{
+              "breakpoint": 1400,
+              "settings": {
+                "slidesToShow": 6
+              }
+            }, {
+                "breakpoint": 1200,
+                "settings": {
+                  "slidesToShow": 4
+                }
+            }, {
+              "breakpoint": 992,
+              "settings": {
+                "slidesToShow": 3
+              }
+            }, {
+              "breakpoint": 768,
+              "settings": {
+                "slidesToShow": 2
+              }
+            }, {
+              "breakpoint": 554,
+              "settings": {
+                "slidesToShow": 2
+              }
+            }]'> -->
+                        {% for i in sub_cat_data %}
+                        
+            <div  class="js-slide products-group">
+               
+                <div class="product-item">
+                    
+                    <div style="border-radius: 0rem;" class="product-item__outer h-100">
+                        
+                        <div style="border-radius: 0rem;" class="product-item__inner px-wd-4 p-2 p-md-3">
+                            
+                            <div class="product-item__body pb-xl-2">
+                                <div class="mb-2"><a href="/search2/?key=&category={{i.category.id}}" class="font-size-12 text-gray-5">{{i.category.name}}</a></div>
+                                <h5 class="mb-1 product-item__title"><a href="/productdetail/?p={{i.id}}" class="text-blue font-weight-bold">{{ i.name }}</a></h5>
+                                <div class="mb-2">
+                                    
+                                    
+                                    <a href="/productdetail/?p={{i.id}}" class="d-block text-center"><img class="img-fluid" src="http://demoserver.aaratechnologies.in:8082/media/{{i.image}}" alt="Image Description"></a>
+                                    
+                                </div>
+                                <div class="flex-center-between mb-1 cart_product">
+                                    <div class="prodcut-price">
+                                        <div class="text-gray-100">₹{{ i.price}}</div>
+                                    </div>
+                                    <div class="d-none d-xl-block prodcut-add-cart">
+                                        <input hidden type="number" name="ec_qtybtn" value="1" id="quantity" />
+                                        <input type="hidden" value="{{i.id|safe}}" class="product_cart">  
+                                        <button type="button" class="button-input btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></button>                                     </div>
+                                </div>
+                            </div>
+                            <div class="product-item__footer">
+                                <div class="border-top pt-2 flex-center-between flex-wrap">
+                                    <!-- <a href="" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> See Product Details</a> -->
+                                    <a href="" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            {% endfor %}
+            <!-- </div> -->
+            <!-- </div> -->
+            <!-- </div> -->
+                        <!-- <div class="row no-gutters">
+                            <div class="col mb-6 mb-md-0">
+                                <ul
+                                    class="row list-unstyled products-group no-gutters border-bottom border-md-bottom-0">
+                                    <li
+                                        class="col-4 col-md-4 col-xl-2gdot5 product-item remove-divider-sm-down border-0">
+                                        <div class="product-item__outer h-100">
+                                            <div class="remove-prodcut-hover product-item__inner px-xl-4 p-3">
+                                                <div class="product-item__body pb-xl-2">
+                                                    <div class="mb-2 d-none d-md-block"><a
+                                                            href="../shop/product-categories-7-column-full-width.html"
+                                                            class="font-size-12 text-gray-5">Speakers</a></div>
+                                                    <h5 class="mb-1 product-item__title d-none d-md-block"><a href="#"
+                                                            class="text-blue font-weight-bold">Wireless Audio System
+                                                            Multiroom 360 degree Full base audio</a></h5>
+                                                    <div class="mb-2">
+                                                        <a href="../shop/single-product-fullwidth.html"
+                                                            class="d-block text-center"><img class="img-fluid"
+                                                                src="assets/img/212X200/img1.jpg"
+                                                                alt="Image Description"></a>
+                                                    </div>
+                                                    <div class="flex-center-between mb-1 d-none d-md-block">
+                                                        <div class="prodcut-price">
+                                                            <div class="text-gray-100">$685,00</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                                <div
+                                    class="form-check pl-4 pl-md-0 ml-md-4 mb-2 pb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="inlineCheckbox1"
+                                        checked="" disabled="">
+                                    <label class="form-check-label mb-1" for="inlineCheckbox1">
+                                        <strong>This product: </strong> Ultra Wireless S50 Headphones S50 with Bluetooth
+                                        - <span class="text-red font-size-16">$35.00</span>
+                                    </label>
+                                </div>
+                                <div
+                                    class="form-check pl-4 pl-md-0 ml-md-4 mb-2 pb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option1"
+                                        checked="">
+                                    <label class="form-check-label mb-1 text-blue" for="inlineCheckbox2">
+                                        <span class="text-decoration-on cursor-pointer-on">Universal Headphones Case in
+                                            Black</span> - <span class="text-red font-size-16">$159.00</span>
+                                    </label>
+                                </div>
+                                <div
+                                    class="form-check pl-4 pl-md-0 ml-md-4 mb-2 pb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option2"
+                                        checked="">
+                                    <label class="form-check-label mb-1 text-blue" for="inlineCheckbox3">
+                                        <span class="text-decoration-on cursor-pointer-on">Headphones USB Wires</span> -
+                                        <span class="text-red font-size-16">$50.00</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-auto">
+                                <div class="mr-xl-15">
+                                    <div class="mb-3">
+                                        <div class="text-red font-size-26 text-lh-1dot2">$244.00</div>
+                                        <div class="text-gray-6">for 3 item(s)</div>
+                                    </div>
+                                    <a href="#"
+                                        class="btn btn-sm btn-block btn-primary-dark btn-wide transition-3d-hover">Add
+                                        all to cart</a>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="tab-pane fade active show" id="Jpills-two-example1" role="tabpanel"
+                        aria-labelledby="Jpills-two-example1-tab">
+
+                        <p>{{product.description | safe}}</p>
+                        <ul class="nav flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                            <li class="nav-item text-gray-111 flex-shrink-0 flex-xl-shrink-1"><strong>SKU:</strong>
+                                <span class="sku">FW511948218</span>
+                            </li>
+                            <li class="nav-item text-gray-111 mx-3 flex-shrink-0 flex-xl-shrink-1">/</li>
+                            <li class="nav-item text-gray-111 flex-shrink-0 flex-xl-shrink-1"><strong>Category:</strong>
+                                <a href="#" class="text-blue">{{product.category.name}}</a>
+                            </li>
+                            <li class="nav-item text-gray-111 mx-3 flex-shrink-0 flex-xl-shrink-1">/</li>
+                            <li class="nav-item text-gray-111 flex-shrink-0 flex-xl-shrink-1"><strong>Tags:</strong> <a
+                                    href="#" class="text-blue">Fast</a>, <a href="#" class="text-blue">Gaming</a>, <a
+                                    href="#" class="text-blue">Strong</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="Jpills-three-example1" role="tabpanel"
+                        aria-labelledby="Jpills-three-example1-tab">
+                        <div class="mx-md-5 pt-1">
+                            <div class="table-responsive mb-4">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th class="px-4 px-xl-5 border-top-0">Weight</th>
+                                            <td class="border-top-0">7.25kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Dimensions</th>
+                                            <td>90 x 60 x 90 cm</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Size</th>
+                                            <td>One Size Fits all</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">color</th>
+                                            <td>Black with Red, White with Gold</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Guarantee</th>
+                                            <td>5 years</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h3 class="font-size-18 mb-4">Technical Specifications</h3>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th class="px-4 px-xl-5 border-top-0">Brand</th>
+                                            <td class="border-top-0">Apple</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Item Height</th>
+                                            <td>18 Millimeters</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Item Width</th>
+                                            <td>31.4 Centimeters</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Screen Size</th>
+                                            <td>13 Inches</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Item Weight</th>
+                                            <td>1.6 Kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Product Dimensions</th>
+                                            <td>21.9 x 31.4 x 1.8 cm</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Item model number</th>
+                                            <td>MF841HN/A</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Processor Brand</th>
+                                            <td>Intel</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Processor Type</th>
+                                            <td>Core i5</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Processor Speed</th>
+                                            <td>2.9 GHz</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">RAM Size</th>
+                                            <td>8 GB</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Hard Drive Size</th>
+                                            <td>512 GB</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Hard Disk Technology</th>
+                                            <td>Solid State Drive</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Graphics Coprocessor</th>
+                                            <td>Intel Integrated Graphics</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Graphics Card Description</th>
+                                            <td>Integrated Graphics Card</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Hardware Platform</th>
+                                            <td>Mac</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Operating System</th>
+                                            <td>Mac OS</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 px-xl-5">Average Battery Life (in hours)</th>
+                                            <td>9</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="Jpills-four-example1" role="tabpanel"
+                        aria-labelledby="Jpills-four-example1-tab">
+                        <div class="row mb-8">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <h3 class="font-size-18 mb-6">Based on {{rating_len}} reviews</h3>
+                                    <h2 class="font-size-30 font-weight-bold text-lh-1 mb-0">{{rating}}</h2>
+                                    <div class="text-lh-1">overall</div>
+                                </div>
+
+                                <!-- Ratings -->
+                                <ul class="list-unstyled">
+                                    
+                                    <li class="py-1">
+                                        <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: 100%;"
+                                                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto text-right">
+                                                {% if rating5 == '' %}
+                                                <span class="text-gray-90">{{norating}}</span>
+                                                {%else%}
+                                                <span class="text-gray-90">{{rating5}}</span>
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="py-1">
+                                        <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: 60%;"
+                                                        aria-valuenow="53" aria-valuemin="0" aria-valuemax="80"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto text-right">
+                                                <span class="text-gray-90">{{rating4}}</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="py-1">
+                                        <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: 40%;"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto text-right">
+                                                {% if norating == '0' %}
+                                                <span class="text-gray-90">{{norating}}</span>
+                                                {%else%}
+                                                <span class="text-gray-90">{{rating3}}</span>
+                                                {% endif %}
+                                            </div>
+                                        </a>
+                                    </li>
+                                  
+                                    <li class="py-1">
+                                        <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: 20%;"
+                                                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto text-right">
+                                                {% if rating2 == '' %}
+                                                <span class="text-gray-90">0</span>
+                                                {%else%}
+                                                <span class="text-gray-90">{{rating2}}</span>
+                                                {%endif%}
+                                            </div>
+                                        </a>
+                                    </li>
+                                   
+                                    <li class="py-1">
+                                        <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                    <small class="fas fa-star text-muted"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto mb-2 mb-md-0">
+                                                <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: 1%;"
+                                                        aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto text-right">
+                                                <span class="text-gray-90">{{rating1}}0</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                                <!-- End Ratings -->
+                            </div>
+                        </div>
+                        <!-- Review -->
+                        {% for x in ratings %}
+                        <div class="border-bottom border-color-1 pb-4 mb-4">
+                            <!-- Review Rating -->
+                            {% if x.rating == 5 %}
+                            <div class="d-flex justify-content-between align-items-center text-secondary font-size-1 mb-2">
+                            <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                            </div>
+                            </div>                            
+                        {% endif %}
+                            {% if x.rating == '' %}
+                            <div class="d-flex justify-content-between align-items-center text-secondary font-size-1 mb-2">
+                            <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star text-muted"></small>
+                            </div>
+                        </div>                            
+                        {% endif %}
+                            {% if x.rating == 3 %}
+                            <div class="d-flex justify-content-between align-items-center text-secondary font-size-1 mb-2">
+                            <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                            </div>
+                        </div>                            
+                        {% endif %}
+                            {% if x.rating == 2 %}
+                            <div class="d-flex justify-content-between align-items-center text-secondary font-size-1 mb-2">
+                            <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                            </div>
+                        </div>
+                                                    {% endif %}
+                            {% if x.rating == 1 %}
+                            <div class="d-flex justify-content-between align-items-center text-secondary font-size-1 mb-2">
+                            <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                                <small class="fas fa-star text-muted"></small>
+                            </div>
+                        </div>                            {% endif %}
+                            <!-- End Review Rating -->
+
+                            <p class="text-gray-90">{{x.review}}</p>
+
+                            <!-- Reviewer -->
+                            <div class="mb-2">
+                                <strong>{{x.user}}</strong>
+                                <span class="font-size-13 text-gray-23">{{ x.created_at }}</span>
+                            </div>
+                            <!-- End Reviewer -->
+                        </div>
+                        {% endfor %}
+                        <!-- End Review -->
+                        <!-- Review -->
+                        
+                        <!-- End Review -->
+                        <!-- Review -->
+                        
+                        <!-- End Review -->
+                    </div>
+                </div>
+            </div>
+            <!-- End Tab Content -->
+        </div>
+        <!-- End Single Product Tab -->
+
+
+        <!-- End Single product -->
+    </div>
+</div>
+
+<script type="text/javascript">
+   
+    async function add_to_cart() {
+
+        console.log('hehhhhhhhh')
+        flag = '0';
+        product_id = document.getElementById('product').value;
+        variant_lt = [];
+    //     {% for variant in variants %}
+    //     { { variant.variant.name } } = document.getElementsByName('{{variant.variant.name}}');
+    //     var {{ variant.variant.name }
+    // } _id = 'none';
+    // for (i = 0; i < {{ variant.variant.name }}.length; i++) {
+    //     if ({{ variant.variant.name }
+    // } [i].checked) {
+    //     variant_lt.push({{ variant.variant.name }} [i].value);
+    // break;
+    //     }
+    // }
+    // {% endfor %}
+    quantity_val = document.getElementById('quantity').value;
+    document.getElementById('added-cart').style.display = 'block';
+    if (flag == '0') {
+        $.ajax({
+            type: 'POST',
+            url: '/user/addtocart',
+            data: { product: product_id, variants: variant_lt, quantity: quantity_val },
+            success: function (res_data) {
+                if (res_data.response == 'failed2') {
+                    document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+                }
+                else {
+                    if (res_data.response == 'success') {
+                        document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+
+                        //await.sleep(2000);
+                        document.getElementById('added-cart').style.display = 'none';
+                    }
+                    else {
+                        document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                    }
+                }
+            },
+            error: function (res) {
+                document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+            }
+        });
+
+        location.reload();
+    }
+}
+</script>
+
+<script type="text/javascript">
+    async function add_to_wishlist() {
+        flag = '0';
+        product_id = document.getElementById('product').value;
+        variant_lt = [];
+    //     {% for variant in variants %}
+    //     { { variant.variant.name } } = document.getElementsByName('{{variant.variant.name}}');
+    //     var {{ variant.variant.name }
+    // } _id = 'none';
+    // for (i = 0; i < {{ variant.variant.name }}.length; i++) {
+    //     if ({{ variant.variant.name }
+    // } [i].checked) {
+    //     variant_lt.push({{ variant.variant.name }} [i].value);
+    // break;
+    //         }
+    //     }
+    // {% endfor %}
+    quantity_val = document.getElementById('quantity').value;
+    document.getElementById('added-cart').style.display = 'block';
+    if (flag == '0') {
+        $.ajax({
+            type: 'POST',
+            url: '/user/addtowishlist',
+            data: { product: product_id, variants: variant_lt, quantity: quantity_val },
+            success: function (res_data) {
+                if (res_data.response == 'failed2') {
+                    document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+                }
+                else {
+                    if (res_data.response == 'success') {
+                        document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+
+                        //await.sleep(2000);
+                        document.getElementById('added-cart').style.display = 'none';
+                    }
+                    else {
+                        document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                    }
+                }
+            },
+            error: function (res) {
+                document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+            }
+
+
+        });
+        location.reload();
+    }
+    }
+</script>
+
+
+
+
+<div class="modal fade" id="locationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Find Location</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="container" id="adddress_form">
+                <div class="p-3" style="z-index: 999999;">
+                    {% if store%}
+                    <h3 style="color:green"><u>Store Assigned </u></h3>
+                    <h5><b>Store Name: </b>{{store.store_name}}</h5>
+                    <h5><b>Store Person Name: </b>{{store.store_person_name}}</h5>
+                    <br>
+                    <p style="color: red;"> You can change you address by searching another address because delivery
+                        will be on this
+                        address..</p>
+                    {% else %}
+                    <p style="color: rgb(126, 26, 26);">Please search store near you and buy product from your nearest
+                        <b>Store..</b>
+                    </p>
+                    {% endif %}
+                    <div class="container">
+                        {% for mess in messages %}
+                        <div class="alert alert-{{mess.tags}}" role="alert">
+                            {{mess}}
+                        </div>
+                        {% endfor%}
+                        <form method="POST" action="/assign_store">
+                            {% csrf_token%}
+
+                            <div class="row">
+
+                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><b>Address:</b></label>
+                                        <input type="text" name="home_address" class="form-control" id="address"
+                                            aria-describedby="emailHelp" placeholder="Search by typing address....."
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-4 col-lg-4 justify-content-end">
+
+                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+                </div>
+
+
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+       
+<script type="text/javascript">
+
+    
+$(document).ready(function(){
+$('.button-input').click(function(){
+console.log('hhhhhh')
+
+console.log('hehhhhhhhh')
+flag = '0';
+
+product_id =$(this).closest(".cart_product").find('.product_cart').val()
+console.log(product_id)
+variant_lt = [];
+//     {% for variant in variants %}
+//     { { variant.variant.name } } = document.getElementsByName('{{variant.variant.name}}');
+//     var {{ variant.variant.name }
+// } _id = 'none';
+// for (i = 0; i < {{ variant.variant.name }}.length; i++) {
+//     if ({{ variant.variant.name }
+// } [i].checked) {
+//     variant_lt.push({{ variant.variant.name }} [i].value);
+// break;
+//     }
+// }
+// {% endfor %}
+quantity_val = document.getElementById('quantity').value;
+console.log(quantity_val)
+document.getElementById('added-cart').style.display = 'block';
+if (flag == '0') {
+$.ajax({
+    type: 'POST',
+    url: '/user/addtocart',
+    
+    data: { product: product_id, variants: variant_lt, quantity: quantity_val },
+    
+    success: function (res_data) {
+        if (res_data.response == 'failed2') {
+            console.log(data);
+            document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+        }
+        else {
+            if (res_data.response == 'success') {
+                document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+
+                //await.sleep(2000);
+                document.getElementById('added-cart').style.display = 'none';
+            }
+            else {
+                document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+            }
+        }
+    },
+    error: function (res) {
+        document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+    }
+});
+
+location.reload();
+
+}
+})
+})
+
+
+</script>
+{%endblock%}

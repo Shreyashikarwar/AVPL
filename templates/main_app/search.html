@@ -1,0 +1,9 @@
+<div style="background-color:white;display:block;height:200px;overflow-y:auto;" class="p-2 mt-5 modal">
+	<table>
+		{% for x in results %}
+		<tr class="pt-2">
+			<td><a href="/productpage/?p={{x.id}}">{{x.name}}</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>

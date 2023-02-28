@@ -1,0 +1,121 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% block title %}Users{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1>Users</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">Users</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Users</h4>
+                              </div>
+                              <div class="card-body">
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                                          <div class="table-responsive">
+                                             <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Sr. No.</th>
+                                                      <th>Joined On</th>
+                                                      <th>Name</th>
+                                                      <th>Type</th>
+                                                      <th>PV</th>
+                                                      <th>Email</th>
+                                                      <th>Indicator</th>
+                                                      <th>Action</th>
+                                                   </tr>
+                                                </thead>
+                                                <tbody>
+                                                   {% for x in users %}
+
+                                                   {% if not x.user.is_superuser %}
+                                                   {% if x.user.role.level.level == 'User' %}
+                                                   <tr>
+                                                      <td>{{forloop.counter}}</td>
+                                                      <td>{{x.user.date_joined}}</td>
+                                                      <td>{{ x.user.usr.first_name|safe }} {{ x.user.usr.last_name|safe }}</td>
+                                                      <td><span class="badge badge-danger">{{ x.user.role.level.level|safe }}</span></td>
+                                                      <td>
+                                                         <span class="badge badge-info">LEFT - {{x.user.userpv.left_pv|floatformat:0}} PV</span>
+                                                         <span class="badge badge-info">RIGHT - {{x.user.userpv.right_pv|floatformat:0}} PV</span>
+                                                         <span class="badge badge-info">LEVEL - {{x.user.userpv.level_pv|floatformat:0}} PV</span>
+                                                      </td>
+                                                      <td>{{ x.user.email|safe }}</td>
+                                                         
+                                                      {% if x.indicator == 'Stage 0' %}
+                                                         <td><span>Nothing Achieved</span></td>
+                                                      {%endif%}
+
+                                                      {% if x.indicator == 'Stage 1' %}
+                                                         <td><span class="badge badge-warning">Stage 1</span></td>
+                                                      {%endif%}
+
+                                                      {% if x.indicator == 'Stage 2' %}
+                                                         <td><span class="badge badge-success">Stage 2</span></td>
+                                                      {%endif%}
+
+                                                      {% if x.indicator == 'Stage 3' %}
+                                                         <td>
+                                                            <span class="badge badge-success">Stage 1</span>
+                                                            <span class="badge badge-warning">Stage 2</span>
+                                                         </td>
+                                                      {%endif%}
+                                                      <td><a href="/admins/users/delete?i={{x.id}}" class="btn btn-primary">Delete</a></td>
+                                                   </tr>
+                                                   {% else %}
+                                                   <tr>
+                                                      <td>{{forloop.counter}}</td>
+                                                      <td>{{x.user.date_joined}}</td>
+
+                                                      <td>{{ x.user.vendor.first_name|safe }} {{ x.user.vendor.last_name|safe }}</td>
+                                                      <td><span class="badge badge-primary">{{ x.user.role.level.level|safe }}</span></td>
+                                                      <td></td>
+                                                      <td>{{ x.user.email|safe }}</td>
+                                                      <td><span class="badge badge-info">----------</span></td>
+
+                                                      <td><a href="/admins/users/delete?i={{x.id}}" class="btn btn-primary">Delete</a></td>
+                                                   </tr>
+                                                   {% endif %}
+                                                   {% endif %}
+                                                   {% endfor %}
+                                                </tbody>
+                                             </table>
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                    
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+              
+            </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+<option disabled selected>--Select Vendors--</option>
+{% for v in vendors %}
+{% if v.role.level.level == 'Vendor' %}
+<option value="{{v.vendor.id}}">{{v.vendor.first_name}}-{{v.vendor.store.name}}</option>
+{% endif %}
+{% endfor %}

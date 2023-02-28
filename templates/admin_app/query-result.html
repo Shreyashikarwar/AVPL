@@ -1,0 +1,111 @@
+{% if query.anonymous %}
+<table class="table table-striped table-hover" style="width:100%;">
+  <tr>
+    <th>Status</th>
+    <td>
+      <select id="status" onchange="change_status({{query.id}});">
+        <option value="0" {% if query.status == 0 %}selected{% endif %}>Received</option>
+        <option value="2" {% if query.status == 2 %}selected{% endif %}>In Progress</option>
+        <option value="3" {% if query.status == 3 %}selected{% endif %}>Closed</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>{{  query.name|safe }}</td>
+  </tr>
+  <tr>
+    <th>Mobile Number</th>
+    <td>{{  query.mobile|safe }}</td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{  query.email|safe }}</td>
+  </tr>
+  <tr>
+    <th>Subject</th>
+    <td>{{  query.subject|safe }}</td>
+  </tr>
+  <tr>
+    <th>Message</th>
+    <td>{{  query.message|safe }}</td>
+  </tr>
+  {% if query.reply == 'No-Reply' %}
+  <tr>
+    <th>Reply</th>
+    <td>
+      <textarea type="text" id="reply" style="width: 100%;"></textarea><br>
+      <button class="btn btn-primary" id="sendbutton" onclick="send_reply({{query.id}});">Send Reply</button>
+      <span id="replied" style="display: none;" class="badge badge-success">Reply Sent !</span>
+    </td>
+  </tr>
+  {% else %}
+  <tr>
+    <th>Replied</th>
+    <td>
+      <p>{{query.reply}}</p>
+    </td>
+  </tr>
+  {% endif %}
+</table>
+{% else %}
+<table class="table table-striped table-hover" style="width:100%;">
+  <tr>
+    <th>Status</th>
+    <td>
+      <select id="status" onchange="change_status({{query.id}});">
+        <option value="0" {% if query.status == 0 %}selected{% endif %}>Received</option>
+        <option value="2" {% if query.status == 2 %}selected{% endif %}>In Progress</option>
+        <option value="3" {% if query.status == 3 %}selected{% endif %}>Closed</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    {% if query.user.role.level.level == 'User' %}
+    <td>{{  query.user.usr.first_name|safe }} {{ query.user.usr.last_name|safe }}</td>
+    {% endif %}
+    {% if query.user.role.level.level == 'Vendor' %}
+    <td>{{  query.user.vendor.first_name|safe }} {{ query.user.vendor.last_name|safe }}</td>
+    {% endif %}
+  </tr>
+  <tr>
+    <th>Mobile Number</th>
+    {% if query.user.role.level.level == 'User' %}
+    <td>{{  query.user.usr.phone|safe }}</td>
+    {% endif %}
+    {% if query.user.role.level.level == 'Vendor' %}
+    <td>{{  query.user.vendor.phone|safe }}</td>
+    {% endif %}
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{  query.user.email|safe }}</td>
+  </tr>
+  <tr>
+    <th>Subject</th>
+    <td>{{  query.subject|safe }}</td>
+  </tr>
+  <tr>
+    <th>Message</th>
+    <td>{{  query.message|safe }}</td>
+  </tr>
+  {% if query.reply == 'No-Reply' %}
+  <tr>
+    <th>Reply</th>
+    <td>
+      <textarea type="text" id="reply" style="width: 100%;"></textarea><br>
+      <button class="btn btn-primary" id="sendbutton" onclick="send_reply({{query.id}});">Send Reply</button>
+      <span id="replied" style="display: none;" class="badge badge-success">Reply Sent !</span>
+    </td>
+  </tr>
+  {% else %}
+  <tr>
+    <th>Replied</th>
+    <td>
+      <p>{{query.reply}}</p>
+    </td>
+  </tr>
+  {% endif %}
+</table>
+{% endif %}

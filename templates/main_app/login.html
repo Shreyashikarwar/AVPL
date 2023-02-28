@@ -1,0 +1,57 @@
+{% extends 'usertemplate/base.html' %}
+
+{% load static %}
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div class="container register" style="border-radius: 1rem;">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                <h3>Welcome</h3>
+                <p class="text-white">You are 30 seconds away from earning your own money!</p>
+            </div>
+            <div class="col-md-9 register-right">
+                <ul class="nav nav-tabs nav-justified" style="background: #2d1582;" id="myTab" role="tablist">
+                    <li class="nav-item" >
+                        <a class="nav-link active" href="/login"  role="tab" aria-controls="home" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register" role="tab" aria-controls="home" aria-selected="true">Register</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Login</h3>
+                    <form action="/login/" method="POST">
+                        <div class="row register-form text-center">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email Address *" name="email" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password *" name="password" value="" />
+                                    <label><a href="/forgot/">Forgot Password?</a></label>
+                                </div>
+                                <div class="mt-2">
+                                    {% for message in messages %}
+                                    <span class="message">{{message}}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+								<input type="submit" id="logbtn" class="btnRegister"  value="Login"/>
+                            </div><br><br><br>
+                        </div>
+                    </form>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+document.getElementById('logbtn').onclick(function() {
+    
+});
+</script>
+{% endblock %}

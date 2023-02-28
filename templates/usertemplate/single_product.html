@@ -1,0 +1,796 @@
+
+
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% load mathfilters %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<main id="content" role="main">
+            <!-- breadcrumb -->
+            <div class="bg-gray-13 bg-md-transparent">
+                <div class="container">
+                    <!-- breadcrumb -->
+                    <div class="my-md-3">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                                <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/collection/{{prod.main_category.id}}">{{prod.main_category}}</a></li>
+                                
+                                <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">{{prod.title}}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <!-- End breadcrumb -->
+                </div>
+            </div>
+            <!-- End breadcrumb -->
+            <div class="container">
+                <!-- Single Product Body -->
+                <div class="mb-xl-14 mb-6">
+                    <div class="row">
+                        <div class="col-md-5 mb-4 mb-md-0">
+                            <div class="p-xl-4 p-wd-0 border border-width-2 border-primary borders-radius-20 border-wd-0">
+                               
+                                        <div class="p-4 p-xl-0 p-wd-4 border border-xl-0 border-width-2 border-primary borders-radius-20 bg-white">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-12 col-xl-12 col-wd-12 px-0 align-self-center">
+                                                   
+                                                    <div class="mb-4 mb-md-0">
+                                                        <div class="row align-items-center justify-content-center">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <a  class="d-block text-center" href="javascript:;"
+                                                                            data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{prod.image}}"
+                                                                            data-fancybox="fancyboxGallery6"
+                                                                            
+                                                                            data-speed="700"
+                                                                            data-is-infinite="true"><img class="img-fluid mx-auto" src="/{{prod.image}}" alt="Image Description"></a>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-12 justify-content-center">
+                                                                <ul class="list-group rounded-0 align-items-center justify-content-center" style="flex-direction: row;">
+                                                                    <li class="list-group-item my-1 p-0 border-0" >
+                                                                        <!-- Gallery -->
+                                                                        <a class="js-fancybox max-width-70 u-media-viewer" href="javascript:;"
+                                                                            data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{prod.image}}"
+                                                                            data-fancybox="fancyboxGallery6"
+                                                                            
+                                                                            data-speed="700"
+                                                                            data-is-infinite="true">
+                                                                            <img class="img-fluid border" src="/{{prod.image}}" alt="Image Description">
+
+                                                                            <span class="u-media-viewer__container">
+                                                                                <span class="u-media-viewer__icon">
+                                                                                    <span class="fas fa-plus u-media-viewer__icon-inner"></span>
+                                                                                </span>
+                                                                            </span>
+                                                                        </a>
+                                                                        <!-- End Gallery -->
+                                                                    </li>
+                                                                    {%if image%}
+                                                                    {%for i in image|slice:"3"%}
+                                                                    <li class="list-group-item my-1 p-0 border-0">
+                                                                        <!-- Gallery -->
+                                                                        <a class="js-fancybox max-width-70 u-media-viewer" href="javascript:;"
+                                                                            data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{i.image}}"
+                                                                            data-fancybox="fancyboxGallery6"
+                                                                            
+                                                                            data-speed="700"
+                                                                            data-is-infinite="true">
+                                                                            <img class="img-fluid border" src="/{{i.image}}" alt="Image Description">
+
+                                                                            <span class="u-media-viewer__container">
+                                                                                <span class="u-media-viewer__icon">
+                                                                                    <span class="fas fa-plus u-media-viewer__icon-inner"></span>
+                                                                                </span>
+                                                                            </span>
+                                                                        </a>
+                                                                        <!-- End Gallery -->
+                                                                    </li>
+                                                                    {%endfor%}
+                                                                    {%else%}
+                                                                    <li class="list-group-item my-1 p-0 border-0">
+                                                                        <!-- Gallery -->
+                                                                        <a class="js-fancybox max-width-70 u-media-viewer" href="javascript:;"
+                                                                            data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{prod.image}}"
+                                                                            data-fancybox="fancyboxGallery6"
+                                                                            
+                                                                            data-speed="700"
+                                                                            data-is-infinite="true">
+                                                                            <img class="img-fluid border" src="/{{prod.image}}" alt="Image Description">
+
+                                                                            <span class="u-media-viewer__container">
+                                                                                <span class="u-media-viewer__icon">
+                                                                                    <span class="fas fa-plus u-media-viewer__icon-inner"></span>
+                                                                                </span>
+                                                                            </span>
+                                                                        </a>
+                                                                        <!-- End Gallery -->
+                                                                    </li>
+                                                                    <li class="list-group-item my-1 p-0 border-0">
+                                                                        <!-- Gallery -->
+                                                                        <a class="js-fancybox max-width-70 u-media-viewer" href="javascript:;"
+                                                                            data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{prod.image}}"
+                                                                            data-fancybox="fancyboxGallery6"
+                                                                            
+                                                                            data-speed="700"
+                                                                            data-is-infinite="true">
+                                                                            <img class="img-fluid border" src="/{{prod.image}}" alt="Image Description">
+
+                                                                            <span class="u-media-viewer__container">
+                                                                                <span class="u-media-viewer__icon">
+                                                                                    <span class="fas fa-plus u-media-viewer__icon-inner"></span>
+                                                                                </span>
+                                                                            </span>
+                                                                        </a>
+                                                                        <!-- End Gallery -->
+                                                                    </li>
+                                                                    <li class="list-group-item my-1 p-0 border-0">
+                                                                        <!-- Gallery -->
+                                                                        <a class="js-fancybox max-width-70 u-media-viewer" href="javascript:;"
+                                                                            data-src="{{ request.scheme }}://{{ request.META.HTTP_HOST }}//{{prod.image}}"
+                                                                            data-fancybox="fancyboxGallery6"
+                                                                            
+                                                                            data-speed="700"
+                                                                            data-is-infinite="true">
+                                                                            <img class="img-fluid border" src="/{{prod.image}}" alt="Image Description">
+
+                                                                            <span class="u-media-viewer__container">
+                                                                                <span class="u-media-viewer__icon">
+                                                                                    <span class="fas fa-plus u-media-viewer__icon-inner"></span>
+                                                                                </span>
+                                                                            </span>
+                                                                        </a>
+                                                                        <!-- End Gallery -->
+                                                                    </li>
+                                                                    {%endif%}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    
+                            </div>
+                        </div>
+                        <div class="col-md-7 mb-md-6 mb-lg-0">
+                            <div class="mb-2">
+                                <div class="border-bottom mb-3 pb-md-1 pb-3">
+                                    <a href="/collection/{{prod.main_category.id}}" class="font-size-12 text-gray-5 mb-2 d-inline-block">{{prod.main_category}}</a>
+                                    <h2 class="font-size-25 text-lh-1dot2">{{prod.title}}</h2>
+                                    <div class="mb-2">
+                                        <a class="d-inline-flex align-items-center small font-size-15 text-lh-1" href="/all_rating/{{prod.id}}">
+                                            <div class="text-warning mr-2">
+                                                {% if prod.average_rating|div:"20" == 0 %}
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif prod.average_rating|div:"20" <= 1.5  %}
+                                                <small class="fas fa-star "></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif prod.average_rating|div:"20" <= 2.5  %}
+                                                <small class="fas fa-star "></small>
+                                                <small class="fas fa-star "></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif prod.average_rating|div:"20" <= 3.5  %}
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif prod.average_rating|div:"20" <= 4.5  %}
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%else%}
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                {%endif%}
+                                                
+                                            </div>
+                                            <span class="text-secondary font-size-13">({{prod.no_of_rating}} customer reviews)</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="d-md-flex align-items-center">
+                                       
+                                        <div class="ml-md-3 text-gray-9 font-size-14">Availability: <span class="text-green font-weight-bold">{{prod.quantity}} in stock</span></div>
+                                    </div>
+                                </div>
+                                <div class="flex-horizontal-center flex-wrap mb-4">
+                                    <a href="/addtowish/{{prod.id}}" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                    
+                                </div>
+                                <div class="mb-2">
+                                    <ul class="font-size-14 pl-3 ml-1 text-gray-110">
+                                        <li><strong>Category: </strong>{{prod.main_category}}</li>
+                                        <li><strong>sub Category: </strong>{{prod.sub_category}}</li>
+                                        <li><strong>Brand: </strong> {{prod.brand_name}}</li>
+                                        <li><strong>Size: </strong>{{prod.weight}}</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="mb-4">
+                                	{% if request.user.is_retailer%}
+                                    <div class="d-flex align-items-baseline">
+                                        <ins class="font-size-36 text-decoration-none">₹{{prod.amount_to_pay_retailer}}</ins>
+                                        <del class="font-size-20 ml-2 text-gray-6">₹{{prod.price}}</del>
+                                    </div>
+                                    {% else%}
+                                     <div class="d-flex align-items-baseline">
+                                        <ins class="font-size-36 text-decoration-none">₹{{prod.amount_to_pay}}</ins>
+                                        <del class="font-size-20 ml-2 text-gray-6">₹{{prod.price}}</del>
+                                    </div>
+                                    {%endif%}
+                                </div>
+                               
+                                <div class="d-md-flex align-items-end mb-3">
+                                   {%if request.session.store_id%}
+                                    <div class="ml-md-3">
+                                        <a href="/add_to_cart/{{prod.id}}/" class="btn px-5 btn-primary-dark transition-3d-hover"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Add to Cart</a>
+                                    </div>
+                                    {%else%}
+                                    <div class="ml-md-3">
+                                        <a href="/buysingle/{{prod.id}}" class="btn px-5 btn-primary-dark transition-3d-hover"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Buy Now</a>
+                                    </div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Product Body -->
+                <!-- Single Product Tab -->
+                <div class="mb-8">
+                    <div class="position-relative position-md-static px-md-6">
+                        <ul class="nav nav-classic nav-tab nav-tab-lg justify-content-xl-center flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble border-0 pb-1 pb-xl-0 mb-n1 mb-xl-0" id="pills-tab-8" role="tablist">
+                           
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link active" id="Jpills-two-example1-tab" data-toggle="pill" href="#Jpills-two-example1" role="tab" aria-controls="Jpills-two-example1" aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link" id="Jpills-three-example1-tab" data-toggle="pill" href="#Jpills-three-example1" role="tab" aria-controls="Jpills-three-example1" aria-selected="false">Specification</a>
+                            </li>
+                            <li class="nav-item flex-shrink-0 flex-xl-shrink-1 z-index-2">
+                                <a class="nav-link" id="Jpills-four-example1-tab" data-toggle="pill" href="#Jpills-four-example1" role="tab" aria-controls="Jpills-four-example1" aria-selected="false">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Tab Content -->
+                    <div class="borders-radius-17 border p-4 mt-4 mt-md-0 px-lg-10 py-lg-9">
+                        <div class="tab-content" id="Jpills-tabContent">
+                            <div class="tab-pane fade" id="Jpills-one-example1" role="tabpanel" aria-labelledby="Jpills-one-example1-tab">
+                                
+                            </div>
+                            <div class="tab-pane fade active show" id="Jpills-two-example1" role="tabpanel" aria-labelledby="Jpills-two-example1-tab">
+                                <h3 class="font-size-24 mb-3"></h3>
+                                {%if prod.description%}
+                                <p>{{prod.description}}</p>
+                               {%else%}
+                               <p>description is not available for this product</p>
+                               {%endif%}
+                               
+                                  
+                               
+                            </div>
+                            <div class="tab-pane fade" id="Jpills-three-example1" role="tabpanel" aria-labelledby="Jpills-three-example1-tab">
+                                <div class="mx-md-5 pt-1">
+                                    <div class="table-responsive mb-4">
+                                        <table class="table table-hover">
+                                            <tbody>
+
+                                                <tr>
+                                                    <th class="px-4 px-xl-5 border-top-0">Size</th>
+                                                    <td class="border-top-0">{{prod.weight}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 px-xl-5">Category</th>
+                                                    <td>{{prod.main_category}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 px-xl-5">Sub-Category</th>
+                                                    <td>{{prod.sub_category}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 px-xl-5">Brand</th>
+                                                    <td>{{prod.brand_name}}</td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="Jpills-four-example1" role="tabpanel" aria-labelledby="Jpills-four-example1-tab">
+                                <div class="row mb-8">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <h3 class="font-size-18 mb-6">Based on {{prod.no_of_rating}} reviews</h3>
+                                            <h2 class="font-size-30 font-weight-bold text-lh-1 mb-0">{{prod.average_rating|div:"20"}}</h2>
+                                            <div class="text-lh-1">overall</div>
+                                        </div>
+
+                                        <!-- Ratings -->
+                                        <ul class="list-unstyled">
+                                            <li class="py-1">
+                                                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                            
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto text-right">
+                                                        <span class="text-gray-90">{{prod.rating_5}}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 53%;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto text-right">
+                                                        <span class="text-gray-90">{{prod.rating_4}}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto text-right">
+                                                        <span class="text-gray-90">{{prod.rating_3}}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star "></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto text-right">
+                                                        <span class="text-muted">{{prod.rating_2}}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                            <small class="fas fa-star"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                            <small class="fas fa-star text-muted"></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto mb-2 mb-md-0">
+                                                        <div class="progress ml-xl-5" style="height: 10px; width: 200px;">
+                                                            <div class="progress-bar" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto text-right">
+                                                        <span class="text-gray-90">{{prod.rating_1}}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- End Ratings -->
+                                    </div>
+                                   
+                                </div>
+                                <!-- Review -->
+                                {% for i in comment_and_review %}
+                                <div class="border-bottom border-color-1 pb-4 mb-4">
+                                    <!-- Review Rating -->
+                                    <div class="d-flex justify-content-between align-items-center text-secondary font-size-1 mb-2">
+                                        <div class="text-warning text-ls-n2 font-size-16" style="width: 80px;">
+                                                {% if i.rate == 0 %}
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif i.rate <= 1.5  %}
+                                                <small class="fas fa-star "></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif i.rate <= 2.5  %}
+                                                <small class="fas fa-star "></small>
+                                                <small class="fas fa-star "></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%elif i.rate <= 3.5  %}
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                <small class="far fa-star text-muted"></small>
+                                                
+                                                {%elif i.rate <= 4.5  %}
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star text-muted"></small>
+                                                
+                                                {%else%}
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                <small class="fas fa-star"></small>
+                                                {%endif%}
+                                        </div>
+                                    </div>
+                                    <!-- End Review Rating -->
+                                    
+                                    <p class="text-gray-90"><strong>{{i.subject}}</strong><br>{{i.comment}}</p>
+
+                                    <!-- Reviewer -->
+                                    <div class="mb-2">
+                                        <strong>{{i.user.first_name}} {{i.user.last_name}}</strong>
+                                        <span class="font-size-13 text-gray-23">- {{i.create_at}}</span>
+                                    </div>
+                                    <!-- End Reviewer -->
+                                </div>
+                                {%endfor%}
+                                <!-- End Review -->
+                                <!-- Review -->
+                           
+                                <!-- End Review -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tab Content -->
+                </div>
+                <!-- End Single Product Tab -->
+                {%if similar_product2%}
+                 <div class="mb-6">
+                                <div class="position-relative">
+                                    <div class="border-bottom border-color-1 mb-2">
+                                        <h3 class="section-title mb-0 pb-2 font-size-22">Similar Products</h3>
+                                    </div>
+                                    <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+                                        data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+                                        data-slides-show="7"
+                                        data-slides-scroll="1"
+                                        data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+                                        data-arrow-left-classes="fa fa-angle-left right-1"
+                                        data-arrow-right-classes="fa fa-angle-right right-0"
+                                        data-responsive='[{
+                                          "breakpoint": 1400,
+                                          "settings": {
+                                            "slidesToShow": 6
+                                          }
+                                        }, {
+                                            "breakpoint": 1200,
+                                            "settings": {
+                                              "slidesToShow": 4
+                                            }
+                                        }, {
+                                          "breakpoint": 992,
+                                          "settings": {
+                                            "slidesToShow": 3
+                                          }
+                                        }, {
+                                          "breakpoint": 768,
+                                          "settings": {
+                                            "slidesToShow": 2
+                                          }
+                                        }, {
+                                          "breakpoint": 554,
+                                          "settings": {
+                                            "slidesToShow": 2
+                                          }
+                                        }]'>
+                                        {%for i in similar_product%}
+                                        <div class="js-slide products-group">
+                                            <div class="product-item">
+                                                <div class="product-item__outer h-100">
+                                                    <div class="product-item__inner px-wd-4 p-2 p-md-3">
+                                                        <div class="product-item__body pb-xl-2">
+                                                            <div class="mb-2"><a href="/collection/{{i.main_category.id}}" class="font-size-12 text-gray-5">{{i.main_category}}</a></div>
+                                                            <h5 class="mb-1 product-item__title"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.title}}</a></h5>
+                                                            <div class="mb-2">
+                                                                <a href="/single_product/{{i.id}}" class="d-block text-center"><img class="img-fluid" src="/{{i.image}}" alt="Image Description"></a>
+                                                            </div>
+                                                            <div class="flex-center-between mb-1">
+                                                                {%if request.user.is_retailer%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">{{i.amount_to_pay_retailer}}</div>
+                                                                </div>
+                                                                {%else%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">{{i.amount_to_pay}}</div>
+                                                                </div>
+                                                                {%endif%}
+                                                                {%if request.session.store_id%}
+                                                                <div class="d-none d-xl-block prodcut-add-cart">
+                                                                    <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                                </div>
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-item__footer">
+                                                            <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                                
+                                                                {%if request.session.store_id%}
+                                                                <a href="/addtowish/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                                {%else%}
+                                                                <a href="/buysingle/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Buy Now</a>
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                               
+                                   
+                                        
+                                     
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            {%endif%}
+                            {%if similar_product2%}
+                             <div class="mb-6">
+                                <div class="position-relative">
+                                    <div class="border-bottom border-color-1 mb-2">
+                                        <h3 class="section-title mb-0 pb-2 font-size-22">Similar Brand Products</h3>
+                                    </div>
+                                    <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+                                        data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+                                        data-slides-show="7"
+                                        data-slides-scroll="1"
+                                        data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+                                        data-arrow-left-classes="fa fa-angle-left right-1"
+                                        data-arrow-right-classes="fa fa-angle-right right-0"
+                                        data-responsive='[{
+                                          "breakpoint": 1400,
+                                          "settings": {
+                                            "slidesToShow": 6
+                                          }
+                                        }, {
+                                            "breakpoint": 1200,
+                                            "settings": {
+                                              "slidesToShow": 4
+                                            }
+                                        }, {
+                                          "breakpoint": 992,
+                                          "settings": {
+                                            "slidesToShow": 3
+                                          }
+                                        }, {
+                                          "breakpoint": 768,
+                                          "settings": {
+                                            "slidesToShow": 2
+                                          }
+                                        }, {
+                                          "breakpoint": 554,
+                                          "settings": {
+                                            "slidesToShow": 2
+                                          }
+                                        }]'>
+                                        {%for i in similar_product%}
+                                        <div class="js-slide products-group">
+                                            <div class="product-item">
+                                                <div class="product-item__outer h-100">
+                                                    <div class="product-item__inner px-wd-4 p-2 p-md-3">
+                                                        <div class="product-item__body pb-xl-2">
+                                                            <div class="mb-2"><a href="/collection/{{i.main_category.id}}" class="font-size-12 text-gray-5">{{i.main_category}}</a></div>
+                                                            <h5 class="mb-1 product-item__title"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.title}}</a></h5>
+                                                            <div class="mb-2">
+                                                                <a href="/single_product/{{i.id}}" class="d-block text-center"><img class="img-fluid" src="/{{i.image}}" alt="Image Description"></a>
+                                                            </div>
+                                                            <div class="flex-center-between mb-1">
+                                                                {%if request.user.is_retailer%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">{{i.amount_to_pay_retailer}}</div>
+                                                                </div>
+                                                                {%else%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">{{i.amount_to_pay}}</div>
+                                                                </div>
+                                                                {%endif%}
+                                                                {%if request.session.store_id%}
+                                                                <div class="d-none d-xl-block prodcut-add-cart">
+                                                                    <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                                </div>
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-item__footer">
+                                                            <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                                
+                                                                {%if request.session.store_id%}
+                                                                <a href="/addtowish/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                                {%else%}
+                                                                <a href="/buysingle/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Buy Now</a>
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {%endfor%}
+                                </div>
+                            
+                            </div>
+                            {%endif%}
+                 <!-- Rec-->
+                            <!-- End Recently viewed -->
+                <!-- Brand Carousel -->
+                <!-- <div class="mb-8">
+                    <div class="py-2 border-top border-bottom">
+                        <div class="js-slick-carousel u-slick my-1"
+                            data-slides-show="5"
+                            data-slides-scroll="1"
+                            data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                            data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                            data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                            data-responsive='[{
+                                "breakpoint": 992,
+                                "settings": {
+                                    "slidesToShow": 2
+                                }
+                            }, {
+                                "breakpoint": 768,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }, {
+                                "breakpoint": 554,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }]'>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img1.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img2.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img3.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img4.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img5.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img6.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                End Brand Carousel --> 
+            </div>
+        </main>
+
+
+
+
+
+
+
+{%endblock%}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Subscription Successfully Completed{% endblock %}
+{% block body %}
+<div class="modal" id="order-placed" style="display:block;width:100%:height:100%;background-color:white;text-align:center;z-index: 1000;">
+    <img src="{% static 'images/success.gif' %}" style="width:400px;">
+    <h2>Great! Subscription Successfully</h2>
+    <a href="/user/" class="btn btn-primary">Go to Your Dashboard</a>
+</div>
+{% endblock %}

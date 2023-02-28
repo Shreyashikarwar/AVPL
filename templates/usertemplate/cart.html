@@ -1,0 +1,224 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+
+<main id="content" role="main" class="cart-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Cart</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-4">
+            <h1 class="text-center">Cart</h1>
+        </div>
+        {% if items%}
+
+        {%else%}
+        <div class="text-center">
+            <h1 class="text-danger">Cart is Empty</h1>
+            <img src="https://cdn.dribbble.com/users/2046015/screenshots/4591856/first_white_girl_drbl.gif" class="img-fluid w-50">
+        </div>
+
+        {%endif%}
+        <div class="mb-10 cart-table table-responsive">
+            <form class="mb-4" action="#" method="post">
+                <table class="table" cellspacing="0">
+                    <thead>
+                        <tr>
+                           
+                            <th class="product-thumbnail">&nbsp;Product Image</th>
+                            <th class="product-name">Product</th>
+                            <th class="product-name">Price</th>
+                            <th class="product-name">Quantity</th>
+                            <th class="product-subtotal">Total Amount(in Rs.)</th>
+                            <th class="product-remove">&nbsp;Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr class="">
+                           
+                            <td class="d-none d-md-table-cell">
+                                <a href=""><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{item.image}}" alt="Image Description"></a>
+                            </td>
+
+                            <td data-title="Product">
+                                <a href="/single_product/{{x.item.id}}" class="text-gray-90">{{ item.name|safe }} </a><br>
+                                {% for x in item.set_all %}
+                                <span><strong>variant name: </strong>{{item.category.name}} </span><br>
+                                <span><strong>brand: </strong>{{x.variant_value.value}}</span><br>
+                                <span><strong>discount: </strong>{{x.item.discount_percent}} %</span><br>
+                              {%endfor%}
+                                {%if item.quantity <= item.stock%}
+                                <span><strong>Availability: </strong><span style="color: green">In-Stock</span></span>
+                                {%else%}
+                                <span><strong>Availability: </strong><span style="color: red">Out-of-Stock</span></span>
+                                {%endif%}
+                            </td>
+                            {%if request.user.is_retailer%}
+                            <td data-title="Price">
+                                <spam><del>₹{{item.price}}</del></spam>
+                                <span class="">₹{{x.item.amount_to_pay_retailer|floatformat:2}}</span>
+                            </td>
+                            {%else%}
+                            <td data-title="Price">
+                                <span><del>₹{{item.price}}</del></span><br>
+                                <span class="">₹{{item.price}}</span>
+                            </td>
+                            {%endif%}
+
+                            <td data-label="Quantity" class="ec-cart-pro-qty" style="text-align: center;">
+                                <div class="">
+                                    <input style="width:75px;border:none;" type="number" min="1" max="{{item.stock}}" value="{{ item.quantity }}" onchange="update_item('{{item.id}}')" id="{{item.id}}quantity" />
+                                </div>
+                            </td>
+
+                            <td data-title="Total" >
+                                {{item.total}}
+                                
+                            </td>
+                            <td data-label="Remove" class="text-center">
+                                <a style="cursor: pointer;font-size:38px;color:red" onclick="remove_item('{{item.id}}')" class="text-gray-32 font-size-26">×</a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                      
+                                                <tr>
+                            <td colspan="6" class="border-top space-top-2 justify-content-center">
+                                <div class="pt-md-3">
+                                    <div class="d-block d-md-flex flex-center-between">
+                                       
+                                        <div class="d-md-flex">
+                                            
+                                            <a href="/selectaddress/?cart={{ cart.id }}" class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 w-md-auto text-light d-none d-md-inline-block">Proceed to checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </form></div>
+        <!-- {% if cart_len != 0  %}
+        <div class="mb-8 cart-total">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 offset-lg-6 offset-xl-7 col-md-8 offset-md-4">
+                    <div class="border-bottom border-color-1 mb-3">
+                        <h3 class="d-inline-block section-title mb-0 pb-2 font-size-26">Cart totals</h3>
+                    </div>
+                    <table class="table mb-3 mb-md-0">
+                        <tbody>
+                            <tr class="cart-subtotal">
+                                <th>Subtotal</th>
+                                <td data-title="Subtotal"><span class="amount">₹{{ cart.subtotal }}</span></td>
+                            </tr>
+                            <tr class="shipping">
+                                <th>Shipping</th>
+                                
+                                {% if cart.subtotal >= 499 %}
+                                <td data-title="Shipping">
+                                    Flat Rate: <span class="amount">₹0</span>
+                                </td>
+                                {%else%}
+                                <td data-title="Shipping">
+                                    Flat Rate: <span class="amount">₹ {{ cart.delivery_charges }}</span>
+                                </td>
+                                {%endif%}
+                            </tr>
+                            <tr class="order-total">
+                                <th>Total</th>
+                                {%if cart %}
+                                <td data-title="Total"><strong><span class="amount">₹{{ cart.total }}</span></strong></td>
+                                {%else%}
+                                <td data-title="Total"><strong><span class="amount">₹ 0</span></strong></td>
+                                {%endif%}
+                            </tr>
+                        </tbody>    
+                    </table>
+                    <a type="button"  class="btn btn-primary-dark-w ml-md-2 px-5 px-md-4 px-lg-5 w-100 text-light w-md-auto d-md-none">Proceed to checkout</a>
+                </div>
+            </div>
+        </div>
+        {% endif %} -->
+    </div>
+</main>
+
+<script type="text/javascript">
+    function update_item(item_id) {
+      quantity_val = document.getElementById(item_id+'quantity').value;
+      $.ajax({
+            type:'GET',
+            url:'/user/updatecartitem',
+            data:{item:item_id, quantity:quantity_val},
+            success: function(res_data){
+                document.getElementById(item_id+'total').innerHTML = res_data.item_total;
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+            }
+        });
+        location.reload();
+   }
+   function remove_item(item_id) {
+      $.ajax({
+            type:'GET',
+            url:'/user/removecartitem',
+            data:{item:item_id},
+            success: function(res_data){
+                document.getElementById('cart-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('cart-tax').innerHTML = res_data.tax;
+                document.getElementById('cart-total').innerHTML = res_data.total;
+                document.getElementById('cart-delivery').innerHTML = res_data.delivery;
+                document.getElementById(item_id).style.display = 'none';
+                if (res_data.empty == '1'){
+                    document.getElementById('cart-data').style.display = 'none';
+                    document.getElementById('empty-heading').style.display = 'block';
+                }
+                
+            }
+            
+        });
+        location.reload();
+   }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

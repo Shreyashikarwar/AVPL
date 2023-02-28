@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Invoice - ORD{{order.order.id}}{{order.id}}</title>
+
+		<style>
+			.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(4) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+			.invoice-box table tr.total td:nth-child(3) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			.invoice-box.rtl {
+				direction: rtl;
+				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<div style="width: 100%; background-color: #000; padding: 1px 0px; margin-bottom: 20px; text-align: center;"><h2 style="color: #fff;">Invoice</h2></div>
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="5">
+						<table>
+							<tr>
+								<td class="title">
+									<img src="{{ order.product.store.storemages.logo.url|safe }}" style="width: 100%; max-width: 150px" />
+								</td>
+
+
+								<td>
+									Order ID: ORD{{order.order.id}}{{order.id}}<br />
+									Date: {{order.order.order_date}}<br />
+									{% if order.order.paid %}
+									Payment Type: Paid Order
+									{% else %}
+									Payment Type: COD Order
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="information">
+					<td colspan="5">
+						<table>
+							<tr>
+								<td>
+								<strong style="font-size: 20px; margin-bottom: 10px;">From:</strong><br>
+									<strong>{{ order.product.store.name }}</strong><br/>
+									{{ order.product.store.vendor.first_name }} {{ order.product.store.vendor.last_name }}<br/>
+									+91 {{ order.product.store.vendor.phone }}<br>
+									{{ order.product.store.vendor.address|safe }}<br>
+								</td>
+
+								<td>
+									<strong style="font-size: 20px; margin-bottom: 10px;">Billing To:</strong><br>
+									<strong>{{ order.order.address.name }}</strong><br/>
+									+91 {{ order.order.address.contact }}<br>
+									{{ order.order.address.home_no }}<br>{{ order.order.address.landmark }}, {{ order.order.address.city }}-{{ order.order.address.pincode }}<br>{{ order.order.address.state }}
+
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			
+		</div>
+		<div style="font-size:15px;">
+			<table  cellpadding="0" cellspacing="0">
+				<tr class="heading" style="height:50px;font-weight: bold;background-color: #e6dfcf;margin: 10px;">
+					<td style="text-align: left;">Product Name</td>
+					
+					
+					<td>Quantity</td>
+					
+					<td>Price</td>
+
+					<td>Subtotal</td>
+				</tr>
+
+				<tr class="item" style="margin: 10px;height: 50px;">
+					<td style="text-align: left;">{{order.product.name}}</td>
+					
+					<td>{{order.quantity}}</td>
+					
+					<td>{{order.product.price}}</td>
+					<td>{{order.subtotal}}</td>
+				</tr>
+				
+
+				<tr class="total" style="margin: 10px;height: 50px;">
+					<td></td>
+					<td></td>
+					<!-- <td style="text-align: right; font-weight: bold;">Tax</td>
+					<td>{{order.tax}}</td> -->
+				</tr>
+				<tr class="total">
+					<td></td>
+					<td></td>
+					
+					<td style="text-align: right; font-weight: bold;">Total:</td>
+					<td>{{order.total}}</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

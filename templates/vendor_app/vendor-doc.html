@@ -1,0 +1,95 @@
+{% extends 'usertemplate/base.html' %}
+{% load static %}
+{% block title %}Vendor Verification{% endblock %}
+{% block content %}
+            <div class="container register" style="border-radius: 1rem;">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>Welcome</h3>
+                        <p class="text-white">You are 30 seconds away from earning your own money!</p>
+                    </div>
+                    {% if flag %}
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">We have received your documents for KYC,<br>after verifying them we will revert you back soon....!!!!</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Vendor Verification</h3>
+                                <form action="/vendor/verification" method="POST" enctype="multipart/form-data">
+                                    <div class="row register-form">
+
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" placeholder="Your Voter ID/DL/Adhaar Number *" pattern="[0-9]{12}" title="Please enter the correct adhaar number."  name="aadhar" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ID/DL/Adhaar Front *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="aadharfront" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ID/DL/Adhaar Back *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="aadharback" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="GST Number *"  name="gst" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="MSME Number *" name="msme" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="PAN Number *" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="Please enter the correct PAN number." required name="pan" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" placeholder="Bank Account Number *" pattern="[0-9]{9,18}" name="bank_no" title="Please enter correct bank account number." required name="bank_no" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Bank Name *" title="Only (a-z) letters are allowed." required name="bank" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>PAN Card Image *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="panimage" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Shipping Policy *</label>
+                                                <input type="file" class="form-control" name="shippingpolicy" accept="application/pdf, image/png, image/jpeg" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Return Policy *</label>
+                                                <input type="file" class="form-control" accept="application/pdf, image/png, image/jpeg" name="returnpolicy" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Bank IFSC Code *" pattern="[A-Z]{4}0[A-Z0-9]{6}" title="Please enter correct IFSC code." required name="ifsc" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Bank Passbook *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="bank_passbook" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Razorpay ID *" required name="razor" value="" />
+                                            </div>
+                                            {% for message in messages %}
+                                                <span class="message">{{message}}</span>
+                                            {% endfor %}
+                                            <input type="submit" class="btnRegister"  value="Proceed"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+{% endblock %}

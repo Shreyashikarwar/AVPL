@@ -1,0 +1,145 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+<main id="content" role="main" class="cart-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Wishlist</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-4">
+            <h1 class="text-center">Wish List</h1>
+        </div>
+        {%if items%}
+        {%else%}
+         <div class="text-center">
+            <h1 class="text-danger">Wish List is Empty</h1>
+            <img src="https://cdn.dribbble.com/users/2046015/screenshots/4591856/first_white_girl_drbl.gif" class="img-fluid w-50">
+        </div>
+        {%endif%}
+        <div class="mb-10 cart-table">
+            <form class="mb-4" action="#" method="post">
+                {%if items %}
+                <table class="table" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="product-thumbnail">&nbsp;Product Image</th>
+                            <th class="product-name">&nbsp;Product</th>
+                            <!-- <th class="product-price">Description</th>  -->
+                            <th class="product-mrp">&nbsp;MRP</th>
+                            <th class="product-price">&nbsp;Price</th>
+                            <th class="product-remove">&nbsp;Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items%}
+                        <tr class="">
+                            
+                            <td class="d-none d-md-table-cell">
+                                <a href="/productdetail/?p={{item.product_id}}"><img class="img-fluid max-width-100 p-1 border border-color-1" src="{{item.image}}" alt="Image Description"></a>
+                            </td>
+
+                            <td data-title="Product">
+                                <a href="/productdetail/?p={{item.product_id}}" class="text-red-90">{{ item.name|safe }}</a><br>
+                               
+                                <span><strong>Store: </strong>{{item.store}}</span><br>
+                                <span><strong>Quantity: </strong>{{item.quantity}}</span><br>                                
+                                <span><strong>Weight: </strong>{{item.weight}}</span><br>
+                                <span><strong>Brand: </strong>{{item.brand}}</span><br>
+                                <span><strong>Discount: </strong>{{item.offer}}</span>
+                                
+                            </td>
+                            <!-- <td data-title="Description">
+                                <a href="/productdetail/?p={{item.product_id}}" class="text-gray-90">{{ item.description|safe }}</a><br>
+
+                            </td> -->
+                            
+                            <td data-title="MRP">
+                                <spam>₹<del>{{item.mrp}}</del></spam>
+                                <!-- <span class="">₹{{item.total}}</span> -->
+                            </td>
+                            
+                            <td data-title="Price">
+                                <span>₹{{item.price}}</span>
+                                <!-- <span class="">₹{{item.amount_to_pay}}</span> -->
+                            </td>
+                            
+
+                            <td class="text-center">
+                                <i class="fa fa-trash-o" style="font-size:48px;color:red"></i>
+                                <a style="cursor: pointer;font-size:38px;color:red" onclick="remove_item('{{item.id}}')"  class="text-gray-32 font-size-26">×</a>
+                            </td>
+                           
+                        </tr>
+                        {%endfor%}
+                      
+
+                    </tbody>
+                </table>
+                {%endif%}
+        </form></div>
+        
+    </div>
+</main>
+<script>
+    function remove_item(item_id) {
+      $.ajax({
+            type:'GET',
+            url:'/user/removewishlistitem',
+            data:{item:item_id},
+            success: function(res_data){
+                document.getElementById('wishlist-subtotal').innerHTML = res_data.subtotal;
+                document.getElementById('wishlist-tax').innerHTML = res_data.tax;
+                document.getElementById('wishlist-total').innerHTML = res_data.total;
+                document.getElementById('wishlist-delivery').innerHTML = res_data.delivery;
+                document.getElementById(item_id).style.display = 'none';
+                if (res_data.empty == '1'){
+                    document.getElementById('wishlist-data').style.display = 'none';
+                    document.getElementById('empty-heading').style.display = 'block';
+                }
+            }
+        });
+        location.reload();
+   }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

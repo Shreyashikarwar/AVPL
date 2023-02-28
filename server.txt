@@ -1,0 +1,5 @@
+ssh avpl@192.168.1.55
+avpl@1234
+
+/home/avpl/
+http://avpl.aarasocial.com:8089/

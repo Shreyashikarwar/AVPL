@@ -1,0 +1,178 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+<main id="content" role="main">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Contact-us</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+
+    <div class="container">
+        <div class="mb-5">
+            <h1 class="text-center">Contact Us</h1>
+        </div>
+        {% for message in messages %}
+        <span class="badge badge-primary">{{message}}</span>
+    {% endfor %}
+        <div class="row mb-10">
+            <div class="col-lg-7 col-xl-6 mb-8 mb-lg-0">
+                <div class="mr-xl-6 shadow shadow-lg py-4 px-4 rounded">
+                    <div class="border-bottom border-color-1 mb-5">
+                        <h3 class="section-title mb-0 pb-2 font-size-25">Leave us a Message</h3>
+                    </div>
+                    <p class="max-width-830-xl text-gray-90"></p>
+                    <form class="js-validate" action="/contact/save/"  method="POST" novalidate="novalidate">
+                        {%csrf_token%}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Name 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" name="name" placeholder="" aria-label="" required="" data-msg="Please enter your  name." data-error-class="u-has-error" data-success-class="u-has-success" value="{{name}}" autocomplete="off" required>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+
+                            <div class="col-md-6">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Mobile Number
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="number" class="form-control" name="mobile" placeholder="" aria-label="" required="" data-msg="Please enter your mobile number." data-error-class="u-has-error" data-success-class="u-has-success" value="{{phone}}" required>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Email
+                                    </label>
+                                    <input type="email" class="form-control" name="email" placeholder="" aria-label="" data-msg="Please enter subject." data-error-class="u-has-error" data-success-class="u-has-success" value="{{email}}" required>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Subject
+                                    </label>
+                                    <input type="text" class="form-control" name="topics" placeholder="" aria-label="" data-msg="Please enter subject." data-error-class="u-has-error" data-success-class="u-has-success" value="{{topics}}"  required>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-12">
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Your Message
+                                    </label>
+
+                                    <div class="input-group">
+                                        <textarea name="message"  class="form-control p-5" rows="4" name="text" placeholder="" required>{{message}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary-dark-w text-light px-5">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-6">
+                <div class="mb-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835252972956!2d144.95592398991224!3d-37.817327693787625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sin!4v1575470633967!5m2!1sen!2sin" width="100%" height="288" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title mb-0 pb-2 font-size-25">Our Address</h3>
+                </div>
+                <div class="mb-4 shadow shadow-lg p-3 rounded">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <i class="ec ec-map-pointer text-primary font-size-56"></i>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <a class="font-size-20 text-gray-90">C-379, Indra nagar, Lucknow, Uttar Pradesh, 226016</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4 shadow shadow-lg p-3 rounded">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <i class="ec ec-support text-primary font-size-56"></i>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <a href="tel:+919999676476" class="font-size-20 text-gray-90">+91 9999676476</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4 shadow shadow-lg p-3 rounded">
+                                <div class="row no-gutters">
+                                    <div class="col-auto">
+                                        <i class="ec ec-mail  text-primary font-size-56"></i>
+                                    </div>
+                                    <div class="col pl-3">
+                                        <a href="mailto:azicomcira@gmail.com" class="font-size-20 text-gray-90"> apnidukan588@gmail.com</a>
+                                    </div>
+                                </div>
+                            </div>
+               <!--  <h5 class="font-size-14 font-weight-bold mb-3">Opening Hours</h5>
+                <div class="">Monday to Friday: 9am-9pm</div>
+                <div class="mb-6">Saturday to Sunday: 9am-11pm</div> -->
+                
+            </div>
+        </div>
+      
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

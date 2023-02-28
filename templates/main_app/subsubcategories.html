@@ -1,0 +1,311 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}{{category.name}}{% endblock %}
+{% block body %}        <!-- Home -->
+        <!-- <img src="images/shops_imgs/12.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""> -->
+        <div class="home">
+            <div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/shops_imgs/20.jpg' %}"></div>
+            <div class="home_overlay"></div>
+            <div class="home_content d-flex flex-column align-items-center justify-content-center">
+                <h2 class="home_title">{{category.name}}</h2>
+            </div>
+        </div>
+
+       
+
+
+
+
+
+        <!-- Shop -->
+
+        <div class="shop">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+
+                        <!-- Shop Sidebar -->
+                        
+                        <section class="sidebar">
+                         
+                            <div class="border-bottom pb-2 ml-2">
+                                <h4 id="burgundy">Filters</h4>
+                            </div>
+                            
+                            <div class="py-2 border-bottom ml-3">
+                                <h6 class="font-weight-bold blue">Brand</h6>
+                                <div class="blue"><span class="fa fa-minus"></span></div>
+                                {% for brand in brands %}
+                                <div class="form-group"> <input type="checkbox" value="{{brand.id}}" id="brand{{brand.id}}" {% for x in selected_brands %}{% if x == brand.id %}checked{% endif %}{% endfor %}> <label for="brand{{brand.id}}">{{brand.name}}</label> </div>
+                                {% endfor %}
+                            </div>
+                            {% for  variant in variants %}
+                            <div class="py-2 border-bottom ml-3">
+                                <h6 class="font-weight-bold blue">{{variant.variant.name}}</h6>
+                                <div class="blue"><span class="fa fa-minus"></span></div>
+                                {% for value in variant.values %}
+                                <div class="form-group"> <input type="checkbox" value="{{value.id}}" id="variant{{value.id}}" {% for x in selected_variants %}{% if x == value.id %}checked{% endif %}{% endfor %}> <label for="variant{{value.id}}">{{value.value}}</label> </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                            <div class="">
+                                <button onclick="apply_filters()" class="btn btn-primary mb-4" style="width:100%;">Apply Filters</button>
+                                <button onclick="remove_filters()" class="btn btn-danger" style="width:100%;">Remove Filters</button>
+                            </div>
+                            
+                        </section>
+
+                        <section class="sidebar">
+                         
+                            <div class="border-bottom pb-2 ml-2">
+                                <h4 id="burgundy">Browse More</h4>
+                            </div>
+                            
+                            <div class="py-2 border-bottom ml-3">
+                                {% for x in subcategory %}
+                                <div class="form-group"><a href="/subsubcategories/?c={{x.id}}&sort=3&store={{store.id}}">{{x.name}}</a></div>
+                                {% endfor %}
+                            </div>
+                            
+                        </section>
+
+                    </div>
+
+                    <div class="col-lg-9">
+                    
+
+
+                        <!-- Shop Content -->
+
+                        <div class="shop_content">
+                            
+                            <div class="shop_bar clearfix">
+                                <div class="shop_product_count"><span>{{len}}</span> {% if len > 1 %}products{% else %}product{% endif %} found</div>
+                                <div class="shop_sorting">
+                                    <span>Sort by:</span>
+                                    <ul>
+                                        <li>
+                                            {% if sort == '1' %}
+                                            <span class="sorting_text">Price High -> Low<i class="fas fa-chevron-down"></span></i>
+                                            {% endif %}
+                                            {% if sort == '2' %}
+                                            <span class="sorting_text">Price Low -> High<i class="fas fa-chevron-down"></span></i>
+                                            {% endif %}
+                                            {% if sort == '3' %}
+                                            <span class="sorting_text">Newest First<i class="fas fa-chevron-down"></span></i>
+                                            {% endif %}
+                                            <ul>
+                                                <li class="shop_sorting_button"><a href="/categories/?c={{category.id}}&sort=3">Newest First</a></li>
+                                                <li class="shop_sorting_button"><a href="/categories/?c={{category.id}}&sort=2">Price High -> Low</a></li>
+                                                <li class="shop_sorting_button"><a href="/categories/?c={{category.id}}&sort=1">Price Low -> High</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="product_grid">
+                                <div class="product_grid_border"></div>
+                                
+                                <!-- Product Item -->
+                                <!--<div class="product_item is_new"> <div class="product_item discount">-->
+                                {% for product in data %}
+                                <div class="product_item">
+                                    <div class="product_border"></div>
+                                    <div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="/productpage/?p={{product.product.id}}"><img src="{{product.image.image.url}}" style="border-radius: .5rem;" height="100px" width="150px" alt=""></a></div>
+                                    <div class="product_content">
+                                        <div class="product_price"><strong><a href="/productpage/?p={{product.product.id}}">{{product.product.name}}</a></strong> <br><span><i class="fa fa-inr"></i>{{product.fake_price}}</span> <i class="fa fa-inr"></i>{{product.product.price}}</div>
+
+                                        <div class="product_name">
+                                            <div style="font-size:20px;">
+                                                <span class="badge badge-warning">{{product.pv}} PV</span>
+                                                {% if product.rating > 3.5 %}
+                                                <span class="badge badge-success" style="font-size:15px;">{{product.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if product.rating <= 3.5 and product.rating > 2.5 %}
+                                                <span class="badge badge-info" style="font-size:15px;">{{product.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if product.rating <= 2.5 %}
+                                                <span class="badge badge-danger" style="font-size:15px;">{{product.rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                <br>
+                                                <a href="/productpage/?p={{product.product.id}}" tabindex="0">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <!-- Shop Page Navigation -->
+
+                            <div class="shop_page_nav d-flex flex-row">
+                                <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
+                                    {% if data.has_other_pages %}
+                                      <ul class="page_nav d-flex flex-row">
+
+                                      {% if data.has_previous %}
+                                      <li><a href="/subsubcategories/?page={{ data.previous_page_number }}&c={{category.id}}&sort={{sort}}">&lt;</a></li>
+                                      {% else %}
+                                      <li><span>&lt;</span></li>
+                                      {% endif %}
+                                      
+                                      {% for i in data.paginator.page_range %}
+                                      {% if data.number == i %}
+                                      <li><a class="active">{{ i }}</a></li>
+                                      {% else %}
+                                      <li><a href="/subsubcategories/?page={{ i }}&c={{category.id}}&sort={{sort}}">{{ i }}</a></li>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                      {% if data.has_next %}
+                                      <li><a href="/subsubcategories/?page={{ data.next_page_number }}&c={{category.id}}&sort={{sort}}">&gt;</a></li>
+                                      {% else %}
+                                      <li><span>&gt;</span></li>
+                                      {% endif %}
+                                      
+                                    </ul>
+                                    {% endif %}
+                                <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+                            
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recently Viewed -->
+
+        <div class="viewed">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="viewed_title_container">
+                            <h3 class="viewed_title text-primary">Offers, Visit On</h3>
+                            <div class="viewed_nav_container">
+                                <div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                                <div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+                        </div>
+
+                        <div class="viewed_slider_container">
+
+                            <!-- Recently Viewed Slider -->
+
+                            <div class="owl-carousel owl-theme viewed_slider">
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/shops_imgs/12.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$225<span>$300</span></div>
+                                            <div class="viewed_name"><a href="#">Beoplay H7</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <!-- <li class="item_mark item_discount">-25%</li> -->
+                                            <!-- <li class="item_mark item_new">new</li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/shops_imgs/14.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$379</div>
+                                            <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/shops_imgs/18.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$225</div>
+                                            <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/shops_imgs/20.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$379</div>
+                                            <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/shops_imgs/13.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$225<span>$300</span></div>
+                                            <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recently Viewed Item -->
+                                <div class="owl-item">
+                                    <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="viewed_image"><img src="images/shops_imgs/19.jpg" style="border-radius: .5rem;" height="100px" width="150px" alt=""></div>
+                                        <div class="viewed_content text-center">
+                                            <div class="viewed_price">$375</div>
+                                            <div class="viewed_name"><a href="#">Speedlink...</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brands -->
+
+        <div class="brands">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="brands_slider_container">
+
+                            <!-- Brands Slider -->
+
+                            <div class="owl-carousel owl-theme brands_slider">
+
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_2.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""></div></div>
+                                <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""></div></div>
+
+                            </div>
+
+                            <!-- Brands Slider Navigation -->
+                            <div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
+                            <div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

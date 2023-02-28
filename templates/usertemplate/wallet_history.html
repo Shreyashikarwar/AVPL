@@ -1,0 +1,108 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+
+{% load mathfilters %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+<main id="content" role="main" class="cart-page">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Cart</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="mb-4">
+            <h1 class="text-center">Wallet History</h1>
+        </div>
+        <div class="row my-4 py-4 shadow shadow-lg rounded justify-content-center align-items-center">
+	{%if request.user.is_retailer%}
+	<div class="col-sm-12 col-md-3">
+                <img src="{%static 'img/wallet.jpg'%}" class="img-fluid rounded-circle" width="200" height="22">
+            </div>
+	{%else%}
+            <div class="col-sm-12 col-md-3">
+                <img src="/{{user_profile_obj.user_photo}}" class="img-fluid rounded-circle" width="200" height="22">
+            </div>
+	{%endif%}
+            <div class="col-sm-12 col-md-6">
+                <h3>{{user_profile_obj.user.first_name}}</h3>
+                <h4 class="font-weight-bold">Wallet Amount: <br><span class="badge badge-success">₹{{user_profile_obj.wallet_amount|floatformat:2}}</span></h4>
+
+            </div>
+            <div class="col-sm-12 col-md-3">
+
+            </div>
+        </div>
+        <div class="mb-10 table-responsive shadow shadow-lg p-4 my-4 rounded ">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th>Transfer</th>
+                    <th>Timespan</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+                    
+                    </tr>
+
+                </thead>
+                <tbody>
+                	{%for i in wallet_history_obj%}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.date_time}}</td>
+                        <td>{%if i.amount_type == "credited"%}<span style="color: green">+₹{{i.amount|floatformat:2}}</span>{%else%}<span style="color: red">-₹{{i.amount|floatformat:2}}</span>{%endif%}</td>
+                        <td>{{i.amount_type}}</td>
+
+                    </tr>
+                    {%endfor%}
+
+                </tbody>
+
+            </table>
+         </div>
+       
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,35 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+
+{% block body %}  
+
+
+
+	<div class="single_product" style="background: url({% static 'images/banner_2_background.jpg' %}) no-repeat; background-position: center;
+    background-size: cover;" >
+		<div class="container">
+			<div class="row">
+
+				
+
+				<!-- Description -->
+				<div class="col-lg-7 shadow shadow-lg">
+					<div class="product_description ">
+						<div class="product_category">About US</div>
+						<div class="product_name">About AVPL</div>
+						
+						<div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
+						
+					</div>
+				</div>
+				<!-- Description -->
+				<div class="col-lg-5">
+					<img src="{% static 'images/banner_2_product.png' %}" class="img-fluid">
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock%}

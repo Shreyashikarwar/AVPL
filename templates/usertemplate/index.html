@@ -1,0 +1,1488 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+        <main id="content" role="main">
+            <!-- Slider Section -->
+            <div class="mb-5">
+                <div class="bg-img-hero" style="background-image: url({% static 'assets1/img/1920X422/img1.jpg' %});">
+                    <div class="container min-height-420 overflow-hidden">
+                        <div class="js-slick-carousel u-slick"
+                            data-pagi-classes="text-center position-absolute right-0 bottom-0 left-0 u-slick__pagination u-slick__pagination--long justify-content-start mb-3 mb-md-4 offset-xl-3 pl-2 pb-1">
+                           
+                    {% for i in banners%}
+                            <div class="js-slide bg-img-hero-center" data-animation-delay="0">
+                                <div class="row min-height-420 py-7 py-md-0">
+                                    <div class="offset-xl-3 col-xl-4 col-6 mt-md-8">
+                                        <h1 class="font-size-64 text-lh-57 font-weight-light"
+                                            data-scs-animation-in="fadeInUp">
+                                            <span class="d-block font-size-55">{{i.title}}</span>
+                                        </h1>
+                                        <h6 class="font-size-15 font-weight-bold mb-3"
+                                            data-scs-animation-in="fadeInUp"
+                                            data-scs-animation-delay="200">
+                                        </h6>
+                                        <div class="mb-4"
+                                            data-scs-animation-in="fadeInUp"
+                                            data-scs-animation-delay="300">
+                                            <span class="font-size-13">{{i.sub_title}}</span>
+                                            <div class="font-size-50 font-weight-bold text-lh-45">
+                                            </div>
+                                        </div>
+                                        <div class="mb-4"
+                                            data-scs-animation-in="fadeInUp"
+                                            data-scs-animation-delay="300">
+                                            <span class="font-size-13">{{i.description}}</span>
+                                            <div class="font-size-50 font-weight-bold text-lh-45">
+                                            </div>
+                                        </div>
+					{%if i.category%}{% if banner.link != 'NONE' %}
+                                        <a href="{{banner.link}}" class="btn btn-primary transition-3d-hover rounded-lg font-weight-normal py-2 px-md-7 px-3 font-size-16"
+                                            data-scs-animation-in="fadeInUp"
+                                            data-scs-animation-delay="400">Visit
+                                            
+                                        </a>
+                                        {% endif %}
+                                            {%else%}
+
+                                            <a href="#" class="btn btn-primary transition-3d-hover rounded-lg font-weight-normal py-2 px-md-7 px-3 font-size-16"
+                                                                    data-scs-animation-in="fadeInUp"
+                                                                    data-scs-animation-delay="400">Visit
+                                                                    
+                                        </a>
+					                {%endif%}
+                                    </div>
+                                    <div class="col-xl-5 col-6  d-flex align-items-center" data-scs-animation-in="fadeInUp"
+                                        data-scs-animation-delay="500">
+                                        <a href="{{i.category.id}}" ><img class="img-fluid" src="{{i.image.url}}" alt="Image Description"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endfor%}
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </main>
+            
+            <!-- End Slider Section -->
+            <div class="container">
+                <!-- Banner -->
+                <div class="mb-5">
+                    <div class="row">
+                       {%for i in categories%}
+                       {% if forloop.counter <= 4 %}                        
+                       <div class="col-md-6 mb-4 mb-xl-0 col-xl-3">
+                            <a href="/search2/?key=&category={{i.id}}" class="d-black text-gray-90">
+                                <div class="min-height-132 py-1 d-flex bg-gray-1 align-items-center">
+                                    <div class="col-6 col-xl-5 col-wd-6 pr-0">
+                                        <img style="height: 90px;" class="img-fluid" src="{{i.image.url}}" alt="Image Description">
+                                    </div>
+                                    <div class="col-6 col-xl-7 col-wd-6">
+                                        <div class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23">
+                                            {{i.name}}
+                                        </div>
+                                        <div class="link text-gray-90 font-weight-bold font-size-15" href="/search2/?key=&category={{i.id}}">
+                                            Shop now
+                                            <span class="link__icon ml-1">
+                                                <span class="link__icon-inner"><i class="ec ec-arrow-right-categproes"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endfor%}
+			</div>
+            </div>
+
+                        <!-- <div class="col-md-6 mb-4 mb-xl-0 col-xl-3">
+                            <a href="/collection/33" class="d-black text-gray-90">
+                                <div class="min-height-132 py-1 d-flex bg-gray-1 align-items-center">
+                                    <div class="col-6 col-xl-5 col-wd-6 pr-0">
+                                        <img class="img-fluid" src="{% static 'assets1/img/190X150/img2.jpg' %}" alt="Image Description">
+                                    </div>
+                                    <div class="col-6 col-xl-7 col-wd-6">
+                                        <div class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23">
+                                             PERSONAL CARE PRODUCTS<strong></strong> 
+                                        </div>
+                                        <div class="link text-gray-90 font-weight-bold font-size-15" href="/collection/33">
+                                            Shop now
+                                            <span class="link__icon ml-1">
+                                                <span class="link__icon-inner"><i class="ec ec-arrow-right-categproes"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-xl-0 col-xl-3">
+                            <a href="/collection/19" class="d-black text-gray-90">
+                                <div class="min-height-132 py-1 d-flex bg-gray-1 align-items-center">
+                                    <div class="col-6 col-xl-5 col-wd-6 pr-0">
+                                        <img class="img-fluid" src="{% static 'assets1/img/190X150/img3.jpg' %}" alt="Image Description">
+                                    </div>
+                                    <div class="col-6 col-xl-7 col-wd-6">
+                                        <div class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23">
+                                            HARE CARE <strong>&</strong> HARE STYLING PRODUCT
+                                        </div>
+                                        <div class="link text-gray-90 font-weight-bold font-size-15" href="/collection/19   ">
+                                            Shop now
+                                            <span class="link__icon ml-1">
+                                                <span class="link__icon-inner"><i class="ec ec-arrow-right-categproes"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-xl-0 col-xl-3">
+                            <a href="/collection/17" class="d-black text-gray-90">
+                                <div class="min-height-132 py-1 d-flex bg-gray-1 align-items-center">
+                                    <div class="col-6 col-xl-5 col-wd-6 pr-0">
+                                        <img class="img-fluid" src="{%static  'assets1/img/190X150/img4.png' %}" alt="Image Description">
+                                    </div>
+                                    <div class="col-6 col-xl-7 col-wd-6">
+                                        <div class="mb-2 pb-1 font-size-18 font-weight-light text-ls-n1 text-lh-23">
+                                            GROCERYS <strong>&</strong> GARMENT SUPPLIES
+                                        </div>
+                                        <div class="link text-gray-90 font-weight-bold font-size-15" href="#">
+                                            Shop now
+                                            <span class="link__icon ml-1">
+                                                <span class="link__icon-inner"><i class="ec ec-arrow-right-categproes"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- End Banner -->
+
+                <div class="mb-6 row border rounded-lg mx-0 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                    <!-- Feature List -->
+                    <div class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all py-3">
+                        <div class="u-avatar mr-2">
+                            <i class="text-primary ec ec-transport font-size-46"></i>
+                        </div>
+                        <div class="media-body text-center">
+                            <span class="d-block font-weight-bold text-dark">Free Delivery</span>
+                            <div class=" text-secondary">from ₹50</div>
+                        </div>
+                    </div>
+                    <!-- End Feature List -->
+
+                    <!-- Feature List -->
+                    <div class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3">
+                        <div class="u-avatar mr-2">
+                            <i class="text-primary ec ec-customers font-size-56"></i>
+                        </div>
+                        <div class="media-body text-center">
+                            <span class="d-block font-weight-bold text-dark">99 % Customer</span>
+                            <div class=" text-secondary">Feedbacks</div>
+                        </div>
+                    </div>
+                    <!-- End Feature List -->
+
+                    <!-- Feature List -->
+                    <div class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3">
+                        <div class="u-avatar mr-2">
+                            <i class="text-primary ec ec-returning font-size-46"></i>
+                        </div>
+                        <div class="media-body text-center">
+                            <span class="d-block font-weight-bold text-dark">365 Days</span>
+                            <div class=" text-secondary">for free return</div>
+                        </div>
+                    </div>
+                    <!-- End Feature List -->
+
+                    <!-- Feature List -->
+                    <div class="media col px-6 px-xl-4 px-wd-8 flex-shrink-0 flex-xl-shrink-1 min-width-270-all border-left py-3">
+                        <div class="u-avatar mr-2">
+                            <i class="text-primary ec ec-payment font-size-46"></i>
+                        </div>
+                        <div class="media-body text-center">
+                            <span class="d-block font-weight-bold text-dark">Payment</span>
+                            <div class=" text-secondary">Secure System</div>
+                        </div>
+                    </div>
+                    <!-- End Feature List -->
+
+                 
+                </div>
+            {% if store %}
+                <!-- near by store -->
+                <div class="container">
+                    <!-- Prodcut-cards-carousel -->
+                    <div class="space-top-2">
+                        <!-- <dv class=" d-flex justify-content-between border-bottom border-color-1 flex-md-nowrap flex-wrap border-sm-bottom-0"> -->
+                            
+                            
+                            <h3 class="section-title mb-0 pb-2 font-size-22">Near By Store</h3>
+                            <div class="d-flex">
+                                <div class="col-lg-4 col-sm-12 col-12 d-flex flex-column">
+                                    
+                                    <a href="/store_details/{{store.id}}" class="introduce">
+                                        
+                                        <img style="height: 300px;" href="/store_details/{{store.id}}" width="600px" height="300px"   class="img-fluid " src="{{store_img.banner.url}}" alt="Image Description">
+
+                                            <div class="new-stars-main add"><div class="stars"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></div> <div class="rating-number"></div> </div>
+                                            <div class="flex-column-1 ">
+
+                                                    <h4 href="/store_details/{{store.id}}" style="font-weight: 600; color: #231900; font-family: Montserrat;padding-left: 20px; padding-top: 15px; font-size: 22px;">{{store}}</h4>
+                                                <div class="row" style="margin-bottom:15px">
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px; margin-left: 20px; padding-top: 5px; padding-bottom: 5px;font-weight: 600; padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px; margin-left:7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px;margin-left:-7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px; margin-left: -20px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px; margin-left: 20px;padding-top: 5px; padding-bottom: 5px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px;margin-left:7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px; padding-top: 5px; padding-bottom: 5px;margin-left:-7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px;margin-left: -20px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                    </div>
+                                                    
+                                                    <hr>
+                                                </div>
+                                                
+                                                <div class="row div">
+                                                <div class="col-md-4">
+                                                    <img href="/store_details/{{store.id}}" class="img-fluid" src="{{store_img.logo.url}}" alt="Image Description">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p style="color: #000; font-size: 16px; font-weight: 600;"><i class="ec ec-map-pointer mr-1"></i>{{store.opening_time}} - {{store.closing_time}}<br><i class="ec ec-map-pointer mr-1"></i>
+                                                        {{store.vendor.address}}</p>
+                                  
+                                </div>
+                                    
+                               
+                                </div>
+                                
+                            </a>
+                            
+                        </div>
+                </div>
+                            <!-- <div class="row margin-minus-tb-15"> -->
+                                <!-- <div class="js-slide"> -->
+                                    
+                                    <!-- <ul class="row list-unstyled products-group mb-0">
+                                        <li  class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                            <div  class="product-item__outer">
+                                                <div style="border-radius: 0rem;"  class="product-item__inner">
+                                                    <div class="col col-lg-auto product-media-left">
+                                                        <a href="/single_product/{{i.id}}" class="max-width-150 d-block"><img class="img-fluid" src="https://onlineapnidukan.com/media/{{store_img.logo}}" alt="Image Description"></a> -->
+                                                        <!-- <a href="/store_details/{{store.id}}" class="max-width-150 d-block"><img style="margin:auto;height:100px;" class="img-fluid" src="{{store_img.logo.url}}" alt="Image Description"></a>
+                                                    </div>
+                                                    <div class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1">
+                                                        <div class="mb-4">
+                                                            <div class="mb-2"><a href="" class="font-size-12 text-gray-5">{{i.main_category.category}}</a></div>
+                                                            <h5 class="product-item__title"><a href="/store_details/{{store.id}}" class="text-blue font-weight-bold">{{store}}</a></h5>
+                                                            <small class="text-info">{{store.distance}} KM Away</small>
+                                                            <p class="alert alert-success"style="border-left: 0px;><span class="text">Open Time: </span><span class="badge badge-success mx-2">{{store.opening_time}}</span><br>
+                                                                <span class="text" >Close Time: </span><span class="badge badge-danger mx-2">{{store.closing_time}}</span></p>
+
+                                                        </div>
+                                                        <div class="product-item__footer">
+                                                            <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                                <a href="/buysingle/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> See Details</a>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul> -->
+                                <!-- </div> -->
+                            <!-- </div> -->
+                        <!-- </dv> -->
+                    </div>
+                    {% endif %}
+                
+                <!-- end near by store -->
+                <!-- Deals-and-tabs -->
+                <div class="container">
+
+                <div class="mb-5">
+                    <div class="row" style="padding-top:100px;">
+                        <!-- Deal -->
+                        {% for i in special_offer %}
+                         <div class="col-md-auto mb-6 mb-md-0">
+                            <div style="height: 670px;" class="p-3 border border-width-2 border-primary borders-radius-0 bg-white min-width-370">
+                                <div class="d-flex justify-content-between align-items-center m-1 ml-2">
+                                    <h3 class="font-size-22 mb-0 font-weight-normal text-lh-28 max-width-120">Special Offer</h3>
+                                    <div class="d-flex align-items-center text-light flex-column justify-content-center bg-primary rounded-pill height-75 width-75 text-lh-1">
+                                        <span class="font-size-12">Save</span>
+                                        {%if request.user.is_retailer%}
+                                        <div class="font-size-20 font-weight-bold">₹50
+                                        </div>
+                                        {%else%}
+                                        <div class="font-size-20 font-weight-bold">₹50
+                                        </div>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <a href="/single_product/{{i.id}}" class="d-block text-center"><img class="img-fluid" src="{{i.image.url}}" alt="Image Description" height="250px" width="250px"></a>
+                                </div>
+                                <h5 class="mb-2 font-size-14 text-center mx-auto max-width-180 text-lh-18"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.product.name}}</a></h5>
+                                <div class="d-flex align-items-center justify-content-center mb-3">
+                                    <del class="font-size-18 mr-2 text-gray-2">₹{{i.product.mrp}}</del>
+                                    {%if request.user.is_retailer%}
+                                    <ins class="font-size-30 text-red text-decoration-none">₹{{i.product.price}}</ins>
+                                    {%else%}
+                                    <ins class="font-size-30 text-red text-decoration-none">₹{{i.product.price}}</ins>
+                                    {%endif%}
+                                </div>
+                                <div class="mb-3 mx-2">
+                                    {% if i.product.stock %}
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="">Available: <strong style="color: green;">IN-STOCK</strong></span>
+                                       
+                                    </div>
+                                    {%else%}
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="">Available: <strong style="color: red;">OUT-OF-STOCK</strong></span>
+                                       
+                                    </div>
+                                    {%endif%}
+                                    <div class="rounded-pill bg-gray-3 height-20 position-relative">
+                                        <span class="position-absolute left-0 top-0 bottom-0 rounded-pill w-30 bg-primary"></span>
+                                    </div>
+                                </div>
+				
+                                <div class="my-10">
+                                    <h6 class="font-size-15 text-gray-2 text-center mb-3">Hurry Up! Offer ends in:</h6>
+                                    <div class="js-countdown d-flex justify-content-center"
+                                        data-end-date="2020/11/30"
+                                        data-hours-format="%H"
+                                        data-minutes-format="%M"
+                                        data-seconds-format="%S">
+                                        <div class="text-lh-1">
+                                            <div class="text-gray-2 font-size-30 bg-gray-4 py-2 px-2 rounded-sm mb-2">
+                                                <span class="js-cd-hours">10</span>
+                                            </div>
+                                            <div class="text-gray-2 font-size-12 text-center">HOURS</div>
+                                        </div>
+                                        <div class="mx-1 pt-1 text-gray-2 font-size-24">:</div>
+                                        <div class="text-lh-1">
+                                            <div class="text-gray-2 font-size-30 bg-gray-4 py-2 px-2 rounded-sm mb-2">
+                                                <span class="js-cd-minutes"></span>
+                                            </div>
+                                            <div class="text-gray-2 font-size-12 text-center">MINS</div>
+                                        </div>
+                                        <div class="mx-1 pt-1 text-gray-2 font-size-24">:</div>
+                                        <div class="text-lh-1">
+                                            <div class="text-gray-2 font-size-30 bg-gray-4 py-2 px-2 rounded-sm mb-2">
+                                                <span class="js-cd-seconds"></span>
+                                            </div>
+                                            <div class="text-gray-2 font-size-12 text-center">SECS</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                        <!-- End Deal -->
+                        <!-- Tab Prodcut -->
+                        <div class="col">
+                            <!-- Features Section -->
+                            <div class="">
+                                <!-- Nav Classic -->
+                                <div class="position-relative bg-white text-center z-index-2">
+                                    <ul class="nav nav-classic nav-tab justify-content-center" id="pills-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active " id="pills-one-example1-tab" data-toggle="pill" href="#pills-one-example1" role="tab" aria-controls="pills-one-example1" aria-selected="true">
+                                                <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                                    Featured
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="pills-two-example1-tab" data-toggle="pill" href="#pills-two-example1" role="tab" aria-controls="pills-two-example1" aria-selected="false">
+                                                <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                                    On Sale
+                                                </div>
+                                            </a>
+                                        </li>
+                                        {%if request.session.store_id%}
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="pills-three-example1-tab" data-toggle="pill" href="#pills-three-example1" role="tab" aria-controls="pills-three-example1" aria-selected="false">
+                                                <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                                    Top Rated
+                                                </div>
+                                            </a>
+                                        </li>
+                                        {%endif%}
+                                    </ul>
+                                </div>
+                                <!-- End Nav Classic -->
+
+                                <!-- Tab Content -->
+                                <div class="tab-content " id="pills-tabContent">
+                                    <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab">
+                                        <ul class="row list-unstyled products-group no-gutters ">
+                                            {% for i in featured %}
+                                            {{ featured_pv }}
+                                            <li class="col-6 col-wd-3 col-md-4 product-item ">
+                                                <div class="product-item__outer h-100">
+                                                    <div style="border-radius: 0rem;" class="product-item__inner px-xl-4 p-1">
+                                                        <div class="product-item__body pb-xl-2">
+                                                            <div class="mb-2"><a href="/search2/?key=&category={{i.product.category.id}}" class="font-size-12 text-gray-5">{{i.product.category}}</a></div>
+                                                            <h5 class="mb-1 product-item__title"><a href="/productdetail/?p={{i.product.id}}" class="text-blue font-weight-bold">{{i.product.name}}</a></h5>
+                                                            <div class="mb-2">
+                                                                <a href="/productdetail/?p={{i.product.id}}"><img class="img-fluid" src="{{i.image.url}}"></a>
+                                                            </div>
+                                                            <div class="flex-center-between mb-1">
+                                                                {% if request.user.is_retailer%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">₹{{i.product.mrp|floatformat:2}}</div>
+                                                                </div>
+                                                                {% else %}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">₹{{i.product.price|floatformat:2}}</div>
+                                                                </div>
+                                                                <div class="flex-center-between mb-1">
+                                                                    <div class="prodcut-price">
+                                                                        <div style="text-decoration: line-through;" class="text-gray-50">₹{{i.product.mrp}}</div>
+                                                                    </div>
+                                                                </div>
+                                                                {%endif%}
+                                                                {% if request.session.store_id%}
+                                                                <div class="d-none d-xl-block prodcut-add-cart">
+                                                                    
+                                                                </div>
+                                                                {%else%}
+
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-item__footer ">
+                                                            <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                            {% if request.session.store_id%}
+                                                                <a   class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Add to Wishlist</a>
+                                                            {%else%}
+                                                            <div class="ml-md-3 cart_product" >
+                                                                
+
+                                                                <button type="button" class="button-input btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></button> 
+                                                                <a href="/productdetail/?p={{i.product.id}}" tabindex="0">See Product Details</a>
+ 
+                                                                <input hidden type="number" name="ec_qtybtn" value="1" id="quantity" />
+                                                                <input type="hidden" value="{{i.product.id|safe}}" class="product_cart">    
+                                                                <div class="modal p-4" id="added-cart"
+                                                                    style="width:100%;height:100%;background-color:rgba(13, 1, 0, 0.5);text-align:center;color:white;z-index:1000">
+                                                                    <h3 id="added-cart-text" style="color:white;"><i class="fa fa-check"></i> Added to Cart
+                                                                    </h3>
+                                                                </div>
+                                                            </div>                                                            
+                                                            {%endif%}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {%endfor%}
+                                          
+                                           
+                                         
+                                          
+                                           
+                                           
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane fade pt-2" id="pills-two-example1" role="tabpanel" aria-labelledby="pills-two-example1-tab">
+                                        <ul class="row list-unstyled products-group no-gutters">
+                                            {% for i in offer%}
+                                            <li class="col-6 col-wd-3 col-md-4 product-item">
+                                                <div class="product-item__outer h-100">
+                                                    <div class="product-item__inner px-xl-4 p-3">
+                                                        
+                                                        <div class="product-item__body pb-xl-2">
+                                                            <div class="mb-2"><a href="/search2/?key=&category={{i.product.category.id}}" class="font-size-12 text-gray-5">{{i.product.category}}</a></div>
+                                                            <h5 class="mb-1 product-item__title"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.product.name}}</a></h5>
+                                                            <div class="mb-2">
+                                                                <a href="/single_product/{{i.id}}" class="d-block text-center"><img class="img-fluid" src="{{i.image.url}}" alt="Image Description"></a>
+                                                            </div>
+                                                            <div class="flex-center-between mb-1">
+                                                                {% if request.session.is_retailer%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">₹
+                                                                {{i.product.mrp|floatformat:2}}</div>
+                                                                </div>
+                                                                {%else%}
+                                                                   <div class="prodcut-price">
+                                                                    <div class="text-gray-100">₹
+                                                                    {{i.product.price|floatformat:2}}</div>
+                                                                </div>
+                                                                <div class="flex-center-between mb-1">
+                                                                    <div class="prodcut-price">
+                                                                        <div style="text-decoration: line-through;" class="text-gray-50">₹{{i.product.mrp}}</div>
+                                                                    </div>
+                                                                </div>
+                                                                {%endif%}
+                                                                {%if request.session.store_id%}
+                                                                <div class="d-none d-xl-block prodcut-add-cart">
+                                                                    <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                                </div>
+                                                                {%endif%}
+                                                            </div>
+                                                            
+                                                        </div>
+
+                                                        <div class="product-item__footer">
+                                                            <div class="ml-md-3 cart_product" >
+                                                                
+
+                                                                <button type="button" class="button-input btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></button> 
+                                                                <a href="/productdetail/?p={{i.product.id}}" tabindex="0">See Product Details</a>
+ 
+                                                                <input hidden type="number" name="ec_qtybtn" value="1" id="quantity" />
+                                                                <input type="hidden" value="{{i.product.id|safe}}" class="product_cart">    
+                                                                <div class="modal p-4" id="added-cart"
+                                                                    style="width:100%;height:100%;background-color:rgba(13, 1, 0, 0.5);text-align:center;color:white;z-index:1000">
+                                                                    <h3 id="added-cart-text" style="color:white;"><i class="fa fa-check"></i> Added to Cart
+                                                                    </h3>
+                                                                </div>
+                                                            </div>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {%endfor%}
+                                
+                                           
+                                        </ul>
+                                    </div>
+                                    {%if request.session.store_id%}
+                                    <div class="tab-pane fade pt-2" id="pills-three-example1" role="tabpanel" aria-labelledby="pills-three-example1-tab">
+                                        <ul class="row list-unstyled products-group no-gutters">
+                                            {%for i in top_rated%}
+                                            <li class="col-6 col-wd-3 col-md-4 product-item">
+                                                <div class="product-item__outer h-100">
+                                                    <div class="product-item__inner px-xl-4 p-3">
+                                                        <div class="product-item__body pb-xl-2">
+                                                            <div class="mb-2"><a href="/collection/{{i.main_category.id}}" class="font-size-12 text-gray-5">{{i.main_category}}</a></div>
+                                                            <h5 class="mb-1 product-item__title"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.title}}</a></h5>
+                                                            <div class="mb-2">
+                                                                <a href="/single_product/{{i.id}}" class="d-block text-center"><img class="img-fluid" src="/{{i.image}}" alt="Image Description"></a>
+                                                            </div>
+                                                            <div class="flex-center-between mb-1">
+                                                                {%if request.user.is_retailer%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">₹{{i.amount_to_pay_retailer|floatformat:2}}</div>
+                                                                </div>
+                                                                {%else%}
+                                                                <div class="prodcut-price">
+                                                                    <div class="text-gray-100">₹{{i.amount_to_pay|floatformat:2}}</div>
+                                                                </div>
+                                                                {%endif%}
+                                                                {%if request.session.store_id%}
+                                                                <div class="d-none d-xl-block prodcut-add-cart">
+                                                                    <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                                </div>
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-item__footer">
+                                                            <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                                
+                                                                {%if request.session.store_id%}
+                                                                <a href="/addtowish/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Add to Wishlist</a>
+                                                                {%else%}
+
+                                                                <a href="/buysingle/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Buy Now</a>
+                                                                {%endif%}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {%endfor%}
+                                   
+                                        
+                                        </ul>
+                                    </div>
+                                    {%endif%}
+                                </div>
+                            </div>
+                                <!-- End Tab Content -->
+                            </div>
+                            <!-- End Features Section -->
+                        </div>
+                        <!-- End Tab Prodcut -->
+                    </div>
+                </container>
+                </div>
+                <!-- End Deals-and-tabs -->
+            </div>
+            <!-- Products-4-1-4 -->
+            <!-- Banner image above footer start -->
+            <div class="container">
+            <div class="mb-6">
+
+                    <div class="mb-8">
+                        <div class="row">
+                            {% for i in footer_banner %}
+                            <div class=" col-md-6  mb-3 mb-md-0">
+                                <a href="">
+                                    <img class="img-fluid" src="{{ i.image.url }}" alt="Image Description">
+                                </a>
+                            </div>
+                            {% endfor %}
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Banner image above footer end -->
+
+
+            <div class="container">
+                <!-- Prodcut-cards-carousel -->
+                <div class="space-top-2">
+                    <dv class=" d-flex justify-content-between border-bottom border-color-1 flex-md-nowrap flex-wrap border-sm-bottom-0">
+                        <h3 class="section-title mb-0 pb-2 font-size-22">Best Stores</h3>
+                    </dv>
+                    <div class="js-slick-carousel u-slick u-slick--gutters-2 overflow-hidden u-slick-overflow-visble pt-3 pb-6"
+                        data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-4">
+                        <div class="js-slide">
+                            <!-- <ul  class="row list-unstyled products-group no-gutters mb-0 overflow-visible">
+                                {% for i in bestseller %}
+                                <li  class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                    <div  class="product-item__outer h-100">
+                                        <div style="border-radius: 0rem;"  class="product-item__inner">
+                                            <div class="col col-lg-auto product-media-left">
+                                                <a href="/store_details/{{i.store.id}}/" class=""><img style="margin:auto;height:100px;" class="img-fluid" src="{{i.logo.url|safe}}" alt="Image Description"></a>
+                                        
+                                            </div>
+                                            <div class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1">
+                                                <div class="mb-4">
+                                                    <div class="mb-2"><a href="" class="font-size-12 text-gray-5">{{i.store.vendor.first_name}} {{i.store.vendor.last_name}}</a></div>
+                                                    <h5 class=""><a href="/store_details/{{store.id}}" style="text-align: center;font-size: large;" class="text-blue font-weight-bold">{{i.store.name}}</a></h5>
+                                                    <p class="alert alert-success" style="border-left: 0px;
+                                                    "><span class="">Open Time: </span><span class="badge badge-success mx-2">{{i.store.opening_time}}</span>
+                                                        <span class="">Close Time: </span><span class="badge badge-danger mx-2">{{i.store.closing_time}}</span></p>
+                                                </div>
+                                                
+                                                <!-- <div class="flex-center-between mb-3">
+                                                    {%if i.rating > 3%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{i.product.name}}</div>
+                                                    </div>
+                                                    {%else%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{i.amount_to_pay|floatformat:2}}</div>
+                                                    </div>
+                                                    {%endif%}
+                                                    {% if request.session.store_id%}
+                                                    <div class="d-none d-xl-block prodcut-add-cart">
+                                                        <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                    </div>
+                                                    {%endif%}
+                                                </div> -->
+                                                <!-- <div class="product-item__footer">
+                                                    <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                        {% if request.session.store_id%}
+                                                        <a href="/addtowish/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                        {%else%}
+                                                        <a href="/store_details/{{i.store.id}}/" class="text-red-6 font-size-33"><i class="ec ec-visit mr-1 font-size-15"></i> Visit</a>
+                                                        {%endif%}
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                {%endfor%}
+                            </ul> -->
+                            <div class="d-flex">
+                                {% for i in bestseller %}
+                                <div class="col-lg-4 col-sm-12 col-12 d-flex flex-column">
+                                    
+                                    <a href="/store_details/{{i.store.id}}" class="introduce">
+                                        
+                                        <img href="/store_details/{{i.store.id}}" style="height: 300px;"  width="600px" height="300px"   class="img-fluid " src="{{i.banner.url|safe}}" alt="Image Description">
+
+                                            <div class="new-stars-main add"><div class="stars"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></div> <div class="rating-number"></div> </div>
+                                            <div class="flex-column-1 ">
+
+                                                    <h4 href="/store_details/{{i.store.id}}" style="font-weight: 600; color: #231900; font-family: Montserrat;padding-left: 20px; padding-top: 15px; font-size: 22px;">{{i.store.name}}</h4>
+                                                <div class="row" style="margin-bottom:15px">
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px; margin-left: 20px; padding-top: 5px; padding-bottom: 5px;font-weight: 600; padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px; margin-left:7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px;margin-left:-7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px; margin-left: -20px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px; margin-left: 20px;padding-top: 5px; padding-bottom: 5px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px;margin-left:7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px; padding-top: 5px; padding-bottom: 5px;margin-left:-7px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                        <div class="col-3 padding"><a href="#" class="btn btn-light" title="Shakes" style="border-radius: 5px;padding-top: 5px; padding-bottom: 5px;margin-left: -20px;font-weight: 600;padding-right: 7px; padding-left: 7px;">Shakes</a></div>
+                                                    </div>
+                                                    
+                                                    <hr>
+                                                </div>
+                                                
+                                                <div class="row div">
+                                                <div class="col-md-4">
+                                                    <img href="/store_details/{{store.id}}" class="img-fluid" src="{{i.logo.url|safe}}" alt="Image Description">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p style="color: #000; font-size: 16px; font-weight: 600;"><i class="ec ec-map-pointer mr-1"></i>{{i.store.opening_time}} - {{i.store.closing_time}}<br><i class="ec ec-map-pointer mr-1"></i>
+                                                        {{i.store.vendor.address}}</p>
+                                  
+                                </div>
+                                    
+                               
+                                </div>
+                                
+                            </a>
+                            
+                        </div>
+                        {% endfor %}
+                        </div>
+
+                        </div>
+                        <!-- <div class="js-slide">
+                            <ul class="row list-unstyled products-group no-gutters mb-0 overflow-visible">
+                                {% for i in best_seller2%}
+                                <li class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                    <div class="product-item__outer h-100">
+                                        <div class="product-item__inner p-md-3 row no-gutters">
+                                            <div class="col col-lg-auto product-media-left">
+                                                <a href="/single_product/{{i.id}}" class="max-width-150 d-block"><img class="img-fluid" src="/{{i.image}}" alt="Image Description"></a>
+                                            </div>
+                                            <div class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1">
+                                                <div class="mb-4">
+                                                    <div class="mb-2"><a href="/collection/{{i.main_category.id}}" class="font-size-12 text-gray-5">{{i.main_category.category}}</a></div>
+                                                    <h5 class="product-item__title"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.title}}</a></h5>
+                                                </div>
+                                                <div class="flex-center-between mb-3">
+                                                    {%if rerquest.user.is_retailer%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{i.amount_to_pay_retailer|floatformat:2}}</div>
+                                                    </div>
+                                                    {%else%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{i.amount_to_pay|floatformat:2}}</div>
+                                                    </div>
+                                                    {%endif%}
+                                                    {% if request.session.store_id%}
+                                                    <div class="d-none d-xl-block prodcut-add-cart">
+                                                        <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                    </div>
+                                                    {%endif%}
+                                                </div>
+                                                <div class="product-item__footer">
+                                                    <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                        {% if request.session.store_id%}
+                                                        <a href="/addtowish/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                        {%else%}
+                                                        <a href="/buysingle/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Buy Now</a>
+                                                        {%endif%}
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                {%endfor%}
+                            </ul>
+                        </div>
+                        <div class="js-slide">
+                            <ul class="row list-unstyled products-group no-gutters mb-0 overflow-visible">
+                                {%for i in best_seller3%}
+                                <li class="col-wd-3 col-md-4 product-item product-item__card pb-2 mb-2 pb-md-0 mb-md-0 border-bottom border-md-bottom-0">
+                                    <div class="product-item__outer h-100">
+                                        <div class="product-item__inner p-md-3 row no-gutters">
+                                            <div class="col col-lg-auto product-media-left">
+                                                <a href="/single_product/{{x.id}}" class="max-width-150 d-block"><img class="img-fluid" src="/{{i.image}}" alt="Image Description"></a>
+                                            </div>
+                                            <div class="col product-item__body pl-2 pl-lg-3 mr-xl-2 mr-wd-1">
+                                                <div class="mb-4">
+                                                    <div class="mb-2"><a href="/collection/{{i.main_category.id}}" class="font-size-12 text-gray-5">{{i.main_category.category}}</a></div>
+                                                    <h5 class="product-item__title"><a href="/single_product/{{i.id}}" class="text-blue font-weight-bold">{{i.title}}</a></h5>
+                                                </div>
+                                                <div class="flex-center-between mb-3">
+                                                    {% if request.user.is_retailer%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{i.amount_to_pay_retailer|floatformat:2}}</div>
+                                                    </div>
+                                                    {%else%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{i.amount_to_pay|floatformat:2}}</div>
+                                                    </div>
+                                                    {%endif%}
+                                                    {%if request.session.store_id%}
+                                                    <div class="d-none d-xl-block prodcut-add-cart">
+                                                        <a href="/add_to_cart/{{i.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                    </div>
+                                                    {%endif%}
+                                                </div>
+                                                <div class="product-item__footer">
+                                                    <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                        
+                                                        {% if request.session.store_id%}
+                                                        <a href="/addtowish/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                        {% else %}
+
+                                                            <a href="/buysingle/{{i.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Buy Now</a>
+
+                                                        {%endif%}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                {%endfor%}
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- End Prodcut-cards-carousel -->
+                <!-- Full banner -->
+               
+                <!-- End Full banner -->
+                <!-- <div class="mb-8">
+                        <div class="row">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <a >
+                                    <img class="img-fluid" src="{% static 'assets1/img/690X150/personal care 690 by 150.webp' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a >
+                                    <img class="img-fluid" src="{% static 'assets1/img/690X150/690 by 150 pasta and vermicelli.webp' %}" alt="Image Description">
+                                </a>
+                            </div>
+                        </div>
+                    </div> -->
+
+                <!-- Recently viewed -->
+                {% for i,j in d.items %}
+                <div class="mb-6">
+                    <div class="position-relative">
+                        <div class="border-bottom border-color-1 mb-2">
+                            <h3 class="section-title mb-0 pb-2 font-size-22">{{i}}</h3>
+                        </div>
+                        
+                        <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+                            data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+                            data-slides-show="7"
+                            data-slides-scroll="1"
+                            data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+                            data-arrow-left-classes="fa fa-angle-left right-1"
+                            data-arrow-right-classes="fa fa-angle-right right-0"
+                            data-responsive='[{
+                              "breakpoint": 1400,
+                             
+                              "settings": {
+                                "autoplay": true,
+                               "dots": false,
+                               "autoplay": true,
+                                "slidesToShow": 5
+                              }
+                            }, {
+                                "breakpoint": 1200,
+
+                                "settings": {
+                                 "dots": false,
+                                 "autoplay": true,
+                                  "slidesToShow": 4
+                                }
+                            }, {
+                              "breakpoint": 992,
+                              "settings": {
+                              "dots": false,
+                                "autoplay": true,
+                                "slidesToShow": 3
+                              }
+                            }, {
+                              "breakpoint": 768,
+                              "settings": {
+                              "dots": false,
+                                 "autoplay": true,
+                                "slidesToShow": 2
+                              }
+                            }, {
+                              "breakpoint": 554,
+                              "settings": {
+                              "dots": false,
+                                 "autoplay": true,
+                                "slidesToShow": 2
+                              }
+                            }]'>
+                            
+                            
+                            {% for x in j%}
+                            <div class="js-slide products-group">
+                                <div class="product-item">
+                                    <div class="product-item__outer h-100">
+                                        <div class="product-item__inner px-wd-4 p-2">
+                                            <div class="product-item__body pb-xl-2">
+                                                <div class="mb-2"><a href="/collection/{{x.id}}" class="font-size-12 text-gray-5">{{x.main_category.category}}</a></div>
+                                                <h5 class="mb-1 product-item__title"><a href="/single_product/{{x.id}}" class="text-blue font-weight-bold">{{x.title}}</a></h5>
+                                                <div class="mb-2">
+                                                    <a href="/single_product/{{x.id}}" class="d-block text-center"><img class="img-fluid" src="/{{x.image}}" alt="Image Description"></a>
+                                                </div>
+                                                <div class="flex-center-between mb-1">
+                                                    {%if request.user.is_retailer%}
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">₹{{x.amount_to_pay_retailer|floatformat:2}}</div>
+                                                    </div>
+                                                    {%else%}
+						<div class="prodcut-price">
+   							 <div class="text-gray-100">₹{{x.amount_to_pay|floatformat:2}}</div>
+						</div>
+						{%endif%}
+                                                    {% if request.session.store_id%}
+                                                    <div class="d-none d-xl-block prodcut-add-cart">
+                                                                    <a href="/add_to_cart/{{x.id}}/" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                                </div>
+                                                    
+                                                   
+                                                        
+                                                    {%endif%}
+                                                </div>
+                                            </div>
+                                            <div class="product-item__footer">
+                                                <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                    
+                                                    {% if request.session.store_id%}
+                                                    <a href="/addtowish/{{x.id}}" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                    {%else%}
+
+                                                    <a href="/buysingle/{{x.id}}" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Buy Now</a>
+                                                    {%endif%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             {%endfor%}
+                        </div>
+                        
+                    </div>
+                    
+                  
+                </div>
+                
+                {%endfor%}
+                
+                <!-- <div class="mb-6">
+                    <a  class="d-block text-gray-90">
+                        <div class="" >
+                            <div class="space-top-2-md">
+                                <div class="flex-horizontal-center mt-lg-3 mt-xl-0 overflow-auto overflow-md-visble">
+                                 <img src="{%static 'assets1/img/BANNER-1400-BY206.webp' %}" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div> -->
+                
+
+
+
+             
+
+
+
+
+
+                
+                <!-- End Recently viewed -->
+
+              
+                <!-- End Recently viewed -->
+                <!-- Brand Carousel -->
+                <!-- <div class="mb-8">
+                    <div class="py-2 border-top border-bottom">
+                        <div class="js-slick-carousel u-slick my-1"
+                            data-slides-show="5"
+                            data-slides-scroll="1"
+                            data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                            data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                            data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                            data-responsive='[{
+                                "breakpoint": 992,
+                                "settings": {
+                                    "slidesToShow": 2
+                                }
+                            }, {
+                                "breakpoint": 768,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }, {
+                                "breakpoint": 554,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }]'>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img1.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img2.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img3.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                         <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img4.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img5.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                            <div class="js-slide">
+                                <a href="#" class="link-hover__brand">
+                                    <img class="img-fluid m-auto max-height-50" src="{% static 'assets1/img/200X60/img6.png' %}" alt="Image Description">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- End Brand Carousel -->
+            </div>
+
+            
+            
+            
+        <!--Store and products-->
+        <div class="mb-6">
+            <div class="position-relative">
+                <div class="border-bottom border-color-1 mb-2">
+                    <h3 class="section-title mb-0 pb-2 font-size-22">Our Products</h3>
+                </div>
+                <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+                    data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+                    data-slides-show="7"
+                    data-slides-scroll="1"
+                    data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+                    data-arrow-left-classes="fa fa-angle-left right-1"
+                    data-arrow-right-classes="fa fa-angle-right right-0"
+                    data-responsive='[{
+                      "breakpoint": 1400,
+                      "settings": {
+                        "slidesToShow": 6
+                      }
+                    }, {
+                        "breakpoint": 1200,
+                        "settings": {
+                          "slidesToShow": 4
+                        }
+                    }, {
+                      "breakpoint": 992,
+                      "settings": {
+                        "slidesToShow": 3
+                      }
+                    }, {
+                      "breakpoint": 768,
+                      "settings": {
+                        "slidesToShow": 2
+                      }
+                    }, {
+                      "breakpoint": 554,
+                      "settings": {
+                        "slidesToShow": 2
+                      }
+                    }]'>
+
+                    {% for i in product %}
+                    <div class="js-slide products-group">
+                       
+                        <div class="product-item">
+                            
+                            <div style="border-radius: 0rem;" class="product-item__outer h-100">
+                                
+                                <div style="border-radius: 0rem;" class="product-item__inner px-wd-4 p-2 p-md-3">
+                                    
+                                    <div class="product-item__body pb-xl-2">
+                                        <div class="mb-2"><a href="/search2/?key=&category={{i.category.id}}" class="font-size-12 text-gray-5">{{i.category.name}}</a></div>
+                                        <h5 class="mb-1 product-item__title"><a href="/productdetail/?p={{i.id}}" class="text-blue font-weight-bold">{{ i.name }}</a></h5>
+                                        <div class="mb-2">
+                                            {% for j in image %}
+                                            {% for y in j%}
+                                            {% if y.product.id == i.id %}
+                                            {% if forloop.counter == 1 %}
+                                            <a href="/productdetail/?p={{i.id}}" class="d-block text-center"><img class="img-fluid" src="{{y.image.url}} " alt="Image Description"></a>
+                                            {%endif%}
+                                            {%endif%}
+                                            {%endfor%}
+                                            {%endfor%}
+                                        </div>
+                                        <div class="flex-center-between mb-1 cart_product">
+                                            <div class="prodcut-price">
+                                                <div class="text-gray-100">₹{{ i.price}}</div>
+                                            </div>
+                                            <div class="d-none d-xl-block prodcut-add-cart ">
+                                                                
+                                           
+
+                                                <input hidden type="number" name="ec_qtybtn" value="1" id="quantity" />
+                                                <input type="hidden" value="{{i.id|safe}}" class="product_cart">  
+                                                <button type="button" class="button-input btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></button> 
+                                           
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="product-item__footer">
+                                        <div class="border-top pt-2 flex-center-between flex-wrap">
+                                            <a href="" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                            <a href="" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+<!--Latest Products -->
+<div class="mb-6">
+    <div class="position-relative">
+        <div class="border-bottom border-color-1 mb-2">
+            <h3 class="section-title mb-0 pb-2 font-size-22">Latest Products</h3>
+        </div>
+        <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+            data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+            data-slides-show="7"
+            data-slides-scroll="1"
+            data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+            data-arrow-left-classes="fa fa-angle-left right-1"
+            data-arrow-right-classes="fa fa-angle-right right-0"
+            data-responsive='[{
+              "breakpoint": 1400,
+              "settings": {
+                "slidesToShow": 6
+              }
+            }, {
+                "breakpoint": 1200,
+                "settings": {
+                  "slidesToShow": 4
+                }
+            }, {
+              "breakpoint": 992,
+              "settings": {
+                "slidesToShow": 3
+              }
+            }, {
+              "breakpoint": 768,
+              "settings": {
+                "slidesToShow": 2
+              }
+            }, {
+              "breakpoint": 554,
+              "settings": {
+                "slidesToShow": 2
+              }
+            }]'>
+
+            {% for i in latest %}
+            <div  class="js-slide products-group">
+               
+                <div class="product-item">
+                    
+                    <div style="border-radius: 0rem;" class="product-item__outer h-100">
+                        
+                        <div style="border-radius: 0rem;" class="product-item__inner px-wd-4 p-2 p-md-3">
+                            
+                            <div class="product-item__body pb-xl-2">
+                                <div class="mb-2"><a href="/search2/?key=&category={{i.product.category.id}}" class="font-size-12 text-gray-5">{{i.product.category.name}}</a></div>
+                                <h5 class="mb-1 product-item__title"><a href="/productdetail/?p={{i.product.id}}" class="text-blue font-weight-bold">{{ i.product.name }}</a></h5>
+                                <div class="mb-2">
+                                    
+                                    
+                                    <a href="/productdetail/?p={{i.product.id}}" class="d-block text-center"><img class="img-fluid" src="{{i.image.url}} " alt="Image Description"></a>
+                                    
+                                </div>
+                                <div class="flex-center-between mb-1 cart_product">
+                                    <div class="prodcut-price">
+                                        <div class="text-gray-100">₹{{ i.product.price}}</div>
+                                    </div>
+                                    <div class="d-none d-xl-block prodcut-add-cart">
+
+
+                                        <input hidden type="number" name="ec_qtybtn" value="1" id="quantity" />
+                                        <input type="hidden" value="{{i.product.id|safe}}" class="product_cart">  
+                                        <button type="button" class="button-input btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></button>                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-item__footer">
+                                <div class="border-top pt-2 flex-center-between flex-wrap">
+                                    <!-- <a href="" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> See Product Details</a> -->
+                                    <a href="" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--End Latest Products -->
+
+                    <!-- <div class="mb-6">
+                        <div class="position-relative">
+                            <div class="border-bottom border-color-1 mb-2">
+                                <h3 class="section-title mb-0 pb-2 font-size-22">Health Care</h3>
+                            </div>
+                            <div class="js-slick-carousel u-slick position-static overflow-hidden u-slick-overflow-visble pb-7 pt-2 px-1"
+                                data-pagi-classes="text-center right-0 bottom-1 left-0 u-slick__pagination u-slick__pagination--long mb-0 z-index-n1 mt-3 mt-md-0"
+                                data-slides-show="7"
+                                data-slides-scroll="1"
+                                data-arrows-classes="position-absolute top-0 font-size-17 u-slick__arrow-normal top-10"
+                                data-arrow-left-classes="fa fa-angle-left right-1"
+                                data-arrow-right-classes="fa fa-angle-right right-0"
+                                data-responsive='[{
+                                  "breakpoint": 1400,
+                                  "settings": {
+                                    "slidesToShow": 6
+                                  }
+                                }, {
+                                    "breakpoint": 1200,
+                                    "settings": {
+                                      "slidesToShow": 4
+                                    }
+                                }, {
+                                  "breakpoint": 992,
+                                  "settings": {
+                                    "slidesToShow": 3
+                                  }
+                                }, {
+                                  "breakpoint": 768,
+                                  "settings": {
+                                    "slidesToShow": 2
+                                  }
+                                }, {
+                                  "breakpoint": 554,
+                                  "settings": {
+                                    "slidesToShow": 2
+                                  }
+                                }]'>
+                                <div class="js-slide products-group">
+                                    {% for i in hcprod %}
+                                    <div class="product-item">
+                                        <div class="product-item__outer h-100">
+                                            <div class="product-item__inner px-wd-4 p-2 p-md-3">
+                                                <div class="product-item__body pb-xl-2">
+                                                    <div class="mb-2"><a href="http://transvelo.github.io/electro-html/2.0/html/shop/product-categories-7-column-full-width.html" class="font-size-12 text-gray-5">{{i.procuct.category}}</a></div>
+                                                    <h5 class="mb-1 product-item__title"><a href="http://transvelo.github.io/electro-html/2.0/html/shop/single-product-fullwidth.html" class="text-blue font-weight-bold">{{i.product.}}</a></h5>
+                                                    <div class="mb-2">
+                                                        <a href="http://transvelo.github.io/electro-html/2.0/html/shop/single-product-fullwidth.html" class="d-block text-center"><img class="img-fluid" src="{{ i.image.url }}" alt="Image Description"></a>
+                                                    </div>
+                                                    <div class="flex-center-between mb-1">
+                                                        <div class="prodcut-price">
+                                                            <div class="text-gray-100">${{ i.price}}</div>
+                                                        </div>
+                                                        <div class="d-none d-xl-block prodcut-add-cart">
+                                                            <a href="http://transvelo.github.io/electro-html/2.0/html/shop/single-product-fullwidth.html" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="product-item__footer">
+                                                    <div class="border-top pt-2 flex-center-between flex-wrap">
+                                                        <a href="http://transvelo.github.io/electro-html/2.0/html/shop/compare.html" class="text-gray-6 font-size-13"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                                        <a href="http://transvelo.github.io/electro-html/2.0/html/shop/wishlist.html" class="text-gray-6 font-size-13"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                </div>
+            
+                               
+                                </div> -->
+            </div>
+        </div>
+    </div>
+    </div>
+<!--Store and products end-->
+
+            
+
+
+
+
+
+
+
+            
+            
+            
+
+        </main>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+       
+        <script type="text/javascript">
+
+            
+$(document).ready(function(){
+    $('.button-input').click(function(){
+    console.log('hhhhhh')
+
+    console.log('hehhhhhhhh')
+        flag = '0';
+
+        product_id =$(this).closest(".cart_product").find('.product_cart').val()
+        console.log(product_id)
+        variant_lt = [];
+    //     {% for variant in variants %}
+    //     { { variant.variant.name } } = document.getElementsByName('{{variant.variant.name}}');
+    //     var {{ variant.variant.name }
+    // } _id = 'none';
+    // for (i = 0; i < {{ variant.variant.name }}.length; i++) {
+    //     if ({{ variant.variant.name }
+    // } [i].checked) {
+    //     variant_lt.push({{ variant.variant.name }} [i].value);
+    // break;
+    //     }
+    // }
+    // {% endfor %}
+    quantity_val = document.getElementById('quantity').value;
+    console.log(quantity_val)
+    document.getElementById('added-cart').style.display = 'block';
+    if (flag == '0') {
+        $.ajax({
+            type: 'POST',
+            url: '/user/addtocart',
+            
+            data: { product: product_id, variants: variant_lt, quantity: quantity_val },
+            
+            success: function (res_data) {
+                if (res_data.response == 'failed2') {
+                    console.log(data);
+                    document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+                }
+                else {
+                    if (res_data.response == 'success') {
+                        document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+
+                        //await.sleep(2000);
+                        document.getElementById('added-cart').style.display = 'none';
+                    }
+                    else {
+                        document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                    }
+                }
+            },
+            error: function (res) {
+                document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+            }
+        });
+
+        location.reload();
+
+    }
+})
+})
+
+
+</script>
+        <script type="text/javascript">
+            async function add_to_wishlist() {
+              flag = '0';
+              product_id = document.getElementById('product').value;
+              variant_lt = [];
+              {% for variant in variants %}
+              {{variant.variant.name}} = document.getElementsByName('{{variant.variant.name}}');
+              var {{variant.variant.name}}_id = 'none';
+              for(i = 0; i < {{variant.variant.name}}.length; i++) {
+                    if({{variant.variant.name}}[i].checked){
+                        variant_lt.push({{variant.variant.name}}[i].value);
+                        break;
+                    }
+                }
+              {% endfor %}
+              quantity_val = document.getElementById('quantity').value;
+              document.getElementById('added-cart').style.display = 'block';
+              if (flag == '0'){
+                $.ajax({
+                    type:'POST',
+                    url:'/user/addtowishlist',
+                    data:{product:product_id, variants:variant_lt, quantity:quantity_val},
+                    success: function(res_data){
+                        if (res_data.response == 'failed2'){
+                            document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+                        }
+                        else{
+                            if (res_data.response == 'success'){
+                                document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+                                
+                                //await.sleep(2000);
+                                document.getElementById('added-cart').style.display = 'none';
+                            }
+                            else{
+                                document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                            }
+                        }
+                    },
+                    error: function(res){
+                        document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                    }
+                });
+              }
+            }
+            </script>
+
+
+
+
+{%if store%}
+
+{%else%}
+<script>
+     $(document).ready(function(){
+        $("#locationModal").modal('show');
+        });  
+        </script>         
+{%endif%}
+           
+
+{%endblock%}
+        

@@ -1,0 +1,77 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block body %}
+            <div class="container register" style="border-radius: 1rem;">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>Welcome</h3>
+                        <p class="text-white">You are 30 seconds away from earning your own money!</p>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Add Store Info</h3>
+                                <form action="/vendor/storeinfo" method="POST" enctype="multipart/form-data">
+                                    <div class="row register-form">
+
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Store Name *" required name="name" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" class="form-control" placeholder="Description *" required name="description" value="" /></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Registration Number *" required name="reg_no" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Store Logo *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="logo" required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Store Image *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="image" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <select class="form-control" name="closing_day">
+                                                    <option selected disabled>----select closing day----</option>
+                                                    <option value="Monday">Monday</option>
+                                                    <option value="Tuesday">Tuesday</option>
+                                                    <option value="Wednesday">Wednesday</option>
+                                                    <option value="Thursday">Thursday</option>
+                                                    <option value="Friday">Friday</option>
+                                                    <option value="Saturday">Saturday</option>
+                                                    <option value="Sunday">Sunday</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Store Closing Time *</label>
+                                                <input type="time" class="form-control" placeholder="Closing Time *" name="closing_time" required value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Store Opening Time *</label>
+                                                <input type="time" class="form-control" placeholder="Closing Time *" name="opening_time" required value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Store Banner *</label>
+                                                <input type="file" class="form-control" accept="image/png, image/jpeg" name="banner" required/>
+                                            </div>
+                                            {% for message in messages %}
+                                                <span class="message">{{message}}</span>
+                                            {% endfor %}
+                                            <input type="submit" class="btnRegister"  value="Proceed"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

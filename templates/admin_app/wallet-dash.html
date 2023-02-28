@@ -1,0 +1,141 @@
+{% extends 'admin_app/base.html' %}
+{% load static %}
+{% block title %}Wallet Dashboard{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1>Wallet Dashboard</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">Wallet Dashboard</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Wallet</h4>
+                              </div>
+                              <div class="card-body">
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-6 col-md-12 col-sm-12">
+                                          <h4><i class="fa fa-dashcube"></i> Current Balance</h4>
+                                          <hr style="border-width:5px;border-color:green;border-radius:20px;margin-bottm:10px;">
+                                          <h5><i class="fa fa-inr"></i> {{wallet.current_balance}}</h5>
+                                       </div>
+                                       <div class="col-lg-6 col-md-12 col-sm-12">
+                                          <h4><i class="fa fa-sign-in"></i> Transactions</h4>
+                                          <hr style="border-width:5px;border-color:green;border-radius:20px;margin-bottm:10px;">
+                                          <div class="table-responsive">
+                                             <table class="table table-striped table-hover" style="width:100%;">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Date</th>
+                                                      <th>Type</th>
+                                                      <th>Transaction Amount</th>
+                                                      <th>Previous Amount</th>
+                                                      <th>Remaining Amount</th>
+                                                   </tr>
+                                                </thead>
+                                                <tbody>
+                                                   {% for x in wallet_transactions %}
+                                                   <tr>
+                                                      <td>{{ x.transaction_date|safe }}</td>
+                                                      {% if x.transaction_type == 'CREDIT' %}
+                                                      <td><span class="badge badge-success">{{ x.transaction_type }}</span></td>
+                                                      {% else %}
+                                                      <td><span class="badge badge-danger">{{ x.transaction_type }}</span></td>
+                                                      {% endif %}
+                                                      <td><i class="fa fa-inr"></i> {{ x.transaction_amount }}</td>
+                                                      <td><i class="fa fa-inr"></i> {{ x.previous_amount }}</td>
+                                                      <td><i class="fa fa-inr"></i> {{ x.remaining_amount }}</td>
+                                                   </tr>
+                                                   {% endfor %}
+                                                </tbody>
+                                             </table>
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                    
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Point Value</h4>
+                              </div>
+                              <div class="card-body">
+                                 
+                                 <ul style="margin-bottom:20px;">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+
+                                    <div class="row">
+                                       
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <h4><i class="fa fa-dashcube"></i> Points in Left</h4>
+                                          <hr style="border-width:5px;border-color:green;border-radius:20px;margin-bottm:10px;">
+                                          <h5><i class="fa fa-money"></i> {{pv.left}} PV</h5>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <h4><i class="fa fa-dashcube"></i> Points in Right</h4>
+                                          <hr style="border-width:5px;border-color:green;border-radius:20px;margin-bottm:10px;">
+                                          <h5><i class="fa fa-money"></i> {{pv.right}} PV</h5>
+                                       </div>
+                                       <div class="col-lg-4 col-md-12 col-sm-12">
+                                          <h4><i class="fa fa-sign-in"></i> PV Transactions</h4>
+                                          <hr style="border-width:5px;border-color:green;border-radius:20px;margin-bottm:10px;">
+                                          <div class="table-responsive">
+                                             <table class="table table-striped table-hover" style="width:100%;">
+                                                <thead>
+                                                   <tr>
+                                                      <th>Date</th>
+                                                      <th>Node</th>
+                                                      <th>PV</th>
+                                                   </tr>
+                                                </thead>
+                                                <tbody>
+                                                   {% for x in transactions %}
+                                                   <tr>
+                                                      <td>{{ x.transaction_date.date|safe }}</td>
+                                                      <td>{{ x.user.usr.first_name }} {{ x.user.usr.last_name }}</td>
+                                                      <td>{{ x.pv }}</td>
+                                                   </tr>
+                                                   {% endfor %}
+                                                </tbody>
+                                             </table>
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                    
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+              
+            </div>
+{% endblock %}

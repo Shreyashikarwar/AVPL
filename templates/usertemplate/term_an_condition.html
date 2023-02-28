@@ -1,0 +1,73 @@
+{% extends 'usertemplate/base.html'%}
+{% load static%}
+{% block title %}Terms and Conditions{% endblock %}
+{% block content %}
+{% if messages %}
+{% for mess in messages %}
+<div class="alert alert-{{mess.tags}}" role="alert">
+    {{mess}}
+</div>
+{% endfor %}
+{% endif %}
+
+
+
+
+
+
+
+<main id="content" role="main">
+    <div class="bg-img-hero mb-14" style="background-image: url({%static 'assets1/img/1920x600/img1.jpg' %});">
+        <div class="container" style="height:125px;">
+            <div class="flex-content-center max-width-620-lg flex-column mx-auto text-center min-height-564">
+                <h1 class="h1 font-weight-bolder" style="margin-bottom:28rem;">Terms & Condition</h1>
+               
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        
+        <div class="border-bottom border-color-1 mb-8 rounded-0">
+            <h3 class="section-title mb-0 pb-2 font-size-25">Terms & Condition</h3>
+        </div>
+        <div class="row mb-8">
+            <div class="col-lg-12 mb-5 mb-lg-12">
+                
+                <p class="text-gray-39 font-size-18 text-lh-default">
+                    <ol>
+                        {%for i in data%}
+                        <li>
+                            <h3 class="mb-0 pb-2 font-size-18 font-weight-bolder">{{i.title}}</h3>
+                            <ul>
+                                <li><p class="text-gray-39 font-size-18 text-lh-default">{{i.content|safe}}</p></li>
+                             
+                            </ul>
+                        </li>
+                        {%endfor%}
+               
+                       
+                    </ol>
+                </p>
+            
+            </div>
+          
+        </div>
+        
+        
+    </div>
+
+
+    
+</main>
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,10 @@
+{% extends 'usertemplate/base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<div class="modal" id="order-placed" style="display:block;width:100%:height:100%;background-color:white;text-align:center;z-index: 1000;">
+    <img src="{% static 'images/success.gif' %}" style="width:400px;">
+    <h2>Wow! Order Placed</h2>
+    <a href="/user/myorder" class="btn btn-primary">Go to Your Orders</a>
+</div>
+{% endblock %}

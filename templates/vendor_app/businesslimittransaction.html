@@ -1,0 +1,112 @@
+{% extends 'vendor_app/base.html' %}
+{% load static %}
+{% block title %}Business Limit Recharge{% endblock %}
+{% block main %}
+            <!-- Main Content -->
+            <div class="main-content">
+               <section class="section">
+                  <div class="section-header">
+                     <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                           <div class="section-header-breadcrumb-content">
+                              <h1>Recharge</h1>
+                              <div class="section-header-breadcrumb">
+                                 <div class="breadcrumb-item active"><a href="/admins/dashboard"><i class="fas fa-home"></i></a></div>
+                                 <div class="breadcrumb-item"><a href="#">Recharge</a></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="section-body">
+                     <div class="row">
+                        <div class="col-12">
+                           <div class="card">
+                              <div class="card-header">
+                                 <h4>Recharge Money <span class="badge badge-success">Current Balance - <i class="fa fa-inr"></i> {{business_limit.current_balance}}</span></h4>
+                              </div>
+                              <div class="card-body">
+                                 
+                                 <ul style="margin-bottom:20px;" id="msg">
+                                    {% for message in messages %}
+                                    <li><span style="font-weight:bold;font-size:15px;color:red;">{{message}}</span></li>
+                                    {% endfor %}
+                                 </ul>
+                                 <div class="row">
+                                    
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                       <div class="form-group">
+                                          <label>Recharge Amount</label>
+                                          <input type="number" min="100" class="form-control" placeholder="Enter Amount to Recharge" id="amount">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-sm-12" style="padding-top:30px;">
+                                       <div class="form-group">
+
+                                          <button type="submit" class="btn btn-primary btn-lg justify-content-right" onclick="document.getElementById('loading').style.display = 'block';proceed_to_pay();">Recharge</button>
+                                          
+                                       </div>
+                                    </div>
+
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+              
+            </div>
+<div class="modal p-4" id="loading" style="width:100%:height:100%;background-color:white;text-align:center;">
+    <h1>AVPL - Payments</h1>
+    <img src="{% static 'images/loading.gif' %}" style="width:400px;">
+    <h2>Please Wait....</h2>
+    <h4 style="color:red;">Do Not Press 'Refresh' or 'Back' button.</h4>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function pay_online(data) {
+    amount = data['amount'];
+    var options = {
+        "key": "rzp_test_QX0qgB3jm7oD07", // Enter the Key ID generated from the Dashboard
+        "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": data['currency'],
+        "name": "AVPL - Payments",
+        "description": "Order Payment",
+        "image": "https://example.com/your_logo",
+        "order_id": data['id'], //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://127.0.0.1:8000/vendor/capturerecharge",
+        "prefill": {
+            "name": "{{cart.user.usr.first_name}} {{cart.user.usr.last_name}}",
+            "email": "{{cart.user.email}}",
+            "contact": "{{cart.user.usr.phone}}"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    //e.preventDefault();
+}
+function proceed_to_pay() {
+      document.getElementById('loading').style.display = 'block';
+      amount_val = document.getElementById('amount').value;
+      amount_val = amount_val * 100;
+      $.ajax({
+            type:'POST',
+            url:'/vendor/businesslimittransaction',
+            data:{amount:amount_val},
+            success: function(res_data){
+                 document.getElementById('loading').style.display = 'none';
+                 pay_online(res_data.data);
+                 document.getElementById('loading').style.display = 'block';
+            }
+        });
+   }
+</script>
+{% endblock %}

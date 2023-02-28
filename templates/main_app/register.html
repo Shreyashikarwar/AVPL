@@ -1,0 +1,113 @@
+{% extends 'usertemplate/base.html' %}
+{% load static %}
+{% block title %}Vendor Register{% endblock %}
+{% block content %}
+            <div class="container register" style="border-radius: 1rem;">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>Welcome</h3>
+                        <p class="text-white">You are 30 seconds away from earning your own money!</p>
+                        <a href="/login"><input type="submit" name="" value="Login"/></a><br/>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <ul class="nav nav-tabs nav-justified" id="myTab"style="background: #2d1582;" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login" role="tab" aria-controls="home" aria-selected="true">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/register" role="tab" aria-controls="home" aria-selected="true">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">Register</h3>
+                                <form action="/create/" method="POST">
+                                    <div class="row register-form">
+
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group">
+                                                <select class="form-control" name="type">
+                                                    <option value"Vendor" selected>Vendor</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="First Name *" pattern="[A-Za-z]+" required name="first_name" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Last Name *" required pattern="[A-Za-z]+" name="last_name" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Password *" onchange="check_password()" id="pass1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required name="password" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" placeholder="Confirm Password *" onchange="check_password()" id="pass2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required name="password2" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="maxl">
+                                                    <label class="radio inline">
+                                                        <input type="radio" name="gender"  value="male" checked>
+                                                        <span> Male </span>
+                                                    </label>
+                                                    <label class="radio inline">
+                                                        <input type="radio" name="gender"  value="female">
+                                                        <span>Female </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" placeholder="Your Email *" required name="email" value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" minlength="10" maxlength="10" class="form-control" placeholder="Your Phone *" name="phone" required value="" />
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Enter Zipcode.." class="form-control" minlength="6" maxlength="6" name="zipcode"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Enter Address *" required id="address" name="adrs"/>
+                                            </div>
+                                            {% for message in messages %}
+                                                <span class="badge badge-danger">{{message}}</span>
+                                            {% endfor %}
+                                            <span style="display: none;" id="passmsg" class="badge badge-danger">Password not matched</span>
+                                            <input type="submit" class="btnRegister" disabled id="regbtn" value="Register"/>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script src="{% static 'js/regular_custom.js' %}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqBF76cMbvE_LREvm1S43LzZGxTsRQ0wA&libraries=places&callback=initialize"></script>
+<script>
+  function initialize() {
+    var input = document.getElementById('address');
+    new google.maps.places.Autocomplete(input);
+    google.maps.event.addListener('place_changed', function () {
+    });
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+<script type="text/javascript">
+function check_password() {
+    pass1 = document.getElementById('pass1').value;
+    pass2 = document.getElementById('pass2').value;
+    if (pass1==pass2) {
+        document.getElementById('passmsg').style.display = 'none';
+        document.getElementById('regbtn').disabled = false;
+    }
+    else{
+        document.getElementById('passmsg').style.display = 'block';
+        document.getElementById('regbtn').disabled = true;
+    }
+}
+</script>
+{% endblock %}

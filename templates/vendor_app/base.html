@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+      <title>AVPL - {% block title %}{% endblock %}</title>
+      <!-- General CSS Files -->
+      <link rel="stylesheet" href="{% static 'dash/css/app.min.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/bundles/jqvmap/dist/jqvmap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/bundles/weather-icon/css/weather-icons.min.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/bundles/weather-icon/css/weather-icons-wind.min.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/bundles/bootstrap-social/bootstrap-social.css' %}">
+      <!-- Template CSS -->
+      <!-- Template CSS -->
+      <link rel="stylesheet" href="{% static 'dash/bundles/datatables/datatables.min.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css' %}">
+
+
+      <link rel="stylesheet" href="{% static 'dash/css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/css/components.css' %}">
+      <link rel="stylesheet" href="{% static 'dash/css/custom.css' %}" />
+      <!-- Custom style CSS -->
+      <link rel='shortcut icon' type='image/x-icon' href='{% static 'img/Vector.png' %}' />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   </head>
+   <body>
+      <div class="loader"></div>
+      <div id="app">
+         <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+               <div class="form-inline mr-auto">
+                  <ul class="navbar-nav mr-3">
+                     <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn"><i
+                        class="fas fa-bars"></i></a></li>
+                     <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                        <i class="fas fa-expand"></i>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <ul class="navbar-nav navbar-right">
+                  <li class="dropdown dropdown-list-toggle">
+                     <a href="#" onclick="mark_notification_read();" data-toggle="dropdown"
+                        class="nav-link notification-toggle nav-link-lg"><i class="far fa-bell"></i>{% if notification_len != 0 %}<span class="notification-count bg-green" id="notification_len">{{notification_len}}</span>{% endif %}</a>
+                     <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                        <div class="dropdown-header">
+                           Notifications
+                           <div class="float-right">
+                              <a onclick="mark_notification_read();" href="#">Mark All As Read</a>
+                           </div>
+                        </div>
+                        <div class="dropdown-list-content dropdown-list-icons">
+                           {% for x in notification %}
+                           <a href="#" class="dropdown-item dropdown-item-unread">
+                           <span class="dropdown-item-icon l-bg-green text-white">
+                           <i class="fa fa-bell"></i>
+                           </span>
+                           <span class="dropdown-item-desc">
+                           {{ x.text|safe }}
+                           <span class="time">{{ x.time|safe }}</span>
+                           </span>
+                           </a>
+                           {% endfor %}
+                        </div>
+                     </div>
+                  </li>
+                  <li class="dropdown">
+                     <a href="/vendor/" data-toggle="dropdown"
+                        class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                     <img alt="image" src="{{ request.user.vendor.store.storeimages.logo.url|safe }}" class="user-img-radious-style">
+                     <span class="d-sm-none d-lg-inline-block"></span></a>
+                     <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-title">Hello {{ request.user.vendor.first_name|safe }}</div>
+                        <a href="/vendor/profile" class="dropdown-item has-icon">
+                        <i class="far fa-user"></i> Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="/logout/" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                     </div>
+                  </li>
+               </ul>
+            </nav>
+            <div class="main-sidebar sidebar-style-2">
+               <aside id="sidebar-wrapper">
+                  <div class="sidebar-brand">
+                     <a href="/vendor/">
+                     <img alt="image" src="{{ request.user.vendor.store.storeimages.logo.url|safe }}" class="header-logo" />
+                     
+                     </a>
+                  </div>
+                  <ul class="sidebar-menu">
+                     <li class="dropdown active" style="display: block;">
+                        <div class="sidebar-profile">
+                           <div class="siderbar-profile-pic">
+                              <img src="{{ request.user.vendor.store.storeimages.logo.url|safe }}" class="profile-img-circle box-center" alt="User Image">
+                           </div>
+                           <div class="siderbar-profile-details">
+                              <div class="siderbar-profile-name">{{ request.user.vendor.first_name|safe }} {{ request.user.vendor.last_name|safe }}</div>
+                              <div class="siderbar-profile-position">{{ request.user.vendor.store.name|safe }}'s Vendor</div>
+                           </div>
+                           
+                        </div>
+                     </li>
+                     <li class="menu-header">Main</li>
+                     
+                     <li><a class="nav-link" href="/vendor/"><i class="fas fa-desktop"></i><span>Dashboard</span></a></li>
+                     
+                     <li class="menu-header">Features</li>
+                     
+                     <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fa fa-product-hunt"></i><span>Products</span></a>
+                        <ul class="dropdown-menu">
+                           <li><a class="nav-link" href="/vendor/addproduct">Add</a></li>
+                           <li><a class="nav-link" href="/vendor/productlist">List</a></li>
+                           <li><a class="nav-link" href="/vendor/brand">Brands</a></li>
+                        </ul>
+                     </li>
+                     <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-bag"></i><span>Orders</span></a>
+                        <ul class="dropdown-menu">
+                           <li><a class="nav-link" href="/vendor/orders">Pending</a></li>
+                           <li><a class="nav-link" href="/vendor/completeorders">Completed</a></li>
+                        </ul>
+                     </li>
+                     <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fa fa-credit-card-alt"></i><span>Wallet</span></a>
+                        <ul class="dropdown-menu">
+                           <li><a class="nav-link" href="/vendor/wallet">Wallet Dashboard</a></li>
+                           <li><a class="nav-link" href="/vendor/withdraw">Withdraw</a></li>
+                           <li><a class="nav-link" href="/vendor/balanacetransfer">Wallet Balance Transfer</a></li>
+                        </ul>
+                     </li>
+                     <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fa fa-credit-card-alt"></i><span>Business Limit</span></a>
+                        <ul class="dropdown-menu">
+                           <li><a class="nav-link" href="/vendor/businesslimit">Business Limit Dashboard</a></li>
+                           <li><a class="nav-link" href="/vendor/businesslimittransaction">Recharge</a></li>
+                        </ul>
+                     </li>
+                     <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fa fa-credit-card-alt"></i><span>Users</span></a>
+                        <ul class="dropdown-menu">
+                           <li><a class="nav-link" href="/vendor/userSubscriptionRequest">Subscription Requests</a></li>
+                           <li><a class="nav-link" href="/vendor/billing/requests/">Billing Requests</a></li>
+                        </ul>
+                     </li>
+                     <li><a class="nav-link" href="/vendor/help"><i class="fa fa-question-circle "></i><span>Help</span></a></li>
+                     
+                  </ul>
+               </aside>
+            </div>
+            {% block main %}{% endblock %}
+            <footer class="main-footer">
+               <div class="footer-left">
+                  Copyright &copy; <script>document.write(new Date().getFullYear());</script> @ AVPL Store
+                   <div class="bullet"></div>
+                  Developed By <a href="https://aaratechnologies.com/">Aara Technologies PVT. LTD.</a>
+               </div>
+               <div class="footer-right">
+               </div>
+            </footer>
+         </div>
+      </div>
+      <!-- General JS Scripts -->
+      <script src="{% static 'dash/js/app.min.js' %}"></script>
+      
+      <!-- Page Specific JS File -->
+      <script src="{% static 'dash/js/page/index2.js' %}"></script>
+       <!-- Page Specific JS File -->
+      <script src="{% static 'dash/bundles/datatables/datatables.min.js' %}"></script>
+       
+      <script src="{% static 'dash/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js' %}"></script>
+      <script src="{% static 'dash/bundles/datatables/export-tables/dataTables.buttons.min.js' %}"></script>
+      <script src="{% static 'dash/bundles/datatables/export-tables/buttons.flash.min.js' %}"></script>
+      <script src="{% static 'dash/bundles/datatables/export-tables/jszip.min.js' %}"></script>
+      <script src="{% static 'dash/bundles/datatables/export-tables/pdfmake.min.js' %}"></script>
+      <script src="{% static 'dash/bundles/datatables/export-tables/vfs_fonts.js' %}"></script>
+      <script src="{% static 'dash/bundles/datatables/export-tables/buttons.print.min.js' %}"></script>
+      <!-- <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script> -->
+      <script src="{% static 'dash/js/page/datatables.js' %}"></script>
+      <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+
+      <!-- Template JS File -->
+      <script src="{% static 'dash/js/scripts.js' %}"></script>
+      <script src="{% static 'dash/bundles/jquery.sparkline.min.js' %}"></script>
+      <script type="text/javascript">
+         function mark_notification_read () {
+            $.ajax({
+                  type:'GET',
+                  url:"/marknotificationread/",
+                  data:{},
+                  success: function(msg){
+                      document.getElementById('notification_len').style.display = 'none';
+                  }
+              });
+         }
+      </script>
+      <!-- <script>
+         ClassicEditor
+             .create( document.querySelector( '#editor' ) )
+             .catch( error => {
+                 console.error( error );
+             } );
+     </script> -->
+     <script>
+      // This sample still does not showcase all CKEditor 5 features (!)
+      // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+      CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
+          // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+          toolbar: {
+              items: [
+                  'exportPDF','exportWord', '|',
+                  'findAndReplace', 'selectAll', '|',
+                  'heading', '|',
+                  'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                  'bulletedList', 'numberedList', 'todoList', '|',
+                  'outdent', 'indent', '|',
+                  'undo', 'redo',
+                  '-',
+                  'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                  'alignment', '|',
+                  'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                  'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                  'textPartLanguage', '|',
+                  'sourceEditing'
+              ],
+              shouldNotGroupWhenFull: true
+          },
+          // Changing the language of the interface requires loading the language file using the <script> tag.
+          // language: 'es',
+          list: {
+              properties: {
+                  styles: true,
+                  startIndex: true,
+                  reversed: true
+              }
+          },
+          // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+          heading: {
+              options: [
+                  { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                  { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                  { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                  { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                  { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                  { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                  { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+              ]
+          },
+          // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+          placeholder: 'Enter Description Here',
+          // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+          fontFamily: {
+              options: [
+                  'default',
+                  'Arial, Helvetica, sans-serif',
+                  'Courier New, Courier, monospace',
+                  'Georgia, serif',
+                  'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                  'Tahoma, Geneva, sans-serif',
+                  'Times New Roman, Times, serif',
+                  'Trebuchet MS, Helvetica, sans-serif',
+                  'Verdana, Geneva, sans-serif'
+              ],
+              supportAllValues: true
+          },
+          // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+          fontSize: {
+              options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+              supportAllValues: true
+          },
+          // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+          // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+          htmlSupport: {
+              allow: [
+                  {
+                      name: /.*/,
+                      attributes: true,
+                      classes: true,
+                      styles: true
+                  }
+              ]
+          },
+          // Be careful with enabling previews
+          // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+          htmlEmbed: {
+              showPreviews: true
+          },
+          // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+          link: {
+              decorators: {
+                  addTargetToExternalLinks: true,
+                  defaultProtocol: 'https://',
+                  toggleDownloadable: {
+                      mode: 'manual',
+                      label: 'Downloadable',
+                      attributes: {
+                          download: 'file'
+                      }
+                  }
+              }
+          },
+          // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+          mention: {
+              feeds: [
+                  {
+                      marker: '@',
+                      feed: [
+                          '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                          '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+                          '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+                          '@sugar', '@sweet', '@topping', '@wafer'
+                      ],
+                      minimumCharacters: 1
+                  }
+              ]
+          },
+          // The "super-build" contains more premium features that require additional configuration, disable them below.
+          // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+          removePlugins: [
+              // These two are commercial, but you can try them out without registering to a trial.
+              // 'ExportPdf',
+              // 'ExportWord',
+              'CKBox',
+              'CKFinder',
+              'EasyImage',
+              // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+              // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+              // Storing images as Base64 is usually a very bad idea.
+              // Replace it on production website with other solutions:
+              // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+              // 'Base64UploadAdapter',
+              'RealTimeCollaborativeComments',
+              'RealTimeCollaborativeTrackChanges',
+              'RealTimeCollaborativeRevisionHistory',
+              'PresenceList',
+              'Comments',
+              'TrackChanges',
+              'TrackChangesData',
+              'RevisionHistory',
+              'Pagination',
+              'WProofreader',
+              // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+              // from a local file system (file://) - load this site via HTTP server if you enable MathType
+              'MathType'
+          ]
+      });
+  </script>
+   </body>
+</html>

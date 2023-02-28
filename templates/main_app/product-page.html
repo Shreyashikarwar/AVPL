@@ -1,0 +1,274 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block title %}{{product.name}}{% endblock %}
+{% block body %}
+<section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="ec-pro-rightside ec-common-rightside col-lg-12 col-md-12">
+
+                    <!-- Single product content Start -->
+                    <div class="single-pro-block">
+                        <div class="single-pro-inner">
+                            <div class="row">
+                                <div class="single-pro-img single-pro-img-no-sidebar">
+                                    <div class="single-product-scroll">
+                                        <div class="single-product-cover">
+                                            {% for x in          %}
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="{{ x.image.url|safe }}"
+                                                    alt="">
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="single-nav-thumb">
+                                            {% for x in images %}
+                                            <div class="single-slide">
+                                                <img class="img-responsive" src="{{ x.image.url|safe }}"
+                                                    alt="">
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="single-pro-desc single-pro-desc-no-sidebar">
+                                    <div class="single-pro-content">
+                                        <h5 class="ec-single-title">{{ product.name|safe }}</h5>
+                                        <div class="ec-single-rating-wrap">
+                                            <div class="ec-single-rating">
+                                                <span class="badge badge-warning" style="font-size:15px;">{{pv}} PV</span>
+                                                {% if rating > 3.5 %}
+                                                <span class="badge badge-success">{{rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if rating <= 3.5 and rating > 2.5 %}
+                                                <span class="badge badge-info">{{rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                                {% if rating <= 2.5 %}
+                                                <span class="badge badge-danger">{{rating}} <i class="fa fa-star"></i></span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="ec-single-desc">{{ product.description|slice:"0:200" }}</div>
+
+                                        <div class="ec-single-sales">
+                                            <div class="ec-single-sales-inner">
+                                                <div class="ec-single-sales-title">sales accelerators</div>
+                                                <div class="ec-single-sales-visitor">Marketed By <span>{{ product.store.name|safe }}</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="ec-single-price-stoke">
+                                            <div class="ec-single-price">
+                                                <span class="ec-single-ps-title">As low as</span>
+                                                <span class="new-price"><i class="fa fa-inr"></i> {{ product.price|safe }}</span>
+                                            </div>
+                                            <div class="ec-single-stoke">
+                                                <span class="ec-single-ps-title">{% if product.stock != 0 %}IN STOCK{% else %}OUT OF STOCK{% endif %}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="ec-pro-variation">
+                                            {% for x in variants %}
+                                            <div class="ec-pro-variation-inner ec-pro-variation-size">
+                                                <span>{{x.variant.name}}</span>
+                                                <div class="ec-pro-variation-content">
+                                                    <ul>
+                                                        {% for y in x.data %}
+                                                        <li><input hidden type="radio" value="{{ y.id|safe }}" name="{{x.variant.name}}"><span>{{y.variant_value.value}}</span></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="ec-single-qty">
+                                            <div class="qty-plus-minus">
+                                                <input class="qty-input" type="number" name="ec_qtybtn" min="1" max="{{ product.stock|safe }}" value="1" id="quantity"/>
+                                            </div>
+                                            {% if product.stock != 0 %}
+                                            {% if request.user.is_authenticated %}
+                                            {% if request.user.role.level.level == 'User' %}
+                                            <div class="ec-single-cart ">
+                                                <input type="hidden" value="{{ product.id|safe }}" id="product">
+                                                <button class="btn btn-primary" onclick="add_to_cart();">Add To Cart</button>
+                                            </div>
+                                            {% endif %}
+                                            {% endif %}
+                                            {% else %}
+                                            <div class="ec-single-cart ">
+                                                <button class="btn btn-danger" disabled>Out of Stock</button>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Single product content End -->
+                    <!-- Single product tab start -->
+                    <div class="ec-single-pro-tab">
+                        <div class="ec-single-pro-tab-wrapper">
+                            <div class="ec-single-pro-tab-nav">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#ec-spt-nav-details" role="tablist">Detail</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ec-spt-nav-review"
+                                            role="tablist">Reviews ({{rating_len}})</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content  ec-single-pro-tab-content">
+                                <div id="ec-spt-nav-details" class="tab-pane fade show active">
+                                    <div class="ec-single-pro-tab-desc">
+                                        <p>{{ product.description }}</p>
+                                    </div>
+                                </div>
+
+                                <div id="ec-spt-nav-review" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="ec-t-review-wrapper">
+                                            {% if rating_len <= 0 %}
+                                            No Reviews on this Product
+                                            {% else %}
+                                            {% for x in ratings %}
+                                            <div class="ec-t-review-item">
+                                                <div class="ec-t-review-avtar text-center">
+                                                    <i style="font-size:50px;margin:auto;color:cyan" class="fa fa-user"></i>
+                                                </div>
+                                                <div class="ec-t-review-content">
+                                                    <div class="ec-t-review-top">
+                                                        <div class="ec-t-review-name">{{x.user.usr.first_name}} {{x.user.usr.last_name}}</div>
+                                                        <div class="ec-t-review-rating">
+                                                            {% if x.rating > 3.5 %}
+                                                            <span class="badge badge-success">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                            {% endif %}
+                                                            {% if x.rating <= 3.5 and x.rating > 2.5 %}
+                                                            <span class="badge badge-info">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                            {% endif %}
+                                                            {% if x.rating <= 2.5 %}
+                                                            <span class="badge badge-danger">{{x.rating}} <i class="fa fa-star"></i></span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="ec-t-review-bottom">
+                                                        <p>{{x.review}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product details description area end -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- End Single product -->
+<div class="modal p-4" id="added-cart" style="width:100%:height:100%;background-color:rgba(13, 1, 0, 0.5);text-align:center;color:white;z-index:1000">
+    <h3 id="added-cart-text" style="color:white;"><i class="fa fa-check"></i> Added to Cart</h3>
+</div>
+
+<script type="text/javascript">
+async function add_to_cart() {
+      flag = '0';
+      product_id = document.getElementById('product').value;
+      variant_lt = [];
+      {% for variant in variants %}
+      {{variant.variant.name}} = document.getElementsByName('{{variant.variant.name}}');
+      var {{variant.variant.name}}_id = 'none';
+      for(i = 0; i < {{variant.variant.name}}.length; i++) {
+            if({{variant.variant.name}}[i].checked){
+                variant_lt.push({{variant.variant.name}}[i].value);
+                break;
+            }
+        }
+      {% endfor %}
+      quantity_val = document.getElementById('quantity').value;
+      document.getElementById('added-cart').style.display = 'block';
+      if (flag == '0'){
+        $.ajax({
+            type:'POST',
+            url:'/user/addtocart',
+            data:{product:product_id, variants:variant_lt, quantity:quantity_val},
+            success: function(res_data){
+                if (res_data.response == 'failed2'){
+                    document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+                }
+                else{
+                    if (res_data.response == 'success'){
+                        document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+                        
+                        //await.sleep(2000);
+                        document.getElementById('added-cart').style.display = 'none';
+                    }
+                    else{
+                        document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                    }
+                }
+            },
+            error: function(res){
+                document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+            }
+        });
+      }
+}
+</script>
+
+
+<!-- Product add to Cart -->
+
+<script type="text/javascript">
+    async function add_to_cart() {
+          flag = '0';
+          product_id = document.getElementById('product').value;
+          variant_lt = [];
+          {% for variant in variants %}
+          {{variant.variant.name}} = document.getElementsByName('{{variant.variant.name}}');
+          var {{variant.variant.name}}_id = 'none';
+          for(i = 0; i < {{variant.variant.name}}.length; i++) {
+                if({{variant.variant.name}}[i].checked){
+                    variant_lt.push({{variant.variant.name}}[i].value);
+                    break;
+                }
+            }
+          {% endfor %}
+          quantity_val = document.getElementById('quantity').value;
+          document.getElementById('added-cart').style.display = 'block';
+          if (flag == '0'){
+            $.ajax({
+                type:'POST',
+                url:'/user/addtocart',
+                data:{product:product_id, variants:variant_lt, quantity:quantity_val},
+                success: function(res_data){
+                    if (res_data.response == 'failed2'){
+                        document.getElementById('added-cart-text').innerHTML = 'You can only add products from same shop';
+                    }
+                    else{
+                        if (res_data.response == 'success'){
+                            document.getElementById('cart_len_tag').innerHTML = res_data.cart_len.cart_len;
+                            
+                            //await.sleep(2000);
+                            document.getElementById('added-cart').style.display = 'none';
+                        }
+                        else{
+                            document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                        }
+                    }
+                },
+                error: function(res){
+                    document.getElementById('added-cart-text').innerHTML = 'Something went wrong, please try again later';
+                }
+            });
+          }
+    }
+    </script>
+{% endblock %}

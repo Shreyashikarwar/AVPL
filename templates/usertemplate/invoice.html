@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Invoice</title>
+		{%load static%}
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+		<style>
+			/*.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(4) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+			.invoice-box table tr.total td:nth-child(3) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+
+			/** RTL **/
+			/*.invoice-box.rtl {
+				direction: rtl;
+				font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+			}
+
+			.invoice-box.rtl table {
+				text-align: right;
+			}
+
+			.invoice-box.rtl table tr td:nth-child(2) {
+				text-align: left;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<div style="width: 100%; background-color: #000; padding: 1px 0px; margin-bottom: 20px; text-align: center;"><h2 style="color: #fff;">Invoice</h2></div>
+			<table cellpadding="0" cellspacing="0">
+				<tr class="top">
+					<td colspan="5">
+						<table>
+							<tr>
+								<td style="margin-left: 30px">
+									<img src="{{logo_image_obj.logo_image.path}}" height="200px" width="200px" />
+								</td>
+								<td>
+									<br><br><br>
+									Invoice Number: {{product.id}}<br />
+									Invoice Date: {{product.ordered_date}}<br />
+									<!-- Invoice Type: Credit Card -->
+									<hr style="height: 5px; width: 100%; background-color: black">
+									<br>
+									<br>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+		
+			
+		
+				<tr class="information">
+					<td colspan="5">
+						<table>
+							<tr>
+								<td>
+									<br><br>
+								<strong style="font-size: 20px; margin-bottom: 10px; margin-left: 20px">From:</strong><br>
+									Momentostrust<br/>
+									{{product.shipping_address.store_name}}<br/>
+									+91 {{product.shipping_address.store_number}}<br>
+									{{product.shipping_address.store_mail}}<br>
+									{{product.shipping_address.store_city}},{{product.shipping_address.store_area}}<br>
+									<p><strong>GST No. </strong>{{product.shipping_address.store_gst}}</p>
+									
+									<br>
+									<br>
+								</td>
+
+								<td>
+									<strong style="font-size: 20px; margin-bottom: 10px; margin-left: 10px">Billing To:</strong><br>
+									
+									{{product.billing_address.user.first_name}}<br/>
+									{{product.billing_address.user.username}}<br>
+									{{product.billing_address.street_address}},{{product.billing_address.apartment_address}},{{product.billing_address.landmark}}<br>
+									{%if gst_number%}
+									<p><strong>GST No.</strong> {{gst_number}}</p>
+									{%endif%}
+									{%if product.being_delivered%}
+									<h3>Delivered</h3>
+									{%else%}
+									<h3>Not Delivered</h3>
+									{%endif%}
+								
+									<br>
+									<br>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			<tr class="top">
+				<td colspan="5">
+					<table>
+						<tr>
+							<td style="color: blue">
+								<hr style="height: 5px; width: 100%;">
+								<br>
+								<br>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+				 <table class="table table-striped" >
+				        <thead>
+				          <tr>
+				            <th scope="col">Title</th>
+				            <th scope="col">Image</th>
+				            <th scope="col">Brand Name</th>
+				            <th scope="col">Category</th>
+				            <th scope="col">HSN</th>
+				            <th scope="col">Quantity</th>
+				            <th scope="col">Price</th>				            
+				          </tr>
+				        </thead>
+				        <tbody>
+				            {%for i in product.items.all%}
+				          <tr>
+				            <td>{{i.item.title}}</td>
+				            <td><img src="{{i.item.image.path}}"></td>	
+				            <td style="margin-left: 40px">{{i.item.brand_name}}</td>
+				            <td style="margin-left: 40px">{{i.item.main_category}}</td>			           
+				            <td style="margin-left: 40px">{{i.item.HSN}}</td>
+				            <td style="margin-left: 40px">{{i.quantity}}</td>
+				            <td style="color: green;margin-left: 40px;">Rs.{{i.amount_pay}}</td>       
+				          </tr>
+				          {%endfor%}
+				        </tbody>
+				      </table>
+
+
+				<tr class="top">
+					<td colspan="5">
+						<table>
+							<tr>
+								<td></td>
+								<td></td>
+								<td>
+									<br><br>
+									<h4>CGST Amount&nbsp;&nbsp;&nbsp;&nbsp;: <spam>&nbsp;&nbsp;Rs.{{cgst}}</spam></h4>
+									
+									<h4>SGST Amount&nbsp;&nbsp;&nbsp;&nbsp;: <spam>&nbsp;&nbsp;Rs.{{sgst}}</spam></h4>
+									
+									<h4>Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <spam>&nbsp;&nbsp;Rs.{{total}}</spam></h4>
+									
+									<h4>Delivery Charge&nbsp;: <spam>&nbsp;&nbsp;Rs.{{delivery_price}}</spam></h4>
+									<h4>Delivery Tex&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <spam>&nbsp;&nbsp;%{{tex_in_delivery}}</spam></h4>
+									<h4>Discount price&nbsp;&nbsp;&nbsp;: <spam>&nbsp;&nbsp;Rs.{{discount}}</spam></h4>
+									<hr>
+									<strong><h1>Sub-Total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>: <spam>&nbsp;&nbsp;Rs.{{final_price}}</spam><br></h1>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
